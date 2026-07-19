@@ -173,7 +173,7 @@ export default async function ServicePage({
               </h2>
               <p className="mt-4 text-base leading-relaxed text-slate">
                 Still not sure it&apos;s a fit?{" "}
-                <Link href="/work" className="text-navy underline decoration-gold underline-offset-2">
+                <Link href="/portfolio" className="text-navy underline decoration-gold underline-offset-2">
                   See the work
                 </Link>{" "}
                 or{" "}

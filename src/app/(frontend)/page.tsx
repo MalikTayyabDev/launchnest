@@ -108,7 +108,7 @@ export default async function HomePage() {
         headline="Your website should be growing your business — not costing you sales."
         subhead="LaunchNest builds and maintains premium web platforms for founders who plan to be around in 10 years. WordPress, Shopify, Webflow — built right, and kept right."
         cta={{ label: "Book a Free Technical Audit", href: "/contact" }}
-        secondaryCta={{ label: "See the work", href: "/work" }}
+        secondaryCta={{ label: "See the work", href: "/portfolio" }}
       />
 
       {/* Proof strip */}

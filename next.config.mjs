@@ -62,6 +62,13 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      // The Work/case-studies section was consolidated into Portfolio.
+      { source: "/work", destination: "/portfolio", permanent: true },
+      { source: "/work/:slug", destination: "/portfolio", permanent: true },
+    ];
+  },
 };
 
 export default withPayload(nextConfig);
