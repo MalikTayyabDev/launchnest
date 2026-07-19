@@ -10,6 +10,7 @@ export const siteConfig = {
   whatsapp: "923149555617",
   social: {
     instagram: "https://www.instagram.com/launchnest.tech",
+    facebook: "https://www.facebook.com/profile.php?id=61592234365519",
   },
 };
 

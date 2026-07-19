@@ -28,7 +28,9 @@ export async function POST(request: Request) {
     ? ["email"]
     : isCustomOffer
       ? ["name", "email", "message"]
-      : ["name", "company", "email", "budget", "timeline", "siteStatus"];
+      : source === "home-hero"
+        ? ["name", "email"]
+        : ["name", "company", "email", "budget", "timeline", "siteStatus"];
   const missing = required.filter(
     (k) => !payload[k] || String(payload[k]).trim() === ""
   );

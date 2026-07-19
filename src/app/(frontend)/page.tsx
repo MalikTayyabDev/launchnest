@@ -1,4 +1,5 @@
 import { Hero } from "@/components/Hero";
+import { HeroLeadForm } from "@/components/HeroLeadForm";
 import { Section, Eyebrow } from "@/components/Section";
 import { StatCallout } from "@/components/StatCallout";
 import { ServiceCard } from "@/components/ServiceCard";
@@ -107,8 +108,8 @@ export default async function HomePage() {
         eyebrow="Technical web partner"
         headline="Your website should be growing your business — not costing you sales."
         subhead="LaunchNest builds and maintains premium web platforms for founders who plan to be around in 10 years. WordPress, Shopify, Webflow — built right, and kept right."
-        cta={{ label: "Book a Free Technical Audit", href: "/contact" }}
         secondaryCta={{ label: "See the work", href: "/portfolio" }}
+        aside={<HeroLeadForm />}
       />
 
       {/* Proof strip */}
