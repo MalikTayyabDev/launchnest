@@ -22,10 +22,13 @@ export async function POST(request: Request) {
 
   const source = typeof payload.source === "string" ? payload.source : "contact-form";
   const isNewsletter = source === "speed-report";
+  const isCustomOffer = source === "custom-offer";
 
   const required = isNewsletter
     ? ["email"]
-    : ["name", "company", "email", "budget", "timeline", "siteStatus"];
+    : isCustomOffer
+      ? ["name", "email", "message"]
+      : ["name", "company", "email", "budget", "timeline", "siteStatus"];
   const missing = required.filter(
     (k) => !payload[k] || String(payload[k]).trim() === ""
   );
@@ -39,7 +42,7 @@ export async function POST(request: Request) {
 
   const lead = {
     name: String(payload.name || (isNewsletter ? "Newsletter subscriber" : "")),
-    company: String(payload.company || (isNewsletter ? "—" : "")),
+    company: String(payload.company || "—"),
     email: String(payload.email),
     budget: payload.budget ? String(payload.budget) : undefined,
     timeline: payload.timeline ? String(payload.timeline) : undefined,

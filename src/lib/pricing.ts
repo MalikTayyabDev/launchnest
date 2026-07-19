@@ -9,7 +9,7 @@ export type PricingPackage = {
 export const packages: PricingPackage[] = [
   {
     name: "Starter Site",
-    range: "$150 – $300",
+    range: "$99 – $199",
     summary: "For getting a credible, fast presence live quickly.",
     features: [
       "Up to 5 pages",
@@ -21,7 +21,7 @@ export const packages: PricingPackage[] = [
   },
   {
     name: "Growth Site",
-    range: "$400 – $800",
+    range: "$299 – $599",
     summary: "For businesses that need the site to convert and scale.",
     features: [
       "Up to 10 pages",
@@ -34,7 +34,7 @@ export const packages: PricingPackage[] = [
   },
   {
     name: "Custom Platform",
-    range: "$1,000 – $3,000",
+    range: "$799 – $2,000",
     summary: "For bespoke web apps and advanced e-commerce.",
     features: [
       "Bespoke web app or advanced e-commerce",
@@ -56,7 +56,7 @@ export type MaintenancePlan = {
 export const maintenancePlans: MaintenancePlan[] = [
   {
     name: "Care",
-    price: "from $15/mo",
+    price: "from $9/mo",
     summary: "Keep the lights on and the platform patched.",
     features: [
       "Software and plugin updates",
@@ -67,7 +67,7 @@ export const maintenancePlans: MaintenancePlan[] = [
   },
   {
     name: "Growth",
-    price: "from $35/mo",
+    price: "from $25/mo",
     summary: "Maintenance plus ongoing improvements.",
     features: [
       "Everything in Care",
@@ -78,7 +78,7 @@ export const maintenancePlans: MaintenancePlan[] = [
   },
   {
     name: "Partner",
-    price: "from $79/mo",
+    price: "from $59/mo",
     summary: "A true technical partner on retainer.",
     features: [
       "Everything in Growth",

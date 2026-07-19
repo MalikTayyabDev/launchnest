@@ -12,7 +12,7 @@ export const Leads: CollectionConfig = {
   labels: { singular: "Lead", plural: "Leads" },
   admin: {
     useAsTitle: "email",
-    defaultColumns: ["name", "company", "budget", "timeline", "createdAt"],
+    defaultColumns: ["name", "company", "source", "budget", "createdAt"],
     group: "Leads",
     description: "Qualification submissions from the contact form.",
   },

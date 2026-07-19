@@ -6,10 +6,10 @@ import { siteConfig } from "@/lib/site";
 type Status = "idle" | "submitting" | "success" | "error";
 
 const budgetRanges = [
-  "Under $300",
-  "$300 – $800",
-  "$800 – $3,000",
-  "$3,000+",
+  "Under $200",
+  "$200 – $600",
+  "$600 – $2,000",
+  "$2,000+",
   "Not sure yet",
 ];
 

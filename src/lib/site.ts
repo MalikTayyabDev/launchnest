@@ -6,10 +6,17 @@ export const siteConfig = {
   url: "https://launchnest.co",
   email: "hello@launchnest.tech",
   founded: "est. 2022",
+  // Digits only (international format, no "+"), used to build wa.me links.
+  whatsapp: "923149555617",
   social: {
     instagram: "https://www.instagram.com/launchnest.tech",
   },
 };
+
+/** Pre-filled WhatsApp chat link. */
+export const whatsappLink = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(
+  "Hi LaunchNest, I'd like to talk about a website project."
+)}`;
 
 export const navLinks = [
   { label: "Services", href: "/services" },
