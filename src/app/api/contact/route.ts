@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getPayload } from "payload";
 import configPromise from "@payload-config";
+import { siteConfig } from "@/lib/site";
 
 /**
  * Contact + newsletter intake.
@@ -82,7 +83,7 @@ export async function POST(request: Request) {
     // In production a failure means the lead was lost - surface an error.
     if (process.env.NODE_ENV === "production") {
       return NextResponse.json(
-        { error: "Could not record your request. Please email hello@launchnest.co." },
+        { error: `Could not record your request. Please email ${siteConfig.email}.` },
         { status: 502 }
       );
     }

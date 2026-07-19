@@ -4,12 +4,10 @@ export const siteConfig = {
   description:
     "LaunchNest is the technical partner growing businesses call when their website has to actually perform. We build, fix, and maintain premium web platforms.",
   url: "https://launchnest.co",
-  email: "hello@launchnest.co",
+  email: "hello@launchnest.tech",
   founded: "est. 2022",
   social: {
-    linkedin: "https://linkedin.com/company/launchnest",
-    github: "https://github.com/launchnest",
-    x: "https://x.com/launchnest",
+    instagram: "https://www.instagram.com/launchnest.tech",
   },
 };
 

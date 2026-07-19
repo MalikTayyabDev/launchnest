@@ -28,11 +28,7 @@ export function organizationSchema(): Record<string, unknown> {
       "Technical SEO",
       "Website maintenance",
     ],
-    sameAs: [
-      siteConfig.social.linkedin,
-      siteConfig.social.github,
-      siteConfig.social.x,
-    ],
+    sameAs: [siteConfig.social.instagram],
   };
 }
 

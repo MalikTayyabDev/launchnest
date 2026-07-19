@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { siteConfig } from "@/lib/site";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -53,7 +54,7 @@ export function ContactForm() {
       form.reset();
     } catch {
       setStatus("error");
-      setError("Something went wrong. Email us directly at hello@launchnest.co.");
+      setError(`Something went wrong. Email us directly at ${siteConfig.email}.`);
     }
   }
 
