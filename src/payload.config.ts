@@ -4,6 +4,7 @@ import { buildConfig } from "payload";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
+import { resendAdapter } from "@payloadcms/email-resend";
 import sharp from "sharp";
 
 import { Users } from "./collections/Users";
@@ -29,6 +30,15 @@ export default buildConfig({
   },
   collections: [Posts, CaseStudies, Projects, Media, Leads, Users],
   editor: lexicalEditor(),
+  // Transactional email via Resend. When RESEND_API_KEY is unset, Payload falls
+  // back to logging emails to the console (safe no-op for local dev).
+  email: process.env.RESEND_API_KEY
+    ? resendAdapter({
+        defaultFromAddress: process.env.EMAIL_FROM || "onboarding@resend.dev",
+        defaultFromName: "LaunchNest",
+        apiKey: process.env.RESEND_API_KEY,
+      })
+    : undefined,
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts"),
