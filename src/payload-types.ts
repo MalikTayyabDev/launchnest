@@ -95,8 +95,12 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'intro-offer': IntroOffer;
+  };
+  globalsSelect: {
+    'intro-offer': IntroOfferSelect<false> | IntroOfferSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -714,6 +718,41 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * Control the $20 intro landing page offer — open/close it and track booked slots.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "intro-offer".
+ */
+export interface IntroOffer {
+  id: number;
+  /**
+   * Uncheck when slots are full or you want to pause the offer.
+   */
+  open?: boolean | null;
+  /**
+   * Hard cap (10–15 recommended).
+   */
+  maxSlots: number;
+  /**
+   * Increment when you confirm/book an intro client.
+   */
+  slotsUsed: number;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "intro-offer_select".
+ */
+export interface IntroOfferSelect<T extends boolean = true> {
+  open?: T;
+  maxSlots?: T;
+  slotsUsed?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

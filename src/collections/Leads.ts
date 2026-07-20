@@ -50,7 +50,10 @@ export const Leads: CollectionConfig = {
           await req.payload.sendEmail({
             to,
             replyTo: doc.email,
-            subject: `New lead: ${doc.name}${doc.company ? ` (${doc.company})` : ""}`,
+            subject:
+              doc.source === "intro-offer"
+                ? `🟢 Intro offer ($20): ${doc.name}`
+                : `New lead: ${doc.name}${doc.company ? ` (${doc.company})` : ""}`,
             html: `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;max-width:560px">
   <h2 style="color:#0B1F3A;margin:0 0 4px">New lead from LaunchNest</h2>
   <p style="color:#64748b;margin:0 0 16px">A new enquiry just came in via the site.</p>

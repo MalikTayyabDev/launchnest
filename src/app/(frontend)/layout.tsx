@@ -6,6 +6,7 @@ import { spaceGrotesk, inter, jetbrainsMono } from "../fonts";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { IntroOfferBanner } from "@/components/IntroOfferBanner";
 import { JsonLd } from "@/components/JsonLd";
 import { siteConfig } from "@/lib/site";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
@@ -74,6 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
         <Header />
+        <IntroOfferBanner />
         <main id="main" className="flex-1">
           {children}
         </main>

@@ -60,6 +60,16 @@ export default function PricingPage() {
             Get a custom offer &rarr;
           </a>
         </p>
+        <p className="mt-4 text-sm text-slate">
+          New to LaunchNest?{" "}
+          <a
+            href="/intro-offer"
+            className="font-semibold text-navy underline decoration-gold underline-offset-4 hover:text-gold"
+          >
+            Limited $20 intro landing page
+          </a>{" "}
+          — first-client rate while slots are open (fixed scope, 3-day delivery).
+        </p>
       </Section>
 
       {/* Custom offer */}

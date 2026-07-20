@@ -13,6 +13,7 @@ import { Posts } from "./collections/Posts";
 import { CaseStudies } from "./collections/CaseStudies";
 import { Projects } from "./collections/Projects";
 import { Leads } from "./collections/Leads";
+import { IntroOffer } from "./globals/IntroOffer";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -29,6 +30,7 @@ export default buildConfig({
     },
   },
   collections: [Posts, CaseStudies, Projects, Media, Leads, Users],
+  globals: [IntroOffer],
   editor: lexicalEditor(),
   // Transactional email via Resend. When RESEND_API_KEY is unset, Payload falls
   // back to logging emails to the console (safe no-op for local dev).

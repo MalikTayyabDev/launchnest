@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getPayload } from "payload";
 import configPromise from "@payload-config";
 import { siteConfig } from "@/lib/site";
+import { getIntroOfferSettings } from "@/lib/intro-offer";
 
 /**
  * Contact + newsletter intake.
@@ -23,14 +24,30 @@ export async function POST(request: Request) {
   const source = typeof payload.source === "string" ? payload.source : "contact-form";
   const isNewsletter = source === "speed-report";
   const isCustomOffer = source === "custom-offer";
+  const isIntroOffer = source === "intro-offer";
+
+  if (isIntroOffer) {
+    const settings = await getIntroOfferSettings();
+    if (!settings.accepting) {
+      return NextResponse.json(
+        {
+          error:
+            "Intro offer slots are full. See standard pricing or contact us for a custom quote.",
+        },
+        { status: 403 },
+      );
+    }
+  }
 
   const required = isNewsletter
     ? ["email"]
-    : isCustomOffer
+    : isIntroOffer
       ? ["name", "email", "message"]
-      : source === "home-hero"
-        ? ["name", "email"]
-        : ["name", "company", "email", "budget", "timeline", "siteStatus"];
+      : isCustomOffer
+        ? ["name", "email", "message"]
+        : source === "home-hero"
+          ? ["name", "email"]
+          : ["name", "company", "email", "budget", "timeline", "siteStatus"];
   const missing = required.filter(
     (k) => !payload[k] || String(payload[k]).trim() === ""
   );
