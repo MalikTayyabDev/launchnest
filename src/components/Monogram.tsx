@@ -1,21 +1,20 @@
 import Image from "next/image";
+import { brandAssets } from "@/lib/site";
 import monogram from "../../public/logos/launchnest-monogram.png";
 
 type MonogramProps = {
   size?: number;
   className?: string;
-  title?: string;
 };
 
 /**
- * Square "LN" monogram: navy rounded square with the letters and a gold
- * trajectory arrow. Used for the mobile nav toggle and social share.
+ * Square N monogram with gold upward arrow on navy — favicon and compact brand mark.
  */
-export function Monogram({ size = 40, className, title = "LaunchNest" }: MonogramProps) {
+export function Monogram({ size = 40, className }: MonogramProps) {
   return (
     <Image
       src={monogram}
-      alt={title}
+      alt={brandAssets.monogram.alt}
       width={size}
       height={size}
       className={className}

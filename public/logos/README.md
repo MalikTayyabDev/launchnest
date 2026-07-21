@@ -1,15 +1,13 @@
 # Brand assets
 
-Drop your logo files here. Anything in `public/` is served from the site root, so
-a file at `public/logos/launchnest-horizontal.svg` is reachable at
-`/logos/launchnest-horizontal.svg`.
+Served from `/logos/` on the site.
 
-Suggested files (any of SVG / PNG / WebP):
+| File | Use |
+| --- | --- |
+| `launchnest-horizontal-navy.png` | Header / light backgrounds (910×274) |
+| `launchnest-horizontal-white.png` | Footer / dark backgrounds, Open Graph (910×274) |
+| `launchnest-monogram.png` | Favicon source, compact mark (512×512) |
 
-- `launchnest-horizontal-navy.svg`  — wordmark for light backgrounds (header)
-- `launchnest-horizontal-white.svg` — wordmark for the navy footer
-- `launchnest-monogram.svg`         — square "LN" mark (mobile nav / social)
-- `launchnest-social.png`           — 1200×630 Open Graph / social share image
+Favicon: `src/app/icon.png` (copy of the monogram for Next.js).
 
-Once uploaded, tell me the exact filenames and I'll wire them into the
-`Logo`, `Monogram`, and social-share metadata in place of the current inline SVGs.
+Alt text and dimensions are defined in `src/lib/site.ts` → `brandAssets`.

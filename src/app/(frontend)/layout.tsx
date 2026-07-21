@@ -7,10 +7,9 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ChatAgent } from "@/components/chat/ChatAgent";
-import { MobileStickyCta } from "@/components/MobileStickyCta";
 import { IntroOfferBanner } from "@/components/IntroOfferBanner";
 import { JsonLd } from "@/components/JsonLd";
-import { siteConfig } from "@/lib/site";
+import { siteConfig, brandAssets } from "@/lib/site";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -38,10 +37,10 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     images: [
       {
-        url: "/logos/launchnest-horizontal-white.png",
-        width: 2172,
-        height: 724,
-        alt: `${siteConfig.name} — ${siteConfig.tagline}`,
+        url: brandAssets.horizontalWhite.path,
+        width: brandAssets.horizontalWhite.width,
+        height: brandAssets.horizontalWhite.height,
+        alt: brandAssets.horizontalWhite.alt,
       },
     ],
   },
@@ -49,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${siteConfig.name} — Build · Optimize · Launch`,
     description: siteConfig.description,
-    images: ["/logos/launchnest-horizontal-white.png"],
+    images: [brandAssets.horizontalWhite.path],
   },
   alternates: { canonical: "/" },
   robots: { index: true, follow: true },
@@ -82,7 +81,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <Footer />
-        <MobileStickyCta />
         <ChatAgent />
         <WhatsAppButton />
         <Analytics />

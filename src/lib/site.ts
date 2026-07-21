@@ -17,6 +17,28 @@ export const siteConfig = {
   },
 };
 
+/** Brand asset paths (under /public) and accessible alt text. */
+export const brandAssets = {
+  horizontalNavy: {
+    path: "/logos/launchnest-horizontal-navy.png",
+    width: 910,
+    height: 274,
+    alt: "LaunchNest wordmark for light backgrounds — navy LaunchNest text with gold arrow through the N and Build · Optimize · Launch tagline",
+  },
+  horizontalWhite: {
+    path: "/logos/launchnest-horizontal-white.png",
+    width: 910,
+    height: 274,
+    alt: "LaunchNest wordmark for dark backgrounds — white and gold LaunchNest text with Build · Optimize · Launch tagline",
+  },
+  monogram: {
+    path: "/logos/launchnest-monogram.png",
+    width: 512,
+    height: 512,
+    alt: "LaunchNest monogram — stylized letter N with gold upward arrow on a navy rounded square",
+  },
+} as const;
+
 /** Pre-filled WhatsApp chat link. */
 export const whatsappLink = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(
   "Hi LaunchNest, I'd like to talk about a website project."

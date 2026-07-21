@@ -1,4 +1,4 @@
-import { siteConfig } from "./site";
+import { siteConfig, brandAssets } from "./site";
 
 /** Countries we actively target (UK, US, Australia). */
 export const targetCountries = ["GB", "US", "AU"];
@@ -13,8 +13,8 @@ export function organizationSchema(): Record<string, unknown> {
     description: siteConfig.description,
     url: siteConfig.url,
     email: siteConfig.email,
-    image: `${siteConfig.url}/logos/launchnest-horizontal-white.png`,
-    logo: `${siteConfig.url}/logos/launchnest-monogram.png`,
+    image: `${siteConfig.url}${brandAssets.horizontalWhite.path}`,
+    logo: `${siteConfig.url}${brandAssets.monogram.path}`,
     areaServed: targetCountries.map((code) => ({
       "@type": "Country",
       identifier: code,

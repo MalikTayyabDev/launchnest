@@ -147,12 +147,12 @@ function replyForTopic(topic: ChatTopicId): ChatReply {
       };
     case "call":
       return {
-        text: "Great — a **free 30-minute discovery call** is the fastest way to talk through your project, get a rough scope, or review an existing site. I'll need your **name**, **email**, and **phone/WhatsApp** to confirm a slot. Use the form below or tell me you're ready and I'll walk you through it.",
+        text: "Great — a **free 30-minute discovery call** is the fastest way to talk through your project. I'll need your **phone or WhatsApp** to confirm a slot.",
         quickReplies: [{ id: "start_call_form", label: "Start booking →" }],
       };
     case "ticket":
       return {
-        text: "I can log a **support ticket** for you — describe what's going wrong (site down, form broken, urgent fix, etc.) and we'll follow up by email. I'll need your **name**, **email**, and a short **description**.",
+        text: "I can log a **support ticket** for you — describe what's going wrong and we'll follow up by email. I'll need your **phone or WhatsApp** in case we need to reach you quickly.",
         quickReplies: [{ id: "start_ticket_form", label: "Raise ticket →" }],
       };
     case "audit":
