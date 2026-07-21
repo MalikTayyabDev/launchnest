@@ -6,6 +6,7 @@ import { spaceGrotesk, inter, jetbrainsMono } from "../fonts";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { MobileStickyCta } from "@/components/MobileStickyCta";
 import { IntroOfferBanner } from "@/components/IntroOfferBanner";
 import { JsonLd } from "@/components/JsonLd";
 import { siteConfig } from "@/lib/site";
@@ -80,6 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <Footer />
+        <MobileStickyCta />
         <WhatsAppButton />
         <Analytics />
         <SpeedInsights />

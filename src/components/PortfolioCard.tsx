@@ -15,7 +15,14 @@ export function dotColor(category: string) {
   return stackDot[category] ?? "#4A5568";
 }
 
-export function PortfolioCard({ item }: { item: PortfolioItem }) {
+export function PortfolioCard({
+  item,
+  priority = false,
+}: {
+  item: PortfolioItem;
+  /** Eager-load above-the-fold cards (home featured work). */
+  priority?: boolean;
+}) {
   return (
     <a
       href={item.url}
@@ -28,6 +35,7 @@ export function PortfolioCard({ item }: { item: PortfolioItem }) {
           src={item.image}
           alt={`Screenshot of ${item.name}`}
           fill
+          priority={priority}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
         />

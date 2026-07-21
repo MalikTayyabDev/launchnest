@@ -91,7 +91,7 @@ export function HeroLeadForm() {
         Get a free technical audit
       </h3>
       <p className="mt-1.5 text-sm leading-relaxed text-slate">
-        Tell us where to reach you. We&apos;ll reply within one business day.
+        Name + email — we reply within one business day. No sales script.
       </p>
       <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-4">
         <div>

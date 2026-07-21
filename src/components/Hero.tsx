@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "./Button";
 import { Eyebrow } from "./Section";
 
@@ -13,53 +13,89 @@ type HeroProps = {
   secondaryCta?: { label: string; href: string };
   /** Optional slot rendered alongside the copy (e.g. a lead-capture form). */
   aside?: ReactNode;
+  /** Small trust chips shown under the subhead (above-the-fold credibility). */
+  trustChips?: string[];
 };
 
 /** Reusable hero with editable headline/subhead/CTA props. */
-export function Hero({ eyebrow, headline, subhead, cta, secondaryCta, aside }: HeroProps) {
+export function Hero({
+  eyebrow,
+  headline,
+  subhead,
+  cta,
+  secondaryCta,
+  aside,
+  trustChips,
+}: HeroProps) {
+  const reduceMotion = useReducedMotion();
+  const anim = (delay = 0) =>
+    reduceMotion
+      ? {}
+      : {
+          initial: { opacity: 0, y: 14 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.45, delay },
+        };
+
   return (
     <section className="relative overflow-hidden bg-white">
       <TrajectoryBackdrop />
-      <div className="relative mx-auto w-full max-w-content px-6 pb-20 pt-16 sm:pb-28 sm:pt-24 lg:px-8">
+      <div className="relative mx-auto w-full max-w-content px-6 pb-16 pt-12 sm:pb-28 sm:pt-24 lg:px-8">
         <div
           className={
             aside
-              ? "grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16"
+              ? "grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16"
               : ""
           }
         >
-          <div className={aside ? "max-w-2xl" : "max-w-3xl"}>
+          {/* On mobile, show the form first so the main action is above the fold. */}
+          {aside && (
+            <motion.div
+              id="audit-form"
+              className="scroll-mt-28 order-1 lg:order-2"
+              {...anim(0.08)}
+            >
+              {aside}
+            </motion.div>
+          )}
+          <div className={`order-2 lg:order-1 ${aside ? "max-w-2xl" : "max-w-3xl"}`}>
             {eyebrow && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-              >
+              <motion.div {...anim(0)}>
                 <Eyebrow>{eyebrow}</Eyebrow>
               </motion.div>
             )}
             <motion.h1
               className="font-heading text-4xl font-bold leading-[1.08] tracking-tight text-navy sm:text-5xl lg:text-6xl"
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.05 }}
+              {...anim(0.04)}
             >
               {headline}
             </motion.h1>
             <motion.p
               className="mt-6 max-w-2xl text-lg leading-relaxed text-slate"
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.12 }}
+              {...anim(0.08)}
             >
               {subhead}
             </motion.p>
+            {trustChips && trustChips.length > 0 && (
+              <motion.ul
+                className="mt-6 flex flex-wrap gap-2"
+                {...anim(0.1)}
+                aria-label="Trust signals"
+              >
+                {trustChips.map((chip) => (
+                  <li
+                    key={chip}
+                    className="rounded-full border border-navy/10 bg-offwhite px-3 py-1.5 font-mono text-[11px] font-medium uppercase tracking-wider text-navy/80"
+                  >
+                    {chip}
+                  </li>
+                ))}
+              </motion.ul>
+            )}
             {(cta || secondaryCta) && (
               <motion.div
-                className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.19 }}
+                className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
+                {...anim(0.14)}
               >
                 {cta && (
                   <Button href={cta.href} variant="primary">
@@ -74,15 +110,6 @@ export function Hero({ eyebrow, headline, subhead, cta, secondaryCta, aside }: H
               </motion.div>
             )}
           </div>
-          {aside && (
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-            >
-              {aside}
-            </motion.div>
-          )}
         </div>
       </div>
     </section>

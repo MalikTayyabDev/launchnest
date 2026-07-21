@@ -1,5 +1,6 @@
 import { Hero } from "@/components/Hero";
 import { HeroLeadForm } from "@/components/HeroLeadForm";
+import { NextStepsStrip } from "@/components/NextStepsStrip";
 import { Section, Eyebrow } from "@/components/Section";
 import { StatCallout } from "@/components/StatCallout";
 import { ServiceCard } from "@/components/ServiceCard";
@@ -108,9 +109,13 @@ export default async function HomePage() {
         eyebrow="Technical web partner"
         headline="Your website should be growing your business — not costing you sales."
         subhead="LaunchNest builds and maintains premium web platforms for founders who plan to be around in 10 years. WordPress, Shopify, Webflow — built right, and kept right."
+        trustChips={["100+ sites shipped", "UK · US · AU", "Free technical audit", "Reply in 1 business day"]}
         secondaryCta={{ label: "See the work", href: "/portfolio" }}
+        cta={{ label: "See pricing", href: "/pricing" }}
         aside={<HeroLeadForm />}
       />
+
+      <NextStepsStrip />
 
       {/* Proof strip */}
       <div className="border-y border-navy/10 bg-offwhite">
@@ -236,7 +241,7 @@ export default async function HomePage() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {featuredProjects.map((item, i) => (
             <Reveal key={item.url} delay={i * 0.06}>
-              <PortfolioCard item={item} />
+              <PortfolioCard item={item} priority={i < 2} />
             </Reveal>
           ))}
         </div>

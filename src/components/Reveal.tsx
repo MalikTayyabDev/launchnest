@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ReactNode } from "react";
 
 type RevealProps = {
@@ -13,11 +13,15 @@ type RevealProps = {
 
 /**
  * Restrained scroll-entrance wrapper: a short fade + upward nudge, once.
- * Framer Motion respects prefers-reduced-motion via the global CSS reset,
- * and this stays deliberately subtle to match the engineering-not-decoration brand.
+ * Honours prefers-reduced-motion (no animation for those visitors).
  */
 export function Reveal({ children, delay = 0, className, as = "div" }: RevealProps) {
   const MotionTag = motion[as];
+  const reduceMotion = useReducedMotion();
+
+  if (reduceMotion) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <MotionTag
