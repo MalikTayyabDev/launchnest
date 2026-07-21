@@ -59,7 +59,7 @@ export default async function ServicePage({
           </p>
           <div className="mt-8">
             <Button href="/contact" variant="primary">
-              Book a Free Technical Audit
+              Book a Free Growth Audit
             </Button>
           </div>
         </div>
@@ -129,7 +129,7 @@ export default async function ServicePage({
                 </p>
                 <div className="mt-6 flex flex-col gap-3">
                   <Button href="/contact" variant="primary" className="w-full">
-                    Book a Free Technical Audit
+                    Book a Free Growth Audit
                   </Button>
                   <Button href="/pricing" variant="ghost" className="w-full">
                     See full pricing
@@ -191,7 +191,7 @@ export default async function ServicePage({
       <CTASection
         heading={`Want a straight answer on ${service.label.toLowerCase()}?`}
         body="We'll review what you have now and tell you exactly what's worth doing."
-        cta={{ label: "Book a Free Technical Audit", href: "/contact" }}
+        cta={{ label: "Book a Free Growth Audit", href: "/contact" }}
       />
     </>
   );

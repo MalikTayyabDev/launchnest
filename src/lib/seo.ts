@@ -20,15 +20,24 @@ export function organizationSchema(): Record<string, unknown> {
       identifier: code,
     })),
     serviceType: [
-      "Website design and development",
-      "Shopify development",
-      "WordPress development",
-      "Webflow development",
+      "Digital product engineering",
+      "SaaS and startup website development",
+      "UI/UX design",
+      "Brand identity",
+      "Technical SEO and content",
+      "AI integrations and automation",
+      "CRM integration",
       "Website performance optimization",
-      "Technical SEO",
-      "Website maintenance",
+      "Website maintenance and QA",
     ],
     sameAs: [siteConfig.social.instagram, siteConfig.social.facebook],
+    audience: [
+      ...siteConfig.positioning.primaryClients,
+      ...siteConfig.positioning.secondaryClients,
+    ].map((name) => ({
+      "@type": "Audience",
+      audienceType: name,
+    })),
   };
 }
 

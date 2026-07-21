@@ -90,7 +90,7 @@ export function ContactForm() {
         <h3 className="font-heading text-xl font-semibold text-navy">Request received.</h3>
         <p className="mt-2 text-sm leading-relaxed text-slate">
           We&apos;ll review your details and reply within one business day with next
-          steps for your free technical audit. No sales script.
+          steps for your free growth audit. No sales script.
         </p>
       </div>
     );
@@ -220,7 +220,7 @@ export function ContactForm() {
         disabled={status === "submitting"}
         className="inline-flex items-center justify-center gap-2 rounded-md bg-gold px-6 py-3.5 font-heading text-sm font-semibold tracking-tight text-navy transition-colors hover:bg-[#B89421] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {status === "submitting" ? "Sending…" : "Book a Free Technical Audit"}
+        {status === "submitting" ? "Sending…" : "Book a Free Growth Audit"}
       </button>
       <p className="text-center font-mono text-xs text-slate">
         No spam. No sales script. A real technical review.

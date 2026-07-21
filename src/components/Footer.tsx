@@ -14,8 +14,8 @@ export function Footer() {
           <div>
             <Logo variant="white" />
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-offwhite/60">
-              The technical partner growing businesses call when their website has
-              to actually perform.
+              Engineering-first digital solutions for startups, SaaS companies, agencies,
+              and growing businesses — launch, scale, and optimize.
             </p>
             <p className="mt-4 font-mono text-xs uppercase tracking-[0.16em] text-gold">
               {siteConfig.founded}

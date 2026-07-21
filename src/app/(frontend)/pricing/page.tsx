@@ -10,7 +10,7 @@ import { whatsappLink } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Transparent starting ranges for websites and platforms, plus recurring maintenance plans. Priced to pre-qualify, not to surprise you.",
+    "Transparent starting ranges for launch and growth builds, plus recurring care retainers. Engineered for startups, SaaS, agencies, and growing businesses.",
   alternates: { canonical: "/pricing" },
 };
 
@@ -21,19 +21,18 @@ export default function PricingPage() {
         <div className="max-w-3xl">
           <Eyebrow>Pricing</Eyebrow>
           <h1 className="font-heading text-4xl font-bold tracking-tight text-navy sm:text-5xl">
-            Clear starting ranges. No surprise invoices.
+            Investment ranges for launch and growth.
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-slate">
-            These are current starting ranges, not fixed quotes — the final number
-            depends on scope, which we&apos;ll pin down on a call. Showing ranges up
-            front saves everyone time.
+            Starting ranges to pre-qualify fit — final scope is pinned on a call.
+            We compete on outcomes and partnership, not race-to-the-bottom pricing.
           </p>
         </div>
       </Section>
 
       {/* Build packages */}
       <Section tone="white">
-        <Eyebrow>Build packages</Eyebrow>
+        <Eyebrow>Launch packages</Eyebrow>
         <h2 className="font-heading text-3xl font-bold tracking-tight text-navy">
           One-time builds
         </h2>
@@ -46,7 +45,7 @@ export default function PricingPage() {
                 summary={pkg.summary}
                 features={pkg.features}
                 featured={pkg.featured}
-                cta={{ label: "Book a Free Technical Audit", href: "/contact" }}
+                cta={{ label: "Book a Free Growth Audit", href: "/contact" }}
               />
             </Reveal>
           ))}
@@ -172,8 +171,8 @@ export default function PricingPage() {
 
       <CTASection
         heading="Know your range? Let's talk specifics."
-        body="Book a free technical audit and we'll turn a range into a real, scoped number."
-        cta={{ label: "Book a Free Technical Audit", href: "/contact" }}
+        body="Book a Free Growth Audit and we'll turn a range into a real, scoped number."
+        cta={{ label: "Book a Free Growth Audit", href: "/contact" }}
       />
     </>
   );

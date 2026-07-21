@@ -79,7 +79,7 @@ export default function ContactPage() {
       <Section tone="offwhite" id="audit">
         <div className="grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
           <div>
-            <Eyebrow>Free technical audit</Eyebrow>
+            <Eyebrow>Free growth audit</Eyebrow>
             <h2 className="font-heading text-3xl font-bold tracking-tight text-navy">
               Tell us what&apos;s breaking.
             </h2>

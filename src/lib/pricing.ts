@@ -8,24 +8,24 @@ export type PricingPackage = {
 
 export const packages: PricingPackage[] = [
   {
-    name: "Starter Site",
+    name: "Starter Launch",
     range: "$79 – $149",
-    summary: "For getting a credible, fast presence live quickly.",
+    summary: "Fast, credible launch presence for landing pages and early-stage sites.",
     features: [
-      "Up to 5 pages",
-      "Template-based design",
+      "Up to 5 pages / focused landing build",
+      "Template-based design, conversion-minded",
       "On-page SEO basics",
       "Mobile-first and responsive",
-      "Contact form setup",
+      "Contact / lead form setup",
     ],
   },
   {
-    name: "Growth Site",
+    name: "Growth Engine",
     range: "$199 – $449",
-    summary: "For businesses that need the site to convert and scale.",
+    summary: "For SaaS, agencies, and businesses that need the site to generate leads and convert.",
     features: [
       "Up to 10 pages",
-      "Custom design",
+      "Custom design aligned to brand",
       "CMS-driven content",
       "Speed optimization (Core Web Vitals)",
       "Analytics and conversion tracking",
@@ -33,12 +33,12 @@ export const packages: PricingPackage[] = [
     featured: true,
   },
   {
-    name: "Custom Platform",
+    name: "Custom Product",
     range: "$599 – $1,499",
-    summary: "For bespoke web apps and advanced e-commerce.",
+    summary: "For SaaS marketing sites, startup MVPs, advanced ecommerce, and integrations.",
     features: [
-      "Bespoke web app or advanced e-commerce",
-      "API and third-party integrations",
+      "Bespoke web product or advanced ecommerce",
+      "API, CRM, and third-party integrations",
       "Custom functionality and data models",
       "Performance and security hardening",
       "Documentation for your team",
@@ -57,7 +57,7 @@ export const maintenancePlans: MaintenancePlan[] = [
   {
     name: "Care",
     price: "from $9/mo",
-    summary: "Keep the lights on and the platform patched.",
+    summary: "Keep the lights on — updates, backups, monitoring.",
     features: [
       "Software and plugin updates",
       "Automated backups",
@@ -79,7 +79,7 @@ export const maintenancePlans: MaintenancePlan[] = [
   {
     name: "Partner",
     price: "from $59/mo",
-    summary: "A true technical partner on retainer.",
+    summary: "A growth retainer — roadmap, support, and included engineering time.",
     features: [
       "Everything in Growth",
       "Dedicated support response times",

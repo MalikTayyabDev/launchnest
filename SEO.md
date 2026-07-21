@@ -1,7 +1,12 @@
 # LaunchNest — SEO & Keyword Map
 
-Working target-keyword map for the UK (GB), US, and Australia (AU). Refine the
-exact phrases in Google Search Console + a keyword tool before committing to them.
+Positioning: **Engineering-First Digital Solutions Agency** — launch / growth partner
+for startups, SaaS, agencies, and growing businesses. Never rank for or brand as
+"WordPress agency", "Shopify agency", or generic "web design agency."
+
+Markets: UK (GB), US, Australia (AU). Refine phrases in Google Search Console before
+locking long-term content bets.
+
 Priorities: (P1) commercial-intent money pages, (P2) supporting/service pages,
 (P3) informational blog posts that feed the money pages.
 
@@ -10,51 +15,52 @@ Priorities: (P1) commercial-intent money pages, (P2) supporting/service pages,
 - `metadataBase`, per-page `title`/`description`, and `alternates.canonical` on every page.
 - Structured data (JSON-LD): `ProfessionalService` + `WebSite` site-wide, `Service`
   on service pages, `Article` on posts, `BreadcrumbList` on nested pages. `areaServed`
-  is set to `GB`, `US`, `AU`.
-- `sitemap.xml` (pulls slugs from the CMS) and `robots.txt`.
-- Per-page Open Graph images for blog posts and case studies.
+  is set to `GB`, `US`, `AU`. Audience includes primary/secondary client types.
+- `sitemap.xml` and `robots.txt`.
+- Per-page Open Graph images for blog posts.
 
 ## Page → keyword mapping
 
 | Page | Priority | Primary keyword | Secondary / long-tail |
 | --- | --- | --- | --- |
-| `/` Home | P1 | technical web agency | premium web development partner, website that performs |
-| `/services` | P1 | web design and development services | build optimize maintain website |
-| `/services/website-design-dev` | P1 | website design and development agency | custom website development, WordPress/Shopify/Webflow build |
-| `/services/*` (perf) | P1 | website performance optimization agency | Core Web Vitals optimization, Shopify speed optimization |
-| `/services/*` (SEO) | P1 | technical SEO agency | technical SEO services, site speed SEO |
-| `/services/*` (maintenance) | P1 | website maintenance plans | website care plan, ongoing website support |
-| `/pricing` | P1 | website maintenance pricing | website development cost, maintenance plan pricing |
-| `/work` | P2 | web development case studies | Shopify/Webflow project results |
-| `/about` | P3 | technical web partner | reliable web agency |
-| `/contact` | P2 | free website technical audit | website audit, site speed audit |
+| `/` Home | P1 | engineering-first digital solutions agency | startup growth partner, SaaS digital agency |
+| `/services` | P1 | digital product engineering services | launch partner for startups, end-to-end digital solutions |
+| `/services/website-design-dev` | P1 | SaaS website development | startup MVP website, Next.js agency, conversion website redesign |
+| `/services/ui-ux-design` | P1 | SaaS UI UX design | startup product design, conversion-focused UX |
+| `/services/graphic-design` | P2 | brand identity for startups | premium brand system agency |
+| `/services/ai-automation` | P1 | AI integrations for SaaS | CRM automation agency, marketing automation |
+| `/services/seo` | P1 | technical SEO agency | SEO content writing for SaaS, Core Web Vitals |
+| `/services/maintenance-support` | P1 | website maintenance retainer | QA testing, hosting and deployment support |
+| `/pricing` | P1 | SaaS website development cost | digital agency pricing, growth retainer |
+| `/portfolio` | P2 | SaaS and startup portfolio | live website case proof |
+| `/about` | P3 | engineering-first digital agency | launch partner for modern businesses |
+| `/contact` | P2 | free website growth audit | book discovery call digital agency |
 
-## Blog topics (P3, informational → money pages)
+## Primary audiences (content + CTAs should speak to)
 
-Existing/seeded:
-- "Why your checkout is slow" → feeds performance + Shopify services.
-- "The Core Web Vitals that actually matter" → feeds performance + technical SEO.
-- "What website maintenance actually means" → feeds maintenance plans.
+**Primary:** SaaS Companies, AI Startups, Tech Startups, Agencies  
+**Secondary:** SMBs, Healthcare, Law Firms, Home Services, Real Estate, Coaches, Consultants, Ecommerce Brands
 
-Suggested next posts (map each to a service):
-- "Shopify speed optimization: a practical checklist" → performance service.
-- "How much should a website cost in 2026 (UK/US/AU)" → pricing page.
-- "Webflow vs WordPress for a growing business" → website design & dev service.
-- "A website maintenance plan that's actually worth paying for" → maintenance.
+## Blog topics (P3 → money pages)
 
-## Multi-country strategy (deferred — do after domain + GSC)
+- Shopify / checkout speed → performance + ecommerce secondary clients
+- Core Web Vitals → technical SEO + engineering
+- Website maintenance → retainers
+- How much a website should cost → pricing / Growth Engine
+- Webflow vs WordPress → website engineering (frame as stack choice, not agency type)
+- SaaS marketing site checklist → primary audience
 
-- Start with a single global site + `areaServed` GB/US/AU (current state).
-- Once GSC shows country demand, consider country landing pages
-  (`/uk`, `/us`, `/au`) or subfolders with `hreflang` `en-GB` / `en-US` / `en-AU`.
-- Add localized proof (currencies, timezones, client logos per region) before
-  splitting content, to avoid thin duplicate pages.
+## Multi-country strategy (after domain + GSC)
 
-## Pre-launch checklist
+- Single global site + `areaServed` GB/US/AU (current).
+- Later: country pages or `hreflang` if GSC shows clear demand.
 
-- [x] Set the real production domain in `NEXT_PUBLIC_SERVER_URL` and `siteConfig.url` (`https://www.launch-nest.com`).
-- [ ] Verify the property in Google Search Console + Bing Webmaster Tools.
-- [ ] Submit `sitemap.xml`.
-- [ ] Confirm each money page's title/description against live SERP competitors.
-- [ ] Add real client logos + testimonials (trust signals).
-- [ ] Track Core Web Vitals in GSC after launch.
+## Pre-launch / growth checklist
+
+- [x] Production domain `https://www.launch-nest.com`
+- [ ] Verify Google Search Console + Bing Webmaster Tools
+- [ ] Submit `sitemap.xml`
+- [ ] Confirm money-page titles against live SERP competitors
+- [ ] Add client logos + testimonials (trust for premium buyers)
+- [ ] Track Core Web Vitals in GSC after launch
+- [x] Positioning aligned to Engineering-First Digital Solutions (not platform-shop)

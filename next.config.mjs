@@ -67,6 +67,11 @@ const nextConfig = {
       // The Work/case-studies section was consolidated into Portfolio.
       { source: "/work", destination: "/portfolio", permanent: true },
       { source: "/work/:slug", destination: "/portfolio", permanent: true },
+      {
+        source: "/services/social-media-management",
+        destination: "/services/ai-automation",
+        permanent: true,
+      },
     ];
   },
 };

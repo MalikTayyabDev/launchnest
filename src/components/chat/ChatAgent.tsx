@@ -21,7 +21,7 @@ type ChatProfile = { name: string; email: string };
 const PROFILE_KEY = "launchnest-chat-profile";
 
 const WELCOME =
-  "Hi — I'm LaunchNest's assistant. Ask about services, pricing, or our $20 intro offer. I can book a **free 30-min call** or log a support ticket.";
+  "Hi — I'm LaunchNest's assistant for our engineering-first digital solutions agency. Ask about services, pricing, or our $20 intro offer. I can book a **free 30-min call** or log a support ticket.";
 
 const FAB_BOTTOM =
   "bottom-[calc(1.25rem+env(safe-area-inset-bottom))] sm:bottom-6";

@@ -88,7 +88,7 @@ export function HeroLeadForm() {
   return (
     <div className="rounded-xl border border-navy/10 bg-white p-6 shadow-xl sm:p-7">
       <h3 className="font-heading text-lg font-bold tracking-tight text-navy">
-        Get a free technical audit
+        Get a free growth audit
       </h3>
       <p className="mt-1.5 text-sm leading-relaxed text-slate">
         Name + email — we reply within one business day. No sales script.
@@ -148,7 +148,7 @@ export function HeroLeadForm() {
           disabled={status === "submitting"}
           className="inline-flex items-center justify-center rounded-md bg-gold px-6 py-3 font-heading text-sm font-semibold text-navy transition-colors hover:bg-[#B89421] disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {status === "submitting" ? "Sending…" : "Book my free audit"}
+          {status === "submitting" ? "Sending…" : "Book my free growth audit"}
         </button>
         <p className="text-center font-mono text-[11px] text-slate">
           No spam. No sales script. A real technical review.

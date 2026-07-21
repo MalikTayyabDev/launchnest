@@ -26,7 +26,7 @@ export function generateChatReply(input: string, topic?: ChatTopicId): ChatReply
 
   if (includesAny(q, ["hello", "hi", "hey", "good morning", "good afternoon"])) {
     return {
-      text: `Hi — I'm the LaunchNest assistant. I can explain our services and pricing, tell you about the ${INTRO_OFFER_PRICE} intro landing page, book a free 30-minute call, or log a support ticket. What would you like to do?`,
+      text: `Hi — I'm the LaunchNest assistant for our engineering-first digital solutions agency. I can explain services and pricing, the ${INTRO_OFFER_PRICE} intro landing page, book a free 30-minute call, or log a support ticket. What would you like to do?`,
       quickReplies: defaultQuickReplies(),
     };
   }
@@ -123,7 +123,7 @@ function replyForTopic(topic: ChatTopicId): ChatReply {
         .map((s) => `• **${s.label}** — ${s.shortDescription.slice(0, 100)}…`)
         .join("\n");
       return {
-        text: `We design, build, and maintain premium web platforms:\n\n${list}\n\nFull details on each service page.`,
+        text: `We are an engineering-first digital solutions agency — launch and growth partner for startups, SaaS, agencies, and growing businesses:\n\n${list}\n\nPlatforms (Next.js, WordPress, Shopify, Webflow, Wix, GoHighLevel) are capabilities, not our identity.`,
         links: [{ label: "All services", href: "/services" }],
         quickReplies: [
           { id: "pricing", label: "See pricing" },
@@ -165,7 +165,7 @@ function replyForTopic(topic: ChatTopicId): ChatReply {
       };
     case "audit":
       return {
-        text: "Our **free technical audit** covers speed, security, and conversion blockers — specific findings, no sales script. You can use the contact form or the audit form on the home page.",
+        text: "Our **free growth audit** covers speed, security, conversion blockers, and growth opportunities — specific findings, no sales script. Use the contact form or the home page form.",
         links: [
           { label: "Book free audit", href: "/contact" },
           { label: "Home audit form", href: "/#audit-form" },

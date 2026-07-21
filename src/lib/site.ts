@@ -4,7 +4,7 @@ export const siteConfig = {
   name: "LaunchNest",
   tagline: "BUILD · OPTIMIZE · LAUNCH",
   description:
-    "LaunchNest is the technical partner growing businesses call when their website has to actually perform. We build, fix, and maintain premium web platforms.",
+    "LaunchNest is an engineering-first digital solutions agency. We help startups, SaaS companies, agencies, and growing businesses launch, scale, and optimize their digital presence through modern design, engineering, SEO, AI, and growth-focused solutions.",
   url:
     process.env.NEXT_PUBLIC_SERVER_URL?.replace(/\/$/, "") || CANONICAL_URL,
   email: "hello@launchnest.tech",
@@ -17,6 +17,26 @@ export const siteConfig = {
   },
   /** Google Business Profile — direct review link. */
   googleReview: "https://g.page/r/CaBoV6foQh89EBI/review",
+  positioning: {
+    label: "Engineering-First Digital Solutions Agency",
+    sell: "Growth, lead generation, conversion, speed, SEO visibility, and long-term partnership — not just websites.",
+    primaryClients: [
+      "SaaS Companies",
+      "AI Startups",
+      "Tech Startups",
+      "Agencies",
+    ],
+    secondaryClients: [
+      "SMBs",
+      "Healthcare",
+      "Law Firms",
+      "Home Services",
+      "Real Estate",
+      "Coaches",
+      "Consultants",
+      "Ecommerce Brands",
+    ],
+  },
 };
 
 /** Brand asset paths (under /public) and accessible alt text. */
@@ -43,7 +63,7 @@ export const brandAssets = {
 
 /** Pre-filled WhatsApp chat link. */
 export const whatsappLink = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(
-  "Hi LaunchNest, I'd like to talk about a website project."
+  "Hi LaunchNest — I'd like to talk about launching or scaling our digital presence."
 )}`;
 
 export const navLinks = [

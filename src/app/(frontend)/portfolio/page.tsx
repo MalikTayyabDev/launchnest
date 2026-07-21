@@ -104,9 +104,9 @@ export default async function PortfolioPage() {
       )}
 
       <CTASection
-        heading="Want a site like these — or better?"
-        body="Tell us what you're building. We'll recommend the right platform and show you exactly what it takes to ship it."
-        cta={{ label: "Book a Free Technical Audit", href: "/contact" }}
+        heading="Want results like these — or better?"
+        body="Tell us what you're launching or scaling. We'll map the right solution and show you what it takes to ship."
+        cta={{ label: "Book a Free Growth Audit", href: "/contact" }}
       />
     </>
   );

@@ -12,86 +12,97 @@ import { FAQ } from "@/components/FAQ";
 import { Reveal } from "@/components/Reveal";
 import { getAllCaseStudies } from "@/lib/content";
 import { getFeaturedProjects } from "@/lib/projects";
+import { siteConfig } from "@/lib/site";
 
 const pillars = [
   {
-    label: "Build",
+    label: "Launch",
     icon: "build" as const,
     description:
-      "Premium web platforms and custom builds on WordPress, Shopify, and Webflow — architected to perform, documented to hand off.",
+      "Brand, UI/UX, and engineering for landing pages, SaaS sites, startup MVPs, and business websites — end-to-end, one partner.",
     href: "/services/website-design-dev",
   },
   {
-    label: "Optimize",
+    label: "Grow",
     icon: "optimize" as const,
     description:
-      "Speed, conversion-rate optimization, and technical SEO. We tell you exactly what breaks, why, and what the fix is worth.",
+      "Technical SEO, content, speed, AI integrations, and conversion work that turns traffic into pipeline — not vanity metrics.",
     href: "/services/seo",
   },
   {
-    label: "Launch & Maintain",
+    label: "Scale",
     icon: "launch" as const,
     description:
-      "An ongoing technical partnership — not a one-off handoff. Patched, backed up, monitored, and someone who answers.",
+      "QA, hosting & deployment, automation, CRM, and retainers so your digital presence keeps compounding after launch.",
     href: "/services/maintenance-support",
   },
 ];
 
 const positioning =
-  "LaunchNest is the technical partner growing businesses call when their website has to actually perform — not just look good in a pitch deck. We build, fix, and maintain premium web platforms for founders who plan to stay in business for the next ten years.";
+  "LaunchNest is an engineering-first digital solutions agency — a launch and growth partner for startups, SaaS companies, agencies, and growing businesses. We don't sell websites. We sell growth, lead generation, conversion, SEO visibility, and long-term partnership through modern design, engineering, SEO, AI, and systems that scale.";
 
 const trustSignals = [
-  "E-commerce",
-  "Professional services",
   "SaaS",
+  "AI Startups",
+  "Tech Startups",
+  "Agencies",
+  "Ecommerce",
+  "Professional services",
+];
+
+const capabilitySignals = [
+  "Next.js",
   "WordPress",
   "Shopify",
   "Webflow",
+  "Wix",
+  "GoHighLevel",
+  "AI & Automation",
 ];
 
 const process = [
   {
     step: "01",
-    title: "Audit",
-    body: "We start with a free technical review — speed, security, and what's costing you conversions. No sales script, just findings.",
+    title: "Discover",
+    body: "Free audit or 30-minute call — we map goals, bottlenecks, and the fastest path to leads and conversion.",
   },
   {
     step: "02",
     title: "Plan",
-    body: "You get a prioritized plan with specifics: what to fix, why it matters, and what each change is worth to the business.",
+    body: "A clear scope: branding, UI/UX, engineering, content, SEO, QA, and deployment — prioritized by business impact.",
   },
   {
     step: "03",
     title: "Build",
-    body: "We build or fix to a standard — fast page loads, clean code, and a CMS your team can actually run.",
+    body: "We execute end-to-end: design systems, engineering, integrations, and launch-ready performance standards.",
   },
   {
     step: "04",
-    title: "Maintain",
-    body: "We stay on: updates, backups, monitoring, and a partner who already knows your stack when something breaks.",
+    title: "Partner",
+    body: "Retainers for SEO, maintenance, AI/automation, and growth work — so results compound after day one.",
   },
 ];
 
 const homeFaqs = [
   {
-    q: "What platforms do you work with?",
-    a: "WordPress, Shopify, and Webflow, plus custom front-ends. We recommend the platform that fits how your team works and where the business is headed — not the one we'd prefer to sell.",
+    q: "Are you a WordPress or Shopify agency?",
+    a: "No. We are an engineering-first digital solutions agency. WordPress, Shopify, Webflow, Wix, GoHighLevel, and Next.js are capabilities we use when they fit — we never position ourselves as a single-platform shop.",
+  },
+  {
+    q: "Who do you work with?",
+    a: "Primary clients are SaaS companies, AI and tech startups, and agencies. We also partner with SMBs, healthcare, law firms, home services, real estate, coaches, consultants, and ecommerce brands.",
+  },
+  {
+    q: "What do you actually sell?",
+    a: "Growth outcomes — lead generation, better UX, faster sites, higher conversion, premium branding, SEO visibility, and long-term partnership. The website or product is the vehicle, not the pitch.",
+  },
+  {
+    q: "Do you only build new sites?",
+    a: "No. We launch new products, redesign underperforming sites, optimize speed and SEO, add AI/automation, and run ongoing care retainers.",
   },
   {
     q: "Do you work with clients in the UK, US, and Australia?",
-    a: "Yes. We work with founders across the UK, US, and Australia and structure sites and SEO for multiple English-speaking markets.",
-  },
-  {
-    q: "What does the free technical audit include?",
-    a: "A real review of your site's speed, security, and conversion blockers — with specific findings like the exact scripts, queries, or assets slowing you down. No obligation.",
-  },
-  {
-    q: "Do you only build new sites, or fix existing ones?",
-    a: "Both. A lot of our work is rescuing and optimizing platforms someone else built — starting with an audit, then bringing them up to a maintainable standard.",
-  },
-  {
-    q: "What happens after launch?",
-    a: "You can take the fully documented site and run it yourself, or keep us on a maintenance plan for updates, backups, monitoring, and priority support. You're never locked in.",
+    a: "Yes. We work across English-speaking markets and structure sites, SEO, and messaging for those regions.",
   },
 ];
 
@@ -106,23 +117,27 @@ export default async function HomePage() {
   return (
     <>
       <Hero
-        eyebrow="Technical web partner"
-        headline="Your website should be growing your business — not costing you sales."
-        subhead="LaunchNest builds and maintains premium web platforms for founders who plan to be around in 10 years. WordPress, Shopify, Webflow — built right, and kept right."
-        trustChips={["100+ sites shipped", "UK · US · AU", "Free technical audit", "Reply in 1 business day"]}
+        eyebrow={siteConfig.positioning.label}
+        headline="Launch and scale digital products that grow the business."
+        subhead="Engineering-first design, development, SEO, and AI for startups, SaaS companies, agencies, and growing businesses. One partner — branding through deployment and ongoing growth."
+        trustChips={[
+          "100+ projects shipped",
+          "UK · US · AU",
+          "Free growth audit",
+          "Reply in 1 business day",
+        ]}
         secondaryCta={{ label: "See the work", href: "/portfolio" }}
-        cta={{ label: "See pricing", href: "/pricing" }}
+        cta={{ label: "See solutions", href: "/services" }}
         aside={<HeroLeadForm />}
       />
 
       <NextStepsStrip />
 
-      {/* Proof strip */}
       <div className="border-y border-navy/10 bg-offwhite">
         <div className="mx-auto flex w-full max-w-content flex-col items-start gap-6 px-6 py-8 sm:flex-row sm:items-center sm:justify-between lg:px-8">
           <p className="font-mono text-lg font-semibold tracking-tight text-navy">
-            100+ projects delivered.{" "}
-            <span className="text-gold">Zero disappearing acts.</span>
+            Complete launch solutions.{" "}
+            <span className="text-gold">One accountable partner.</span>
           </p>
           <div className="flex gap-10">
             <StatCallout value="< 2.5s" label="LCP standard" />
@@ -131,11 +146,10 @@ export default async function HomePage() {
         </div>
       </div>
 
-      {/* Trust / capability strip */}
       <div className="border-b border-navy/10 bg-white">
         <div className="mx-auto w-full max-w-content px-6 py-6 lg:px-8">
           <p className="mb-4 text-center font-mono text-xs uppercase tracking-[0.16em] text-slate">
-            Platforms and sectors we work across
+            Built for the clients we want to partner with
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
             {trustSignals.map((item) => (
@@ -147,19 +161,32 @@ export default async function HomePage() {
               </span>
             ))}
           </div>
+          <p className="mb-3 mt-8 text-center font-mono text-xs uppercase tracking-[0.16em] text-slate">
+            Capabilities we engineer with
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            {capabilitySignals.map((item) => (
+              <span
+                key={item}
+                className="font-mono text-xs font-medium tracking-wide text-slate"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Service pillars */}
       <Section tone="white">
         <div className="max-w-2xl">
           <Eyebrow>What we do</Eyebrow>
           <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
-            Three jobs. Done properly, then kept that way.
+            Launch. Grow. Scale.
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-slate">
-            Most agencies build and vanish. We build, optimize, and stay — because a
-            platform that has to run a business needs an owner, not a launch party.
+            End-to-end execution — branding, UI/UX, engineering, content, SEO, QA,
+            deployment, and maintenance — so you are not coordinating five vendors
+            to ship one digital product.
           </p>
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
@@ -177,16 +204,15 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      {/* How we work */}
       <Section tone="offwhite">
         <div className="max-w-2xl">
           <Eyebrow>How we work</Eyebrow>
           <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
-            A clear path from &ldquo;something&apos;s wrong&rdquo; to &ldquo;handled.&rdquo;
+            From first conversation to long-term growth partner.
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-slate">
-            No mystery process. Four steps, and you know exactly where things stand
-            at each one.
+            A clear path designed for founders and operators who care about results —
+            not deliverable theater.
           </p>
         </div>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -204,7 +230,6 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      {/* Positioning pulled-quote */}
       <section className="bg-navy">
         <div className="mx-auto w-full max-w-content px-6 py-24 lg:px-8">
           <span className="mb-8 block h-0.5 w-14 bg-gold" aria-hidden="true" />
@@ -217,18 +242,16 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Selected work — real, live client sites */}
       <Section tone="offwhite">
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div className="max-w-2xl">
             <Eyebrow>Selected work</Eyebrow>
             <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
-              Real sites. Real businesses. Live right now.
+              Real products. Live businesses. Shipping results.
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-slate">
-              A cross-section of what we&apos;ve shipped — WordPress, Shopify,
-              Webflow, Wix, and custom builds. Every card links straight to the
-              live site.
+              A cross-section of launches across stacks — every card links to a live
+              site. Platforms are tools; outcomes are the point.
             </p>
           </div>
           <div className="hidden shrink-0 sm:block">
@@ -253,7 +276,6 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      {/* Testimonials */}
       {caseStudies.some((c) => c.quote.text) && (
         <Section tone="white">
           <div className="max-w-2xl">
@@ -279,13 +301,12 @@ export default async function HomePage() {
         </Section>
       )}
 
-      {/* FAQ */}
       <Section tone="offwhite">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <Eyebrow>FAQ</Eyebrow>
             <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
-              The questions we get before every project.
+              The questions serious buyers ask first.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-slate">
               Something we didn&apos;t cover?{" "}
@@ -302,10 +323,10 @@ export default async function HomePage() {
       </Section>
 
       <CTASection
-        heading="Not sure what's slowing your site down? We'll tell you — for free."
-        body="A real technical review of your speed, security, and what's costing you conversions. No sales script, no obligation."
-        cta={{ label: "Book a Free Technical Audit", href: "/contact" }}
-        secondaryCta={{ label: "See pricing", href: "/pricing" }}
+        heading="Ready to launch or scale with an engineering-first partner?"
+        body="Book a free growth audit or a 30-minute call. We'll tell you what's blocking leads, conversion, and speed — no sales script."
+        cta={{ label: "Book a Free Growth Audit", href: "/contact" }}
+        secondaryCta={{ label: "See solutions", href: "/services" }}
       />
     </>
   );
