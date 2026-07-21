@@ -1,26 +1,40 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { getClientFormError } from "@/lib/form-validation";
 
 export function NewsletterSignup() {
   const [done, setDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const form = e.currentTarget;
+    const clientError = getClientFormError(form);
+    if (clientError) {
+      setError(clientError);
+      return;
+    }
+
     setSubmitting(true);
-    const email = new FormData(e.currentTarget).get("email");
+    setError("");
+    const email = String(new FormData(form).get("email") || "").trim();
     try {
-      await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, source: "speed-report" }),
       });
-    } catch {
-      /* best-effort; still confirm to the user */
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(typeof body.error === "string" ? body.error : "Failed");
+      }
+      setDone(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Please enter a valid email.");
     }
     setSubmitting(false);
-    setDone(true);
   }
 
   if (done) {
@@ -51,6 +65,11 @@ export function NewsletterSignup() {
       >
         {submitting ? "Sending…" : "Get report"}
       </button>
+      {error && (
+        <p className="w-full text-xs text-gold" role="alert">
+          {error}
+        </p>
+      )}
     </form>
   );
 }

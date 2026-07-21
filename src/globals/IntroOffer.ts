@@ -8,10 +8,12 @@ export const IntroOffer: GlobalConfig = {
   admin: {
     group: "Leads",
     description:
-      "Control the $20 intro landing page offer — open/close it and track booked slots.",
+      "Control the $20 intro landing page offer — open/close it and track booked slots. Changes show on the site within about a minute.",
   },
   access: {
-    read: isAdmin,
+    // Public read so the marketing site can load live slot counts.
+    // Only admins can change values.
+    read: () => true,
     update: isAdmin,
   },
   fields: [
@@ -21,7 +23,8 @@ export const IntroOffer: GlobalConfig = {
       defaultValue: true,
       label: "Accepting intro clients",
       admin: {
-        description: "Uncheck when slots are full or you want to pause the offer.",
+        description:
+          "Uncheck to hide the banner and close the claim form immediately (after revalidate).",
       },
     },
     {
@@ -47,7 +50,7 @@ export const IntroOffer: GlobalConfig = {
           required: true,
           admin: {
             width: "50%",
-            description: "Increment when you confirm/book an intro client.",
+            description: "Increment by 1 each time you confirm/book an intro client.",
           },
         },
       ],

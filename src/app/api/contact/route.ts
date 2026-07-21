@@ -3,14 +3,11 @@ import { getPayload } from "payload";
 import configPromise from "@payload-config";
 import { siteConfig } from "@/lib/site";
 import { getIntroOfferSettings } from "@/lib/intro-offer";
+import { isNonEmpty, isValidEmail, validateRequired } from "@/lib/form-validation";
 
 /**
- * Contact + newsletter intake.
- *
- * Stores qualified leads in the Payload `leads` collection (first-party, owned
- * data). Optionally also forwards to an external CRM via CRM_WEBHOOK_URL.
- * Newsletter/"speed report" signups arrive with source "speed-report" and only
- * require an email.
+ * Contact + newsletter + offer intake.
+ * All sources reject empty required fields; email must be a valid format.
  */
 export async function POST(request: Request) {
   let payload: Record<string, unknown>;
@@ -21,10 +18,17 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid JSON body." }, { status: 400 });
   }
 
-  const source = typeof payload.source === "string" ? payload.source : "contact-form";
+  // Normalize string fields (trim) so whitespace-only counts as empty.
+  const data: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(payload)) {
+    data[key] = typeof value === "string" ? value.trim() : value;
+  }
+
+  const source = typeof data.source === "string" ? data.source : "contact-form";
   const isNewsletter = source === "speed-report";
   const isCustomOffer = source === "custom-offer";
   const isIntroOffer = source === "intro-offer";
+  const isHomeHero = source === "home-hero";
 
   if (isIntroOffer) {
     const settings = await getIntroOfferSettings();
@@ -42,37 +46,63 @@ export async function POST(request: Request) {
   const required = isNewsletter
     ? ["email"]
     : isIntroOffer
-      ? ["name", "email", "message"]
+      ? ["name", "email", "company", "message"]
       : isCustomOffer
         ? ["name", "email", "message"]
-        : source === "home-hero"
+        : isHomeHero
           ? ["name", "email"]
           : ["name", "company", "email", "budget", "timeline", "siteStatus"];
-  const missing = required.filter(
-    (k) => !payload[k] || String(payload[k]).trim() === ""
-  );
 
-  if (missing.length > 0) {
+  const validationError = validateRequired(data, required);
+  if (validationError) {
+    return NextResponse.json({ error: validationError }, { status: 422 });
+  }
+
+  // Extra email check for newsletter (validateRequired covers others that include email).
+  if (!isValidEmail(data.email)) {
     return NextResponse.json(
-      { error: `Missing required fields: ${missing.join(", ")}` },
-      { status: 422 }
+      { error: "Please enter a valid email address." },
+      { status: 422 },
     );
   }
 
+  // Intro offer: WhatsApp/phone is required (sent as `phone`).
+  if (isIntroOffer && !isNonEmpty(data.phone)) {
+    return NextResponse.json(
+      { error: "Please fill in: phone." },
+      { status: 422 },
+    );
+  }
+
+  const messageParts: string[] = [];
+  if (isNonEmpty(data.message)) messageParts.push(String(data.message));
+  if (isIntroOffer && isNonEmpty(data.phone)) {
+    messageParts.push(`Phone/WhatsApp: ${String(data.phone)}`);
+  }
+
   const lead = {
-    name: String(payload.name || (isNewsletter ? "Newsletter subscriber" : "")),
-    company: String(payload.company || "—"),
-    email: String(payload.email),
-    budget: payload.budget ? String(payload.budget) : undefined,
-    timeline: payload.timeline ? String(payload.timeline) : undefined,
-    siteStatus: payload.siteStatus ? String(payload.siteStatus) : undefined,
-    message: payload.message ? String(payload.message) : undefined,
+    name: String(data.name || (isNewsletter ? "Newsletter subscriber" : "")),
+    company: String(
+      data.company || (isNewsletter || isHomeHero || isCustomOffer ? "—" : ""),
+    ),
+    email: String(data.email),
+    budget: isNonEmpty(data.budget) ? String(data.budget) : undefined,
+    timeline: isNonEmpty(data.timeline) ? String(data.timeline) : undefined,
+    siteStatus: isNonEmpty(data.siteStatus) ? String(data.siteStatus) : undefined,
+    message: messageParts.length > 0 ? messageParts.join("\n\n") : undefined,
     source,
   };
 
+  // Contact form requires company — reject empty dash placeholders.
+  if (!isNewsletter && !isHomeHero && !isCustomOffer && lead.company === "—") {
+    return NextResponse.json(
+      { error: "Please fill in: company." },
+      { status: 422 },
+    );
+  }
+
   let stored = false;
 
-  // 1. Store in the CMS.
   try {
     const cms = await getPayload({ config: configPromise });
     await cms.create({ collection: "leads", data: lead });
@@ -81,7 +111,6 @@ export async function POST(request: Request) {
     console.error("[contact] Failed to store lead in CMS:", err);
   }
 
-  // 2. Optionally forward to an external CRM.
   const webhookUrl = process.env.CRM_WEBHOOK_URL;
   if (webhookUrl) {
     try {
@@ -102,14 +131,12 @@ export async function POST(request: Request) {
   }
 
   if (!stored) {
-    // In production a failure means the lead was lost - surface an error.
     if (process.env.NODE_ENV === "production") {
       return NextResponse.json(
         { error: `Could not record your request. Please email ${siteConfig.email}.` },
-        { status: 502 }
+        { status: 502 },
       );
     }
-    // In development (often no DB) let the form succeed so the UX is testable.
     console.info("[contact] Lead not persisted (dev, no sink available):", lead);
   }
 

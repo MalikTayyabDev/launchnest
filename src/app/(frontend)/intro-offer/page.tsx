@@ -14,7 +14,8 @@ import {
   INTRO_OFFER_PRICE,
 } from "@/lib/intro-offer";
 
-export const revalidate = 60;
+/** Always read live slot counts from the admin global. */
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Intro offer — $20 landing page",

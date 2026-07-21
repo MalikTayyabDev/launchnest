@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { siteConfig } from "@/lib/site";
+import { getClientFormError } from "@/lib/form-validation";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -23,10 +24,17 @@ export function CustomOfferForm() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const form = e.currentTarget;
+    const clientError = getClientFormError(form);
+    if (clientError) {
+      setStatus("error");
+      setError(clientError);
+      return;
+    }
+
     setStatus("submitting");
     setError("");
 
-    const form = e.currentTarget;
     const raw = Object.fromEntries(new FormData(form).entries());
     const phone = String(raw.phone || "").trim();
     const details = String(raw.message || "").trim();
@@ -45,12 +53,19 @@ export function CustomOfferForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      if (!res.ok) throw new Error("Request failed");
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(typeof data.error === "string" ? data.error : "Request failed");
+      }
       setStatus("success");
       form.reset();
-    } catch {
+    } catch (err) {
       setStatus("error");
-      setError(`Something went wrong. Email us directly at ${siteConfig.email}.`);
+      setError(
+        err instanceof Error && err.message !== "Request failed"
+          ? err.message
+          : `Something went wrong. Email us directly at ${siteConfig.email}.`,
+      );
     }
   }
 
@@ -80,30 +95,33 @@ export function CustomOfferForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="offer-name" className={labelClass}>
-            Name
+            Name <span className="text-gold">*</span>
           </label>
           <input
             id="offer-name"
             name="name"
             type="text"
             required
+            minLength={2}
+            autoComplete="name"
             className={fieldClass}
             placeholder="Jordan Avery"
           />
         </div>
         <div>
           <label htmlFor="offer-email" className={labelClass}>
-            Email
+            Email <span className="text-gold">*</span>
           </label>
           <input
             id="offer-email"
             name="email"
             type="email"
             required
+            autoComplete="email"
             className={fieldClass}
             placeholder="jordan@acme.co"
           />
@@ -119,6 +137,7 @@ export function CustomOfferForm() {
             id="offer-phone"
             name="phone"
             type="tel"
+            autoComplete="tel"
             className={fieldClass}
             placeholder="+1 555 000 0000"
           />
@@ -140,12 +159,13 @@ export function CustomOfferForm() {
 
       <div>
         <label htmlFor="offer-message" className={labelClass}>
-          What do you need?
+          What do you need? <span className="text-gold">*</span>
         </label>
         <textarea
           id="offer-message"
           name="message"
           required
+          minLength={10}
           rows={4}
           className={fieldClass}
           placeholder="Tell us about your project — what you're building, must-have features, and any deadlines."
@@ -153,7 +173,7 @@ export function CustomOfferForm() {
       </div>
 
       {status === "error" && (
-        <p className="text-sm text-navy" role="alert">
+        <p className="text-sm font-medium text-navy" role="alert">
           {error}
         </p>
       )}

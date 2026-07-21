@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { siteConfig } from "@/lib/site";
+import { getClientFormError } from "@/lib/form-validation";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -37,10 +38,17 @@ export function ContactForm() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const form = e.currentTarget;
+    const clientError = getClientFormError(form);
+    if (clientError) {
+      setStatus("error");
+      setError(clientError);
+      return;
+    }
+
     setStatus("submitting");
     setError("");
 
-    const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries());
 
     try {
@@ -49,12 +57,19 @@ export function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error("Request failed");
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(typeof body.error === "string" ? body.error : "Request failed");
+      }
       setStatus("success");
       form.reset();
-    } catch {
+    } catch (err) {
       setStatus("error");
-      setError(`Something went wrong. Email us directly at ${siteConfig.email}.`);
+      setError(
+        err instanceof Error && err.message !== "Request failed"
+          ? err.message
+          : `Something went wrong. Email us directly at ${siteConfig.email}.`,
+      );
     }
   }
 
@@ -82,33 +97,59 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className={labelClass}>
-            Name
+            Name <span className="text-gold">*</span>
           </label>
-          <input id="name" name="name" type="text" required className={fieldClass} placeholder="Jordan Avery" />
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            minLength={2}
+            autoComplete="name"
+            className={fieldClass}
+            placeholder="Jordan Avery"
+          />
         </div>
         <div>
           <label htmlFor="company" className={labelClass}>
-            Company
+            Company <span className="text-gold">*</span>
           </label>
-          <input id="company" name="company" type="text" required className={fieldClass} placeholder="Acme Co." />
+          <input
+            id="company"
+            name="company"
+            type="text"
+            required
+            minLength={2}
+            autoComplete="organization"
+            className={fieldClass}
+            placeholder="Acme Co."
+          />
         </div>
       </div>
 
       <div>
         <label htmlFor="email" className={labelClass}>
-          Work email
+          Work email <span className="text-gold">*</span>
         </label>
-        <input id="email" name="email" type="email" required className={fieldClass} placeholder="jordan@acme.co" />
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          autoComplete="email"
+          className={fieldClass}
+          placeholder="jordan@acme.co"
+        />
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="budget" className={labelClass}>
-            Budget range
+            Budget range <span className="text-gold">*</span>
           </label>
           <select id="budget" name="budget" required defaultValue="" className={fieldClass}>
             <option value="" disabled>
@@ -123,7 +164,7 @@ export function ContactForm() {
         </div>
         <div>
           <label htmlFor="timeline" className={labelClass}>
-            Timeline
+            Timeline <span className="text-gold">*</span>
           </label>
           <select id="timeline" name="timeline" required defaultValue="" className={fieldClass}>
             <option value="" disabled>
@@ -140,7 +181,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="siteStatus" className={labelClass}>
-          Current site status
+          Current site status <span className="text-gold">*</span>
         </label>
         <select id="siteStatus" name="siteStatus" required defaultValue="" className={fieldClass}>
           <option value="" disabled>
@@ -156,7 +197,8 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="message" className={labelClass}>
-          What&apos;s breaking, or what do you need? <span className="font-normal text-slate">(optional)</span>
+          What&apos;s breaking, or what do you need?{" "}
+          <span className="font-normal text-slate">(optional)</span>
         </label>
         <textarea
           id="message"
@@ -168,7 +210,7 @@ export function ContactForm() {
       </div>
 
       {status === "error" && (
-        <p className="text-sm text-navy" role="alert">
+        <p className="text-sm font-medium text-navy" role="alert">
           {error}
         </p>
       )}

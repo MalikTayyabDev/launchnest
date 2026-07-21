@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { siteConfig } from "@/lib/site";
+import { getClientFormError } from "@/lib/form-validation";
 import { introOfferWhatsappLink } from "@/lib/intro-offer-public";
 
 type Status = "idle" | "submitting" | "success" | "error";
@@ -44,26 +45,29 @@ export function IntroOfferForm({ accepting }: { accepting: boolean }) {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const form = e.currentTarget;
+    const clientError = getClientFormError(form);
+    if (clientError) {
+      setStatus("error");
+      setError(clientError);
+      return;
+    }
+
     setStatus("submitting");
     setError("");
 
-    const form = e.currentTarget;
     const raw = Object.fromEntries(new FormData(form).entries());
     const phone = String(raw.phone || "").trim();
     const business = String(raw.business || "").trim();
     const details = String(raw.message || "").trim();
 
-    const parts = [
-      business && `Business: ${business}`,
-      details && `Page goal: ${details}`,
-      phone && `Phone/WhatsApp: ${phone}`,
-    ].filter(Boolean);
-
     const body = {
       name: String(raw.name || "").trim(),
       email: String(raw.email || "").trim(),
+      company: business,
+      phone,
       budget: "$20 intro landing page",
-      message: parts.join("\n") || "Intro landing page request",
+      message: details,
       source: "intro-offer",
     };
 
@@ -122,30 +126,33 @@ export function IntroOfferForm({ accepting }: { accepting: boolean }) {
         Fixed scope · $20 · 3 business days. We&apos;ll confirm availability before
         you pay.
       </p>
-      <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4" noValidate>
+      <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor="intro-name" className={labelClass}>
-              Name
+              Name <span className="text-gold">*</span>
             </label>
             <input
               id="intro-name"
               name="name"
               type="text"
               required
+              minLength={2}
+              autoComplete="name"
               className={fieldClass}
               placeholder="Jordan Avery"
             />
           </div>
           <div>
             <label htmlFor="intro-email" className={labelClass}>
-              Email
+              Email <span className="text-gold">*</span>
             </label>
             <input
               id="intro-email"
               name="email"
               type="email"
               required
+              autoComplete="email"
               className={fieldClass}
               placeholder="jordan@acme.co"
             />
@@ -153,38 +160,43 @@ export function IntroOfferForm({ accepting }: { accepting: boolean }) {
         </div>
         <div>
           <label htmlFor="intro-business" className={labelClass}>
-            Business name
+            Business name <span className="text-gold">*</span>
           </label>
           <input
             id="intro-business"
             name="business"
             type="text"
             required
+            minLength={2}
+            autoComplete="organization"
             className={fieldClass}
             placeholder="Acme Co."
           />
         </div>
         <div>
           <label htmlFor="intro-phone" className={labelClass}>
-            WhatsApp / phone
+            WhatsApp / phone <span className="text-gold">*</span>
           </label>
           <input
             id="intro-phone"
             name="phone"
             type="tel"
             required
+            minLength={7}
+            autoComplete="tel"
             className={fieldClass}
             placeholder="+1 555 000 0000"
           />
         </div>
         <div>
           <label htmlFor="intro-message" className={labelClass}>
-            What should the landing page do?
+            What should the landing page do? <span className="text-gold">*</span>
           </label>
           <textarea
             id="intro-message"
             name="message"
             required
+            minLength={10}
             rows={3}
             className={fieldClass}
             placeholder="e.g. Collect leads for my cleaning business in Sydney — hero, services, contact form."
@@ -192,7 +204,7 @@ export function IntroOfferForm({ accepting }: { accepting: boolean }) {
         </div>
 
         {status === "error" && (
-          <p className="text-sm text-navy" role="alert">
+          <p className="text-sm font-medium text-navy" role="alert">
             {error}
           </p>
         )}

@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { siteConfig } from "@/lib/site";
+import { getClientFormError } from "@/lib/form-validation";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -16,10 +17,17 @@ export function HeroLeadForm() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const form = e.currentTarget;
+    const clientError = getClientFormError(form);
+    if (clientError) {
+      setStatus("error");
+      setError(clientError);
+      return;
+    }
+
     setStatus("submitting");
     setError("");
 
-    const form = e.currentTarget;
     const raw = Object.fromEntries(new FormData(form).entries());
     const detail = String(raw.detail || "").trim();
 
@@ -36,12 +44,19 @@ export function HeroLeadForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      if (!res.ok) throw new Error("Request failed");
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(typeof data.error === "string" ? data.error : "Request failed");
+      }
       setStatus("success");
       form.reset();
-    } catch {
+    } catch (err) {
       setStatus("error");
-      setError(`Something went wrong. Email us at ${siteConfig.email}.`);
+      setError(
+        err instanceof Error && err.message !== "Request failed"
+          ? err.message
+          : `Something went wrong. Email us at ${siteConfig.email}.`,
+      );
     }
   }
 
@@ -78,29 +93,32 @@ export function HeroLeadForm() {
       <p className="mt-1.5 text-sm leading-relaxed text-slate">
         Tell us where to reach you. We&apos;ll reply within one business day.
       </p>
-      <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-4" noValidate>
+      <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-4">
         <div>
           <label htmlFor="hero-name" className={labelClass}>
-            Name
+            Name <span className="text-gold">*</span>
           </label>
           <input
             id="hero-name"
             name="name"
             type="text"
             required
+            minLength={2}
+            autoComplete="name"
             className={fieldClass}
             placeholder="Jordan Avery"
           />
         </div>
         <div>
           <label htmlFor="hero-email" className={labelClass}>
-            Email
+            Email <span className="text-gold">*</span>
           </label>
           <input
             id="hero-email"
             name="email"
             type="email"
             required
+            autoComplete="email"
             className={fieldClass}
             placeholder="jordan@acme.co"
           />
@@ -120,7 +138,7 @@ export function HeroLeadForm() {
         </div>
 
         {status === "error" && (
-          <p className="text-sm text-navy" role="alert">
+          <p className="text-sm font-medium text-navy" role="alert">
             {error}
           </p>
         )}
