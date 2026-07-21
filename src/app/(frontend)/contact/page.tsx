@@ -122,6 +122,17 @@ export default function ContactPage() {
                 {siteConfig.email}
               </a>
             </p>
+            <p className="mt-4 text-sm text-slate">
+              Already worked with us?{" "}
+              <a
+                href={siteConfig.googleReview}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-heading font-semibold text-navy underline decoration-gold decoration-2 underline-offset-4"
+              >
+                Leave a Google review
+              </a>
+            </p>
           </div>
           <div className="rounded-xl border border-navy/10 bg-white p-7 shadow-[0_16px_50px_-24px_rgba(11,31,58,0.35)] sm:p-9">
             <ContactForm />

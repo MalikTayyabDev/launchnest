@@ -15,6 +15,8 @@ export const siteConfig = {
     instagram: "https://www.instagram.com/launchnest.tech",
     facebook: "https://www.facebook.com/profile.php?id=61592234365519",
   },
+  /** Google Business Profile — direct review link. */
+  googleReview: "https://g.page/r/CaBoV6foQh89EBI/review",
 };
 
 /** Brand asset paths (under /public) and accessible alt text. */

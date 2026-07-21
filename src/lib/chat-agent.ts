@@ -85,6 +85,14 @@ export function generateChatReply(input: string, topic?: ChatTopicId): ChatReply
     };
   }
 
+  if (includesAny(q, ["google review", "leave a review", "rate us", "testimonial", "feedback"])) {
+    return {
+      text: "Thank you — Google reviews help us a lot while we build our portfolio. It only takes a minute.",
+      links: [{ label: "Leave a Google review", href: siteConfig.googleReview }],
+      quickReplies: defaultQuickReplies(),
+    };
+  }
+
   if (includesAny(q, ["thank", "thanks", "cheers"])) {
     return {
       text: "You're welcome. If anything else comes up — pricing, a call, or a ticket — just ask.",

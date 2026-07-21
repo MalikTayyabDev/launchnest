@@ -108,6 +108,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       reply: {
         text: confirmationForRequest(requestType),
+        links: [{ label: "Leave a Google review", href: siteConfig.googleReview }],
         quickReplies: [
           { id: "services", label: "Browse services" },
           { id: "pricing", label: "See pricing" },

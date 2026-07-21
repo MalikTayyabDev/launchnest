@@ -287,7 +287,7 @@ export function ChatAgent() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed");
       setMessages((m) => m.slice(0, -1));
-      addAssistant(data.reply.text, undefined, data.reply.quickReplies);
+      addAssistant(data.reply.text, data.reply.links, data.reply.quickReplies);
       setFlow(null);
       setFlowStep(0);
       setFormData({ name: profile.name, email: profile.email, phone: "", message: "" });
