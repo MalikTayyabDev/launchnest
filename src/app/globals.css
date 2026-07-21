@@ -9,6 +9,9 @@
   --color-slate: #4a5568; /* Slate Gray — body text, secondary UI */
   --color-offwhite: #f4f5f7; /* Off-White — section backgrounds, breathing room */
   --color-green: #1e8e5a; /* Confirm Green — success/status states only */
+
+  /* Set by MobileStickyCta when the bottom bar is visible (mobile). */
+  --mobile-sticky-offset: 0px;
 }
 
 @layer base {
@@ -30,10 +33,10 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Leave room for the mobile sticky CTA + WhatsApp button. */
+  /* Leave room for floating chat/WhatsApp + optional sticky CTA on mobile. */
   @media (max-width: 1023px) {
     body {
-      padding-bottom: 5.5rem;
+      padding-bottom: calc(5.5rem + var(--mobile-sticky-offset, 0px));
     }
   }
 

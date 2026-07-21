@@ -8,7 +8,7 @@ export function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with LaunchNest on WhatsApp"
-      className="group fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/25 transition-transform duration-200 hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366] sm:bottom-6 sm:right-6"
+      className="group fixed bottom-[calc(1.25rem+var(--mobile-sticky-offset,0px)+env(safe-area-inset-bottom))] right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/25 transition-[bottom] duration-200 hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366] sm:bottom-6 sm:right-6"
     >
       <span className="pointer-events-none absolute right-[4.25rem] hidden whitespace-nowrap rounded-md bg-navy px-3 py-1.5 text-sm font-medium text-offwhite opacity-0 shadow-md transition-opacity duration-200 group-hover:opacity-100 md:block">
         Chat on WhatsApp

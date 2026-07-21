@@ -11,19 +11,80 @@ type Msg = {
   links?: { label: string; href: string }[];
 };
 
-type QuickReply = { id: string; label: string };
+type QuickReply = { id: string; label: string; userText?: string };
 
 type Flow = null | "call" | "ticket";
 
 const WELCOME =
-  "Hi — I'm LaunchNest's assistant. I know our services, pricing, and intro offers. I can book a **free 30-minute call**, log a support ticket, or answer questions. How can I help?";
+  "Hi — I'm LaunchNest's assistant. Ask about services, pricing, or our $20 intro offer. I can book a **free 30-min call** or log a support ticket.";
+
+const FAB_BOTTOM =
+  "bottom-[calc(1.25rem+var(--mobile-sticky-offset,0px)+env(safe-area-inset-bottom))]";
+
+function getInputConfig(flow: Flow, flowStep: number) {
+  if (!flow) {
+    return {
+      multiline: false,
+      type: "text" as const,
+      inputMode: undefined as undefined,
+      placeholder: "Ask a question…",
+      autoComplete: "off",
+      enterKeyHint: "send" as const,
+    };
+  }
+  switch (flowStep) {
+    case 0:
+      return {
+        multiline: false,
+        type: "text" as const,
+        inputMode: undefined,
+        placeholder: "Your full name",
+        autoComplete: "name",
+        enterKeyHint: "next" as const,
+      };
+    case 1:
+      return {
+        multiline: false,
+        type: "email" as const,
+        inputMode: "email" as const,
+        placeholder: "you@email.com",
+        autoComplete: "email",
+        enterKeyHint: "next" as const,
+      };
+    case 2:
+      return {
+        multiline: false,
+        type: "tel" as const,
+        inputMode: "tel" as const,
+        placeholder: "Phone or WhatsApp",
+        autoComplete: "tel",
+        enterKeyHint: "next" as const,
+      };
+    default:
+      return {
+        multiline: true,
+        type: "text" as const,
+        inputMode: undefined,
+        placeholder:
+          flow === "call"
+            ? "What would you like to discuss?"
+            : "What's broken or what do you need?",
+        autoComplete: "off",
+        enterKeyHint: "send" as const,
+      };
+  }
+}
 
 export function ChatAgent() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [quickReplies, setQuickReplies] = useState<QuickReply[]>(
-    CHAT_QUICK_TOPICS.map((t) => ({ id: t.id, label: t.label })),
+    CHAT_QUICK_TOPICS.map((t) => ({
+      id: t.id,
+      label: t.chipLabel,
+      userText: t.label,
+    })),
   );
   const [typing, setTyping] = useState(false);
   const [flow, setFlow] = useState<Flow>(null);
@@ -37,6 +98,9 @@ export function ChatAgent() {
   const [formError, setFormError] = useState("");
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const inputConfig = getInputConfig(flow, flowStep);
 
   const scrollBottom = useCallback(() => {
     requestAnimationFrame(() => {
@@ -68,6 +132,37 @@ export function ChatAgent() {
       document.body.style.overflow = prev;
     };
   }, [open]);
+
+  useEffect(() => {
+    if (!open) {
+      document.documentElement.style.removeProperty("--chat-vvh");
+      return;
+    }
+    const vv = window.visualViewport;
+    if (!vv) return;
+
+    const syncViewport = () => {
+      document.documentElement.style.setProperty("--chat-vvh", `${vv.height}px`);
+    };
+
+    syncViewport();
+    vv.addEventListener("resize", syncViewport);
+    vv.addEventListener("scroll", syncViewport);
+    return () => {
+      vv.removeEventListener("resize", syncViewport);
+      vv.removeEventListener("scroll", syncViewport);
+      document.documentElement.style.removeProperty("--chat-vvh");
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open || !flow) return;
+    const t = window.setTimeout(() => {
+      if (inputConfig.multiline) textareaRef.current?.focus();
+      else inputRef.current?.focus();
+    }, 80);
+    return () => window.clearTimeout(t);
+  }, [open, flow, flowStep, inputConfig.multiline]);
 
   const addAssistant = (text: string, links?: Msg["links"], replies?: QuickReply[]) => {
     setMessages((m) => [
@@ -105,8 +200,8 @@ export function ChatAgent() {
     }
   };
 
-  const handleQuickReply = async (id: string, label: string) => {
-    addUser(label);
+  const handleQuickReply = async (id: string, label: string, userText?: string) => {
+    addUser(userText ?? label);
 
     if (id === "start_call_form") {
       setFlow("call");
@@ -132,8 +227,9 @@ export function ChatAgent() {
       return;
     }
 
-    const topic = CHAT_QUICK_TOPICS.find((t) => t.id === id)?.id as ChatTopicId | undefined;
-    await fetchReply(label, topic ?? (id as ChatTopicId));
+    const topicEntry = CHAT_QUICK_TOPICS.find((t) => t.id === id);
+    const topic = topicEntry?.id as ChatTopicId | undefined;
+    await fetchReply(userText ?? topicEntry?.label ?? label, topic ?? (id as ChatTopicId));
   };
 
   const handleSend = async (e?: FormEvent) => {
@@ -236,12 +332,12 @@ export function ChatAgent() {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="group fixed bottom-24 left-5 z-50 flex h-14 items-center gap-2 rounded-full bg-navy pl-4 pr-5 text-offwhite shadow-lg shadow-black/25 transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold sm:bottom-6 sm:left-6"
+          className={`group fixed left-4 z-50 flex h-14 min-h-[44px] items-center gap-2 rounded-full bg-navy pl-4 pr-4 text-offwhite shadow-lg shadow-black/25 transition-[bottom,transform] duration-200 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold sm:bottom-6 sm:left-6 sm:pr-5 ${FAB_BOTTOM}`}
           aria-label="Open LaunchNest chat assistant"
         >
           <ChatBubbleIcon />
-          <span className="hidden font-heading text-sm font-semibold sm:inline">
-            Chat with us
+          <span className="font-heading text-sm font-semibold sm:inline">
+            Chat
           </span>
         </button>
       )}
@@ -256,26 +352,30 @@ export function ChatAgent() {
         >
           <button
             type="button"
-            className="absolute inset-0 bg-navy/40 sm:bg-transparent"
+            className="absolute inset-0 bg-navy/50 sm:bg-navy/20"
             aria-label="Close chat"
             onClick={() => setOpen(false)}
           />
-          <div className="relative flex h-[min(100dvh,640px)] w-full max-w-md flex-col overflow-hidden rounded-t-2xl border border-navy/10 bg-white shadow-2xl sm:h-[min(560px,85vh)] sm:rounded-2xl">
+          <div className="relative flex h-[var(--chat-vvh,100dvh)] max-h-[var(--chat-vvh,100dvh)] w-full max-w-md flex-col overflow-hidden rounded-t-2xl border border-navy/10 bg-white shadow-2xl sm:h-[min(560px,85vh)] sm:max-h-[85vh] sm:rounded-2xl">
+            <div
+              className="mx-auto mt-2.5 h-1 w-10 shrink-0 rounded-full bg-navy/20 sm:hidden"
+              aria-hidden="true"
+            />
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-navy/10 bg-navy px-4 py-3 text-offwhite">
-              <div className="flex items-center gap-3">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gold/20">
+            <div className="flex shrink-0 items-center justify-between border-b border-navy/10 bg-navy px-4 py-3 text-offwhite">
+              <div className="flex min-w-0 items-center gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold/20">
                   <ChatBubbleIcon className="h-5 w-5 text-gold" />
                 </span>
-                <div>
+                <div className="min-w-0">
                   <p className="font-heading text-sm font-semibold">LaunchNest</p>
-                  <p className="text-xs text-offwhite/70">Usually replies instantly</p>
+                  <p className="truncate text-xs text-offwhite/70">Usually replies instantly</p>
                 </div>
               </div>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="rounded-md p-2 text-offwhite/80 hover:bg-white/10 hover:text-offwhite"
+                className="-mr-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-offwhite/80 hover:bg-white/10 hover:text-offwhite"
                 aria-label="Close chat"
               >
                 <CloseIcon />
@@ -285,7 +385,7 @@ export function ChatAgent() {
             {/* Messages */}
             <div
               ref={listRef}
-              className="flex-1 overflow-y-auto px-4 py-4"
+              className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-4"
               aria-live="polite"
             >
               {messages.map((m) => (
@@ -341,27 +441,29 @@ export function ChatAgent() {
 
             {/* Quick replies */}
             {quickReplies.length > 0 && !flow && (
-              <div className="flex gap-2 overflow-x-auto border-t border-navy/5 px-4 py-2">
-                {quickReplies.map((q) => (
-                  <button
-                    key={q.id}
-                    type="button"
-                    disabled={typing}
-                    onClick={() => handleQuickReply(q.id, q.label)}
-                    className="shrink-0 rounded-full border border-navy/15 bg-white px-3 py-1.5 font-heading text-xs font-semibold text-navy transition-colors hover:border-gold hover:bg-offwhite disabled:opacity-50"
-                  >
-                    {q.label}
-                  </button>
-                ))}
+              <div className="shrink-0 border-t border-navy/5 px-4 py-3">
+                <div className="flex flex-wrap gap-2">
+                  {quickReplies.map((q) => (
+                    <button
+                      key={q.id}
+                      type="button"
+                      disabled={typing}
+                      onClick={() => handleQuickReply(q.id, q.label, q.userText)}
+                      className="min-h-[44px] touch-manipulation rounded-full border border-navy/15 bg-white px-4 py-2 font-heading text-sm font-semibold text-navy transition-colors hover:border-gold hover:bg-offwhite disabled:opacity-50"
+                    >
+                      {q.label}
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
 
             {flow && (
-              <div className="border-t border-navy/5 px-4 py-2">
+              <div className="shrink-0 border-t border-navy/5 px-4 py-2.5">
                 <button
                   type="button"
                   onClick={cancelFlow}
-                  className="text-xs font-medium text-slate underline underline-offset-2"
+                  className="min-h-[44px] touch-manipulation text-sm font-medium text-slate underline underline-offset-2"
                 >
                   Cancel {flow === "call" ? "booking" : "ticket"}
                 </button>
@@ -369,7 +471,7 @@ export function ChatAgent() {
             )}
 
             {formError && (
-              <p className="px-4 pb-1 text-xs font-medium text-navy" role="alert">
+              <p className="shrink-0 px-4 pb-1 text-sm font-medium text-navy" role="alert">
                 {formError}
               </p>
             )}
@@ -377,32 +479,43 @@ export function ChatAgent() {
             {/* Input */}
             <form
               onSubmit={handleSend}
-              className="flex gap-2 border-t border-navy/10 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
+              className="flex shrink-0 items-end gap-2 border-t border-navy/10 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
             >
-              <input
-                ref={inputRef}
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder={
-                  flow
-                    ? flowStep === 0
-                      ? "Your name…"
-                      : flowStep === 1
-                        ? "you@email.com"
-                        : flowStep === 2
-                          ? "+1 555…"
-                          : "Your message…"
-                    : "Ask about services, pricing, or book a call…"
-                }
-                className="min-w-0 flex-1 rounded-lg border border-navy/15 px-3 py-2.5 text-sm text-navy placeholder:text-slate/50 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
-                autoComplete={flowStep === 1 ? "email" : flowStep === 0 ? "name" : "off"}
-                disabled={typing}
-              />
+              {inputConfig.multiline ? (
+                <textarea
+                  ref={textareaRef}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      void handleSend();
+                    }
+                  }}
+                  placeholder={inputConfig.placeholder}
+                  rows={2}
+                  enterKeyHint={inputConfig.enterKeyHint}
+                  disabled={typing}
+                  className="min-h-[44px] min-w-0 flex-1 resize-none rounded-lg border border-navy/15 px-3 py-2.5 text-base text-navy placeholder:text-slate/50 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold sm:text-sm"
+                />
+              ) : (
+                <input
+                  ref={inputRef}
+                  type={inputConfig.type}
+                  inputMode={inputConfig.inputMode}
+                  enterKeyHint={inputConfig.enterKeyHint}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder={inputConfig.placeholder}
+                  autoComplete={inputConfig.autoComplete}
+                  disabled={typing}
+                  className="min-h-[44px] min-w-0 flex-1 rounded-lg border border-navy/15 px-3 py-2.5 text-base text-navy placeholder:text-slate/50 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold sm:text-sm"
+                />
+              )}
               <button
                 type="submit"
                 disabled={typing || !input.trim()}
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gold text-navy transition-opacity hover:opacity-90 disabled:opacity-40"
+                className="flex h-11 w-11 shrink-0 touch-manipulation items-center justify-center rounded-lg bg-gold text-navy transition-opacity hover:opacity-90 disabled:opacity-40"
                 aria-label="Send message"
               >
                 <SendIcon />

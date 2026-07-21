@@ -49,12 +49,12 @@ CONTACT: /contact | /pricing | /intro-offer
 }
 
 export const CHAT_QUICK_TOPICS = [
-  { id: "services", label: "What services do you offer?" },
-  { id: "pricing", label: "Show me pricing" },
-  { id: "intro", label: "$20 intro landing page" },
-  { id: "call", label: "Book a 30-min call" },
-  { id: "ticket", label: "Raise a support ticket" },
-  { id: "audit", label: "Free technical audit" },
+  { id: "services", label: "What services do you offer?", chipLabel: "Services" },
+  { id: "pricing", label: "Show me pricing", chipLabel: "Pricing" },
+  { id: "intro", label: "$20 intro landing page", chipLabel: "$20 intro" },
+  { id: "call", label: "Book a 30-min call", chipLabel: "Book call" },
+  { id: "ticket", label: "Raise a support ticket", chipLabel: "Support ticket" },
+  { id: "audit", label: "Free technical audit", chipLabel: "Free audit" },
 ] as const;
 
 export type ChatTopicId = (typeof CHAT_QUICK_TOPICS)[number]["id"];
