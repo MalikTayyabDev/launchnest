@@ -6,21 +6,14 @@ import { getClientFormError } from "@/lib/form-validation";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-const budgetRanges = [
-  "Under $150",
-  "$150 – $450",
-  "$450 – $1,500",
-  "$1,500+",
-  "Not sure yet",
-];
-
 const fieldClass =
   "w-full rounded-md border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder:text-slate/50 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold";
 const labelClass = "mb-2 block font-heading text-sm font-semibold text-navy";
 
-export function CustomOfferForm() {
+/** Book a free 30-minute discovery call — contact page + chat agent backend. */
+export function BookCallForm() {
   const [status, setStatus] = useState<Status>("idle");
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState("");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -36,35 +29,32 @@ export function CustomOfferForm() {
     setError("");
 
     const raw = Object.fromEntries(new FormData(form).entries());
-    const phone = String(raw.phone || "").trim();
-    const details = String(raw.message || "").trim();
-
-    const body = {
-      name: String(raw.name || "").trim(),
-      email: String(raw.email || "").trim(),
-      budget: raw.budget ? String(raw.budget) : undefined,
-      message: phone ? `${details}\n\nPhone/WhatsApp: ${phone}` : details,
-      source: "custom-offer",
-    };
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        body: JSON.stringify({
+          action: "submit",
+          lead: {
+            requestType: "call-30min",
+            channel: "contact",
+            name: String(raw.name || "").trim(),
+            email: String(raw.email || "").trim(),
+            phone: String(raw.phone || "").trim(),
+            message: String(raw.message || "").trim(),
+            company: raw.company ? String(raw.company).trim() : undefined,
+          },
+        }),
       });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        throw new Error(typeof data.error === "string" ? data.error : "Request failed");
-      }
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Request failed");
       setStatus("success");
       form.reset();
     } catch (err) {
       setStatus("error");
       setError(
-        err instanceof Error && err.message !== "Request failed"
-          ? err.message
-          : `Something went wrong. Email us directly at ${siteConfig.email}.`,
+        err instanceof Error ? err.message : `Something went wrong. Email ${siteConfig.email}.`,
       );
     }
   }
@@ -83,26 +73,25 @@ export function CustomOfferForm() {
             />
           </svg>
         </div>
-        <h3 className="font-heading text-xl font-semibold text-navy">
-          Got it — we&apos;re on it.
-        </h3>
+        <h3 className="font-heading text-xl font-semibold text-navy">Call request received.</h3>
         <p className="mt-2 text-sm leading-relaxed text-slate">
-          We&apos;ll review what you need and send a custom offer within one business
-          day. Want it faster? Message us on WhatsApp.
+          We&apos;ll email you within one business day with available times for your free
+          30-minute discovery call. No sales script — just a focused conversation about
+          your project.
         </p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-      <div className="grid gap-5 sm:grid-cols-2">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="offer-name" className={labelClass}>
+          <label htmlFor="call-name" className={labelClass}>
             Name <span className="text-gold">*</span>
           </label>
           <input
-            id="offer-name"
+            id="call-name"
             name="name"
             type="text"
             required
@@ -113,11 +102,11 @@ export function CustomOfferForm() {
           />
         </div>
         <div>
-          <label htmlFor="offer-email" className={labelClass}>
+          <label htmlFor="call-email" className={labelClass}>
             Email <span className="text-gold">*</span>
           </label>
           <input
-            id="offer-email"
+            id="call-email"
             name="email"
             type="email"
             required
@@ -127,48 +116,48 @@ export function CustomOfferForm() {
           />
         </div>
       </div>
-
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="offer-phone" className={labelClass}>
-            WhatsApp / phone <span className="font-normal text-slate/60">(optional)</span>
+          <label htmlFor="call-phone" className={labelClass}>
+            Phone / WhatsApp <span className="text-gold">*</span>
           </label>
           <input
-            id="offer-phone"
+            id="call-phone"
             name="phone"
             type="tel"
+            required
+            minLength={7}
             autoComplete="tel"
             className={fieldClass}
             placeholder="+1 555 000 0000"
           />
         </div>
         <div>
-          <label htmlFor="offer-budget" className={labelClass}>
-            Budget <span className="font-normal text-slate/60">(optional)</span>
+          <label htmlFor="call-company" className={labelClass}>
+            Company <span className="font-normal text-slate/60">(optional)</span>
           </label>
-          <select id="offer-budget" name="budget" defaultValue="" className={fieldClass}>
-            <option value="">Select a range</option>
-            {budgetRanges.map((b) => (
-              <option key={b} value={b}>
-                {b}
-              </option>
-            ))}
-          </select>
+          <input
+            id="call-company"
+            name="company"
+            type="text"
+            autoComplete="organization"
+            className={fieldClass}
+            placeholder="Acme Co."
+          />
         </div>
       </div>
-
       <div>
-        <label htmlFor="offer-message" className={labelClass}>
-          What do you need? <span className="text-gold">*</span>
+        <label htmlFor="call-message" className={labelClass}>
+          What would you like to discuss? <span className="text-gold">*</span>
         </label>
         <textarea
-          id="offer-message"
+          id="call-message"
           name="message"
           required
           minLength={10}
-          rows={4}
+          rows={3}
           className={fieldClass}
-          placeholder="Tell us about your project — what you're building, must-have features, and any deadlines."
+          placeholder="e.g. New Shopify store, slow WordPress site, or timeline for a rebuild."
         />
       </div>
 
@@ -181,13 +170,12 @@ export function CustomOfferForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="inline-flex items-center justify-center rounded-md bg-gold px-6 py-3 font-heading text-sm font-semibold text-navy transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex items-center justify-center rounded-md bg-gold px-6 py-3.5 font-heading text-sm font-semibold text-navy transition-colors hover:bg-[#B89421] disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {status === "submitting" ? "Sending…" : "Request my custom offer"}
+        {status === "submitting" ? "Booking…" : "Book my free 30-minute call"}
       </button>
-      <p className="text-xs text-slate/70">
-        No obligation. We&apos;ll reply with a tailored scope and price — not a sales
-        script.
+      <p className="text-center font-mono text-xs text-slate">
+        Free · No obligation · We reply within one business day
       </p>
     </form>
   );

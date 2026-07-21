@@ -90,6 +90,44 @@ Vercel's filesystem is ephemeral, so uploaded media must go to Blob storage.
 Create a Blob store in the Vercel dashboard (**Storage → Blob**) and set
 `BLOB_READ_WRITE_TOKEN`. Locally you can leave it blank to use the disk.
 
+## Custom domain (www.launch-nest.com)
+
+Canonical URL: **`https://www.launch-nest.com`**
+
+### Vercel (one-time)
+
+1. Open the project in [Vercel](https://vercel.com) → **Settings → Domains**.
+2. Add **`launch-nest.com`** and **`www.launch-nest.com`**.
+3. Set **`www.launch-nest.com`** as the **primary** domain.
+4. Under **Settings → Environment Variables**, set for **Production** (and Preview if you want):
+   ```
+   NEXT_PUBLIC_SERVER_URL=https://www.launch-nest.com
+   ```
+5. Redeploy after saving the env var.
+
+### DNS at your registrar
+
+Point the domain to Vercel (exact values shown in the Vercel Domains UI after you add the domain):
+
+| Type | Name | Value |
+|------|------|--------|
+| **A** | `@` | `76.76.21.21` |
+| **CNAME** | `www` | `cname.vercel-dns.com` |
+
+If your registrar supports **ALIAS/ANAME** for the apex, use Vercel’s recommended apex record instead of A.
+
+The app **redirects apex → www** and **`launchnest-nine.vercel.app` → www** (308) via `src/middleware.ts`. Sitemap and canonical URLs use `NEXT_PUBLIC_SERVER_URL`.
+
+### Google Search Console
+
+After DNS propagates, add the **`www`** property (`https://www.launch-nest.com`) and submit:
+
+```
+https://www.launch-nest.com/sitemap.xml
+```
+
+Also set up a **`https://launch-nest.com`** property or use domain verification — apex requests redirect to www.
+
 ## Admin & security
 
 - Admin panel: `/admin` (Payload). First user is created by the seed script.

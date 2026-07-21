@@ -7,10 +7,10 @@ import { getClientFormError } from "@/lib/form-validation";
 type Status = "idle" | "submitting" | "success" | "error";
 
 const budgetRanges = [
-  "Under $200",
-  "$200 – $600",
-  "$600 – $2,000",
-  "$2,000+",
+  "Under $150",
+  "$150 – $450",
+  "$450 – $1,500",
+  "$1,500+",
   "Not sure yet",
 ];
 

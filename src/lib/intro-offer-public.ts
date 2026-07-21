@@ -23,7 +23,7 @@ export const introOfferNotIncluded = [
 export const introOfferFaqs = [
   {
     q: "Why is it only $20?",
-    a: "This is a limited first-clients rate while LaunchNest builds its public review portfolio. It's fixed scope and template-based — not our standard custom pricing. Standard landing pages start from $99 once intro slots are full.",
+    a: "This is a limited first-clients rate while LaunchNest builds its public review portfolio. It's fixed scope and template-based — not our standard custom pricing. Standard landing pages start from $79 once intro slots are full.",
   },
   {
     q: "Who is this for?",

@@ -1,12 +1,12 @@
+import { CANONICAL_URL } from "./site-origins";
+
 export const siteConfig = {
   name: "LaunchNest",
   tagline: "BUILD · OPTIMIZE · LAUNCH",
   description:
     "LaunchNest is the technical partner growing businesses call when their website has to actually perform. We build, fix, and maintain premium web platforms.",
-  // Prefer the live deployment URL until a custom domain is attached.
   url:
-    process.env.NEXT_PUBLIC_SERVER_URL?.replace(/\/$/, "") ||
-    "https://launchnest-nine.vercel.app",
+    process.env.NEXT_PUBLIC_SERVER_URL?.replace(/\/$/, "") || CANONICAL_URL,
   email: "hello@launchnest.tech",
   founded: "est. 2022",
   // Digits only (international format, no "+"), used to build wa.me links.

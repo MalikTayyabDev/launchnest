@@ -53,7 +53,15 @@ export const Leads: CollectionConfig = {
             subject:
               doc.source === "intro-offer"
                 ? `🟢 Intro offer ($20): ${doc.name}`
-                : `New lead: ${doc.name}${doc.company ? ` (${doc.company})` : ""}`,
+                : doc.source === "chat-call-booking"
+                  ? `📞 30-min call: ${doc.name}`
+                  : doc.source === "chat-ticket"
+                    ? `🎫 Support ticket: ${doc.name}`
+                    : doc.source === "call-booking"
+                      ? `📞 30-min call (contact): ${doc.name}`
+                      : doc.source?.startsWith("chat")
+                        ? `💬 Chat lead: ${doc.name}`
+                        : `New lead: ${doc.name}${doc.company ? ` (${doc.company})` : ""}`,
             html: `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;max-width:560px">
   <h2 style="color:#0B1F3A;margin:0 0 4px">New lead from LaunchNest</h2>
   <p style="color:#64748b;margin:0 0 16px">A new enquiry just came in via the site.</p>

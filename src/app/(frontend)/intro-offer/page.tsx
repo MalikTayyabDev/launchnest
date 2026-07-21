@@ -53,7 +53,7 @@ export default async function IntroOfferPage() {
             </p>
             <p className="mt-4 text-base leading-relaxed text-slate">
               This is <em>not</em> our standard pricing. Standard builds start from
-              $99 once intro slots are gone.
+              $79 once intro slots are gone.
             </p>
             {settings.accepting && (
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">

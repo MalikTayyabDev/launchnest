@@ -52,7 +52,7 @@ Suggested next posts (map each to a service):
 
 ## Pre-launch checklist
 
-- [ ] Set the real production domain in `NEXT_PUBLIC_SERVER_URL` and `siteConfig.url`.
+- [x] Set the real production domain in `NEXT_PUBLIC_SERVER_URL` and `siteConfig.url` (`https://www.launch-nest.com`).
 - [ ] Verify the property in Google Search Console + Bing Webmaster Tools.
 - [ ] Submit `sitemap.xml`.
 - [ ] Confirm each money page's title/description against live SERP competitors.

@@ -9,7 +9,7 @@ export type PricingPackage = {
 export const packages: PricingPackage[] = [
   {
     name: "Starter Site",
-    range: "$99 – $199",
+    range: "$79 – $149",
     summary: "For getting a credible, fast presence live quickly.",
     features: [
       "Up to 5 pages",
@@ -21,7 +21,7 @@ export const packages: PricingPackage[] = [
   },
   {
     name: "Growth Site",
-    range: "$299 – $599",
+    range: "$199 – $449",
     summary: "For businesses that need the site to convert and scale.",
     features: [
       "Up to 10 pages",
@@ -34,7 +34,7 @@ export const packages: PricingPackage[] = [
   },
   {
     name: "Custom Platform",
-    range: "$799 – $2,000",
+    range: "$599 – $1,499",
     summary: "For bespoke web apps and advanced e-commerce.",
     features: [
       "Bespoke web app or advanced e-commerce",

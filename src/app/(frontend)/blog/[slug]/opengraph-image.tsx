@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { getPost } from "@/lib/content";
+import { siteConfig } from "@/lib/site";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -57,7 +58,7 @@ export default async function Image({
           {title}
         </div>
         <div style={{ display: "flex", color: "#94A3B8", fontSize: "26px" }}>
-          launchnest.co
+          {new URL(siteConfig.url).host}
         </div>
       </div>
     ),

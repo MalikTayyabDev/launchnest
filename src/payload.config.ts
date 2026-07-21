@@ -14,6 +14,7 @@ import { CaseStudies } from "./collections/CaseStudies";
 import { Projects } from "./collections/Projects";
 import { Leads } from "./collections/Leads";
 import { IntroOffer } from "./globals/IntroOffer";
+import { getAllowedOrigins } from "./lib/site-origins";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -46,8 +47,8 @@ export default buildConfig({
     outputFile: path.resolve(dirname, "payload-types.ts"),
   },
   // Locks API/admin origins in production; prevents cross-site abuse.
-  cors: process.env.NEXT_PUBLIC_SERVER_URL ? [process.env.NEXT_PUBLIC_SERVER_URL] : [],
-  csrf: process.env.NEXT_PUBLIC_SERVER_URL ? [process.env.NEXT_PUBLIC_SERVER_URL] : [],
+  cors: getAllowedOrigins(),
+  csrf: getAllowedOrigins(),
   db: postgresAdapter({
     // Pool tuned for Neon's pooled endpoint: cap concurrent connections and
     // proactively close idle ones before Neon's PgBouncer drops them, which

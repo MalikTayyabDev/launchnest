@@ -120,7 +120,7 @@ export async function POST(request: Request) {
         body: JSON.stringify({
           ...lead,
           submittedAt: new Date().toISOString(),
-          origin: "launchnest.co",
+          origin: siteConfig.url,
         }),
       });
       if (!res.ok) throw new Error(`CRM responded ${res.status}`);

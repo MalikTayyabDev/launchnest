@@ -22,7 +22,7 @@ export function IntroOfferForm({ accepting }: { accepting: boolean }) {
           Intro slots are full
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-slate">
-          Standard landing pages start from $99. Request a custom quote or book a
+          Standard landing pages start from $79. Request a custom quote or book a
           free audit instead.
         </p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
