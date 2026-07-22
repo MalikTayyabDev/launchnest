@@ -9,6 +9,10 @@ import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ChatAgent } from "@/components/chat/ChatAgent";
 import { IntroOfferBanner } from "@/components/IntroOfferBanner";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import {
+  GoogleTagManager,
+  GoogleTagManagerNoscript,
+} from "@/components/GoogleTagManager";
 import { JsonLd } from "@/components/JsonLd";
 import { siteConfig, brandAssets } from "@/lib/site";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
@@ -67,7 +71,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
+      <head>
+        <GoogleTagManager />
+      </head>
       <body className="flex min-h-screen flex-col font-body">
+        <GoogleTagManagerNoscript />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-navy focus:px-4 focus:py-2 focus:font-heading focus:text-sm focus:text-offwhite"
