@@ -17,6 +17,9 @@ export const siteConfig = {
   },
   /** Google Business Profile — direct review link. */
   googleReview: "https://g.page/r/CaBoV6foQh89EBI/review",
+  /** Google Analytics 4 measurement ID (public). Override via env if needed. */
+  googleAnalytics:
+    process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-1TVY097ZKY",
   positioning: {
     label: "Engineering-First Digital Solutions Agency",
     sell: "Growth, lead generation, conversion, speed, SEO visibility, and long-term partnership — not just websites.",

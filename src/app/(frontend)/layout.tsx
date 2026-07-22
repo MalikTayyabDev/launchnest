@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ChatAgent } from "@/components/chat/ChatAgent";
 import { IntroOfferBanner } from "@/components/IntroOfferBanner";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { JsonLd } from "@/components/JsonLd";
 import { siteConfig, brandAssets } from "@/lib/site";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
@@ -83,6 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <ChatAgent />
         <WhatsAppButton />
+        <GoogleAnalytics />
         <Analytics />
         <SpeedInsights />
       </body>
