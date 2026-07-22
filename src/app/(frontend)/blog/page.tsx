@@ -68,8 +68,8 @@ export default async function BlogPage() {
 
       <CTASection
         heading="Rather we just look at your site directly?"
-        body="Skip the reading. Book a free technical audit and we'll tell you what's specific to you."
-        cta={{ label: "Book a Free Technical Audit", href: "/contact" }}
+        body="Skip the reading. Book a free growth audit and we'll tell you what's specific to you."
+        cta={{ label: "Book a Free Growth Audit", href: "/contact" }}
       />
     </>
   );

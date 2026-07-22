@@ -4,18 +4,18 @@ import { whatsappLink } from "@/lib/site";
 const paths = [
   {
     href: "/portfolio",
-    label: "See live work",
-    hint: "80+ real sites",
+    label: "See outcomes",
+    hint: "Case studies + live sites",
+  },
+  {
+    href: "/for/saas",
+    label: "Built for SaaS",
+    hint: "Trial & pipeline focus",
   },
   {
     href: "/pricing",
     label: "View pricing",
-    hint: "Clear ranges",
-  },
-  {
-    href: "/intro-offer",
-    label: "$20 intro page",
-    hint: "Limited slots",
+    hint: "Growth-first ranges",
   },
   {
     href: whatsappLink,

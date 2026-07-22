@@ -18,7 +18,7 @@ export default function NotFound() {
             Back to home
           </Button>
           <Button href="/contact" variant="ghost">
-            Book a Free Technical Audit
+            Book a Free Growth Audit
           </Button>
         </div>
       </div>

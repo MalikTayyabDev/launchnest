@@ -74,7 +74,8 @@ export const navLinks = [
   { label: "Blog", href: "/blog" },
 ];
 
+/** Single primary CTA used across marketing pages and the header. */
 export const primaryCta = {
-  label: "Free Technical Audit",
-  href: "/#audit-form",
+  label: "Book a Free Growth Audit",
+  href: "/contact",
 };

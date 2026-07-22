@@ -38,8 +38,8 @@ export const services: Service[] = [
       "Hosting & deployment setup when you need a production-ready handoff",
     ],
     pricing: {
-      anchor: "from $79",
-      note: "Starter launches from $79. Growth conversion sites from $199. Custom SaaS / MVP / ecommerce from $599.",
+      anchor: "from $199",
+      note: "Most SaaS and growth builds start at Growth Engine ($199+). Starter landings from $79. Custom SaaS / MVP / ecommerce from $599.",
     },
     outcome:
       "A digital presence that loads fast, converts better, and is documented so your team — or the next engineer — can own it.",

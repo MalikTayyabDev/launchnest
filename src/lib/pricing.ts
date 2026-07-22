@@ -8,21 +8,10 @@ export type PricingPackage = {
 
 export const packages: PricingPackage[] = [
   {
-    name: "Starter Launch",
-    range: "$79 – $149",
-    summary: "Fast, credible launch presence for landing pages and early-stage sites.",
-    features: [
-      "Up to 5 pages / focused landing build",
-      "Template-based design, conversion-minded",
-      "On-page SEO basics",
-      "Mobile-first and responsive",
-      "Contact / lead form setup",
-    ],
-  },
-  {
     name: "Growth Engine",
     range: "$199 – $449",
-    summary: "For SaaS, agencies, and businesses that need the site to generate leads and convert.",
+    summary:
+      "Where most SaaS, agencies, and growth-stage businesses start — a site built to generate leads and convert.",
     features: [
       "Up to 10 pages",
       "Custom design aligned to brand",
@@ -42,6 +31,19 @@ export const packages: PricingPackage[] = [
       "Custom functionality and data models",
       "Performance and security hardening",
       "Documentation for your team",
+    ],
+  },
+  {
+    name: "Starter Launch",
+    range: "$79 – $149",
+    summary:
+      "Focused landing / early presence builds. Most product teams scale into Growth Engine.",
+    features: [
+      "Up to 5 pages / focused landing build",
+      "Template-based design, conversion-minded",
+      "On-page SEO basics",
+      "Mobile-first and responsive",
+      "Contact / lead form setup",
     ],
   },
 ];

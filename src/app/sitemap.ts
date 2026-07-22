@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site";
 import { services } from "@/lib/services";
-import { getAllPosts } from "@/lib/content";
+import { getAllPosts, getCaseStudySlugs } from "@/lib/content";
+import { audiences } from "@/lib/audiences";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteConfig.url;
@@ -28,6 +29,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: now,
   }));
 
+  const audienceRoutes = audiences.map((a) => ({
+    url: `${base}/for/${a.slug}`,
+    lastModified: now,
+  }));
+
+  const caseSlugs = await getCaseStudySlugs();
+  const caseStudyRoutes = caseSlugs.map((slug) => ({
+    url: `${base}/work/${slug}`,
+    lastModified: now,
+  }));
+
   const posts = await getAllPosts();
 
   const blogRoutes = posts.map((p) => ({
@@ -35,5 +47,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date(p.date),
   }));
 
-  return [...staticRoutes, ...serviceRoutes, ...blogRoutes];
+  return [
+    ...staticRoutes,
+    ...serviceRoutes,
+    ...audienceRoutes,
+    ...caseStudyRoutes,
+    ...blogRoutes,
+  ];
 }

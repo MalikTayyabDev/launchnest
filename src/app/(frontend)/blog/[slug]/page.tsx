@@ -93,8 +93,8 @@ export default async function BlogPostPage({
 
       <CTASection
         heading="Think this applies to your site? Let's check."
-        body="Book a free technical audit and we'll tell you whether it does — with specifics."
-        cta={{ label: "Book a Free Technical Audit", href: "/contact" }}
+        body="Book a free growth audit and we'll tell you whether it does — with specifics."
+        cta={{ label: "Book a Free Growth Audit", href: "/contact" }}
         secondaryCta={{ label: "Read more", href: "/blog" }}
       />
     </>

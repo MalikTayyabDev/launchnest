@@ -14,8 +14,8 @@ export function Footer() {
           <div>
             <Logo variant="white" />
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-offwhite/60">
-              Engineering-first digital solutions for startups, SaaS companies, agencies,
-              and growing businesses — launch, scale, and optimize.
+              Engineering-first digital solutions for SaaS companies, AI startups,
+              agencies, and growing businesses — launch, scale, and optimize.
             </p>
             <p className="mt-4 font-mono text-xs uppercase tracking-[0.16em] text-gold">
               {siteConfig.founded}
@@ -29,6 +29,8 @@ export function Footer() {
               </FooterLink>
             ))}
             <FooterLink href="/contact">Contact</FooterLink>
+            <FooterLink href="/for/saas">For SaaS</FooterLink>
+            <FooterLink href="/for/ai-startups">For AI startups</FooterLink>
           </FooterCol>
 
           <FooterCol title="Services">
@@ -41,7 +43,7 @@ export function Footer() {
 
           <div>
             <h3 className="mb-4 font-heading text-sm font-semibold uppercase tracking-wider text-offwhite/80">
-              Get a free speed &amp; security report
+              Get a free growth audit
             </h3>
             <NewsletterSignup />
             <div className="mt-6 flex flex-wrap gap-4">

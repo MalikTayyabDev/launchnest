@@ -2,23 +2,28 @@ import type { Metadata } from "next";
 import { Section, Eyebrow } from "@/components/Section";
 import { CTASection } from "@/components/CTASection";
 import { PortfolioGrid } from "@/components/PortfolioGrid";
+import { CaseStudyCard } from "@/components/CaseStudyCard";
+import { Reveal } from "@/components/Reveal";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema } from "@/lib/seo";
 import { getGridProjects, getOfflineProjects } from "@/lib/projects";
+import { getAllCaseStudies } from "@/lib/content";
+import { primaryCta } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Portfolio",
+  title: "Portfolio & Case Studies",
   description:
-    "A selection of websites we've designed and built across WordPress, Shopify, Webflow, Wix, and custom stacks — for clients in the UK, US, Australia, and beyond.",
+    "Outcome-based case studies and live builds for SaaS, startups, ecommerce, and growing businesses — proof before platform theater.",
   alternates: { canonical: "/portfolio" },
 };
 
 export const revalidate = 60;
 
 export default async function PortfolioPage() {
-  const [portfolioLive, portfolioOffline] = await Promise.all([
+  const [portfolioLive, portfolioOffline, caseStudies] = await Promise.all([
     getGridProjects(),
     getOfflineProjects(),
+    getAllCaseStudies(),
   ]);
 
   const platformCount = new Set(portfolioLive.map((i) => i.category)).size;
@@ -37,21 +42,20 @@ export default async function PortfolioPage() {
         <div className="max-w-3xl">
           <Eyebrow>Portfolio</Eyebrow>
           <h1 className="font-heading text-4xl font-bold tracking-tight text-navy sm:text-5xl">
-            {totalDelivered}+ sites shipped, across every major platform.
+            Outcomes first. Live builds second.
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-slate">
-            E-commerce stores, service businesses, clinics, agencies, and SaaS —
-            built on the right tool for the job. Filter by platform, or just
-            browse. Every card links straight to the live site.
+            Case studies show the metrics. The grid shows sites in production —
+            across stacks, for SaaS, startups, ecommerce, and service businesses.
           </p>
         </div>
 
         <dl className="mt-10 grid max-w-2xl grid-cols-2 gap-6 sm:grid-cols-4">
           {[
             { n: `${totalDelivered}+`, l: "Sites delivered" },
+            { n: caseStudies.length, l: "Case studies" },
             { n: platformCount, l: "Platforms" },
-            { n: portfolioLive.filter((i) => i.category === "WordPress").length, l: "WordPress builds" },
-            { n: portfolioLive.filter((i) => i.category === "Shopify").length, l: "Shopify stores" },
+            { n: "SaaS+", l: "Primary focus" },
           ].map((s) => (
             <div key={s.l}>
               <dt className="font-heading text-3xl font-bold text-navy">{s.n}</dt>
@@ -63,12 +67,44 @@ export default async function PortfolioPage() {
         </dl>
       </Section>
 
-      <Section tone="white">
-        <PortfolioGrid items={portfolioLive} />
+      {caseStudies.length > 0 && (
+        <Section tone="white">
+          <div className="max-w-2xl">
+            <Eyebrow>Case studies</Eyebrow>
+            <h2 className="font-heading text-2xl font-bold tracking-tight text-navy sm:text-3xl">
+              Situation. Work. Results.
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-slate">
+              The stories buyers use to de-risk hiring us.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {caseStudies.map((study, i) => (
+              <Reveal key={study.slug} delay={i * 0.05}>
+                <CaseStudyCard study={study} priority={i < 2} />
+              </Reveal>
+            ))}
+          </div>
+        </Section>
+      )}
+
+      <Section tone="offwhite">
+        <div className="max-w-3xl">
+          <Eyebrow>Live sites</Eyebrow>
+          <h2 className="font-heading text-2xl font-bold tracking-tight text-navy sm:text-3xl">
+            In production across platforms
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-slate">
+            Filter by platform, or browse. Every card links to the live site.
+          </p>
+        </div>
+        <div className="mt-10">
+          <PortfolioGrid items={portfolioLive} />
+        </div>
       </Section>
 
       {portfolioOffline.length > 0 && (
-        <Section tone="offwhite">
+        <Section tone="white">
           <div className="max-w-3xl">
             <Eyebrow>Also delivered</Eyebrow>
             <h2 className="font-heading text-2xl font-bold tracking-tight text-navy sm:text-3xl">
@@ -88,7 +124,7 @@ export default async function PortfolioPage() {
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-navy/15 bg-white px-4 py-2 text-sm text-slate transition-colors hover:border-navy/40 hover:text-navy"
+                  className="inline-flex items-center gap-2 rounded-full border border-navy/15 bg-offwhite px-4 py-2 text-sm text-slate transition-colors hover:border-navy/40 hover:text-navy"
                 >
                   <span className="font-heading font-medium text-navy">
                     {item.name}
@@ -105,8 +141,8 @@ export default async function PortfolioPage() {
 
       <CTASection
         heading="Want results like these — or better?"
-        body="Tell us what you're launching or scaling. We'll map the right solution and show you what it takes to ship."
-        cta={{ label: "Book a Free Growth Audit", href: "/contact" }}
+        body="Book a free growth audit. We'll map the right solution and show you what it takes to ship."
+        cta={primaryCta}
       />
     </>
   );

@@ -4,6 +4,7 @@ import { NextStepsStrip } from "@/components/NextStepsStrip";
 import { Section, Eyebrow } from "@/components/Section";
 import { StatCallout } from "@/components/StatCallout";
 import { ServiceCard } from "@/components/ServiceCard";
+import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { PortfolioCard } from "@/components/PortfolioCard";
 import { Button } from "@/components/Button";
 import { TestimonialQuote } from "@/components/TestimonialQuote";
@@ -12,14 +13,15 @@ import { FAQ } from "@/components/FAQ";
 import { Reveal } from "@/components/Reveal";
 import { getAllCaseStudies } from "@/lib/content";
 import { getFeaturedProjects } from "@/lib/projects";
-import { siteConfig } from "@/lib/site";
+import { primaryCta, siteConfig } from "@/lib/site";
+import Link from "next/link";
 
 const pillars = [
   {
     label: "Launch",
     icon: "build" as const,
     description:
-      "Brand, UI/UX, and engineering for landing pages, SaaS sites, startup MVPs, and business websites — end-to-end, one partner.",
+      "Brand, UI/UX, and engineering for SaaS marketing sites, startup MVPs, and conversion-focused launches — end-to-end, one partner.",
     href: "/services/website-design-dev",
   },
   {
@@ -39,15 +41,13 @@ const pillars = [
 ];
 
 const positioning =
-  "LaunchNest is an engineering-first digital solutions agency — a launch and growth partner for startups, SaaS companies, agencies, and growing businesses. We don't sell websites. We sell growth, lead generation, conversion, SEO visibility, and long-term partnership through modern design, engineering, SEO, AI, and systems that scale.";
+  "LaunchNest is an engineering-first growth partner for SaaS companies, AI startups, and agencies. We don't sell websites. We sell lead generation, conversion, SEO visibility, and long-term partnership — through modern design, engineering, and systems that scale.";
 
 const trustSignals = [
-  "SaaS",
-  "AI Startups",
-  "Tech Startups",
-  "Agencies",
-  "Ecommerce",
-  "Professional services",
+  { label: "SaaS companies", href: "/for/saas" },
+  { label: "AI startups", href: "/for/ai-startups" },
+  { label: "Tech startups", href: "/for/ai-startups" },
+  { label: "Agencies", href: "/services" },
 ];
 
 const capabilitySignals = [
@@ -64,7 +64,7 @@ const process = [
   {
     step: "01",
     title: "Discover",
-    body: "Free audit or 30-minute call — we map goals, bottlenecks, and the fastest path to leads and conversion.",
+    body: "Free growth audit — we map goals, bottlenecks, and the fastest path to leads and conversion.",
   },
   {
     step: "02",
@@ -90,7 +90,7 @@ const homeFaqs = [
   },
   {
     q: "Who do you work with?",
-    a: "Primary clients are SaaS companies, AI and tech startups, and agencies. We also partner with SMBs, healthcare, law firms, home services, real estate, coaches, consultants, and ecommerce brands.",
+    a: "Primary clients are SaaS companies, AI and tech startups, and agencies. We also partner with growing businesses when the fit is right — but product and growth teams are our core.",
   },
   {
     q: "What do you actually sell?",
@@ -106,59 +106,67 @@ const homeFaqs = [
   },
 ];
 
+const socialProof = [
+  { value: "100+", label: "Projects shipped" },
+  { value: "< 2.5s", label: "LCP standard" },
+  { value: "1 day", label: "Typical reply time" },
+  { value: "est. 2022", label: "Building since" },
+];
+
 export const revalidate = 60;
 
 export default async function HomePage() {
   const [caseStudies, featuredProjects] = await Promise.all([
     getAllCaseStudies(),
-    getFeaturedProjects(6),
+    getFeaturedProjects(3),
   ]);
+
+  const featuredStudies = [
+    ...caseStudies.filter((c) => c.industry === "SaaS"),
+    ...caseStudies.filter((c) => c.industry !== "SaaS"),
+  ].slice(0, 3);
 
   return (
     <>
       <Hero
         eyebrow={siteConfig.positioning.label}
-        headline="Launch and scale digital products that grow the business."
-        subhead="Engineering-first design, development, SEO, and AI for startups, SaaS companies, agencies, and growing businesses. One partner — branding through deployment and ongoing growth."
+        headline="The growth partner for SaaS and AI startups."
+        subhead="Engineering-first design, development, SEO, and AI — so your product presence converts trials, demos, and pipeline. One accountable partner from launch through scale."
         trustChips={[
+          "SaaS · AI · Agencies",
           "100+ projects shipped",
           "UK · US · AU",
-          "Free growth audit",
           "Reply in 1 business day",
         ]}
-        secondaryCta={{ label: "See the work", href: "/portfolio" }}
-        cta={{ label: "See solutions", href: "/services" }}
+        secondaryCta={{ label: "See outcomes", href: "/portfolio" }}
+        cta={primaryCta}
         aside={<HeroLeadForm />}
       />
 
       <NextStepsStrip />
 
       <div className="border-y border-navy/10 bg-offwhite">
-        <div className="mx-auto flex w-full max-w-content flex-col items-start gap-6 px-6 py-8 sm:flex-row sm:items-center sm:justify-between lg:px-8">
-          <p className="font-mono text-lg font-semibold tracking-tight text-navy">
-            Complete launch solutions.{" "}
-            <span className="text-gold">One accountable partner.</span>
-          </p>
-          <div className="flex gap-10">
-            <StatCallout value="< 2.5s" label="LCP standard" />
-            <StatCallout value="est. 2022" label="Building since" />
-          </div>
+        <div className="mx-auto grid w-full max-w-content grid-cols-2 gap-6 px-6 py-10 sm:grid-cols-4 lg:px-8">
+          {socialProof.map((s) => (
+            <StatCallout key={s.label} value={s.value} label={s.label} />
+          ))}
         </div>
       </div>
 
       <div className="border-b border-navy/10 bg-white">
         <div className="mx-auto w-full max-w-content px-6 py-6 lg:px-8">
           <p className="mb-4 text-center font-mono text-xs uppercase tracking-[0.16em] text-slate">
-            Built for the clients we want to partner with
+            Built for the clients we partner with
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
             {trustSignals.map((item) => (
-              <span
-                key={item}
-                className="font-heading text-sm font-semibold tracking-tight text-navy/70"
+              <Link
+                key={item.label}
+                href={item.href}
+                className="font-heading text-sm font-semibold tracking-tight text-navy/70 transition-colors hover:text-gold"
               >
-                {item}
-              </span>
+                {item.label}
+              </Link>
             ))}
           </div>
           <p className="mb-3 mt-8 text-center font-mono text-xs uppercase tracking-[0.16em] text-slate">
@@ -205,6 +213,37 @@ export default async function HomePage() {
       </Section>
 
       <Section tone="offwhite">
+        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <div className="max-w-2xl">
+            <Eyebrow>Outcomes</Eyebrow>
+            <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
+              Proof before pretty screenshots.
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-slate">
+              Situation, work, and metrics — the stories serious buyers actually need.
+            </p>
+          </div>
+          <div className="hidden shrink-0 sm:block">
+            <Button href="/portfolio" variant="ghost">
+              View all work
+            </Button>
+          </div>
+        </div>
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {featuredStudies.map((study, i) => (
+            <Reveal key={study.slug} delay={i * 0.06}>
+              <CaseStudyCard study={study} priority={i === 0} />
+            </Reveal>
+          ))}
+        </div>
+        <div className="mt-10 sm:hidden">
+          <Button href="/portfolio" variant="primary" className="w-full">
+            View all work
+          </Button>
+        </div>
+      </Section>
+
+      <Section tone="white">
         <div className="max-w-2xl">
           <Eyebrow>How we work</Eyebrow>
           <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
@@ -218,7 +257,7 @@ export default async function HomePage() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {process.map((p, i) => (
             <Reveal key={p.step} delay={i * 0.06}>
-              <div className="flex h-full flex-col rounded-lg border border-navy/10 bg-white p-6">
+              <div className="flex h-full flex-col rounded-lg border border-navy/10 bg-offwhite p-6">
                 <span className="font-mono text-sm font-bold text-gold">{p.step}</span>
                 <h3 className="mt-3 font-heading text-lg font-semibold text-navy">
                   {p.title}
@@ -245,13 +284,12 @@ export default async function HomePage() {
       <Section tone="offwhite">
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div className="max-w-2xl">
-            <Eyebrow>Selected work</Eyebrow>
+            <Eyebrow>Live builds</Eyebrow>
             <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
-              Real products. Live businesses. Shipping results.
+              Sites in production across stacks.
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-slate">
-              A cross-section of launches across stacks — every card links to a live
-              site. Platforms are tools; outcomes are the point.
+              Platforms are tools. Every card links to a live site.
             </p>
           </div>
           <div className="hidden shrink-0 sm:block">
@@ -324,8 +362,8 @@ export default async function HomePage() {
 
       <CTASection
         heading="Ready to launch or scale with an engineering-first partner?"
-        body="Book a free growth audit or a 30-minute call. We'll tell you what's blocking leads, conversion, and speed — no sales script."
-        cta={{ label: "Book a Free Growth Audit", href: "/contact" }}
+        body="Book a free growth audit. We'll tell you what's blocking leads, conversion, and speed — no sales script."
+        cta={primaryCta}
         secondaryCta={{ label: "See solutions", href: "/services" }}
       />
     </>

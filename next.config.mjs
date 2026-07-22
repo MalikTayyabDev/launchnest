@@ -64,9 +64,8 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      // The Work/case-studies section was consolidated into Portfolio.
+      // Case study index lives inside Portfolio; detail pages stay at /work/:slug.
       { source: "/work", destination: "/portfolio", permanent: true },
-      { source: "/work/:slug", destination: "/portfolio", permanent: true },
       {
         source: "/services/social-media-management",
         destination: "/services/ai-automation",

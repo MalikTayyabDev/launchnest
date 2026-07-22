@@ -5,7 +5,7 @@ import { CTASection } from "@/components/CTASection";
 import { Reveal } from "@/components/Reveal";
 import { CustomOfferForm } from "@/components/CustomOfferForm";
 import { packages, maintenancePlans } from "@/lib/pricing";
-import { whatsappLink } from "@/lib/site";
+import { primaryCta, whatsappLink } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -26,6 +26,9 @@ export default function PricingPage() {
           <p className="mt-6 text-lg leading-relaxed text-slate">
             Starting ranges to pre-qualify fit — final scope is pinned on a call.
             We compete on outcomes and partnership, not race-to-the-bottom pricing.
+            Most SaaS and startup builds begin in{" "}
+            <span className="font-semibold text-navy">Growth Engine</span> or{" "}
+            <span className="font-semibold text-navy">Custom Product</span>.
           </p>
         </div>
       </Section>
@@ -45,7 +48,7 @@ export default function PricingPage() {
                 summary={pkg.summary}
                 features={pkg.features}
                 featured={pkg.featured}
-                cta={{ label: "Book a Free Growth Audit", href: "/contact" }}
+                cta={primaryCta}
               />
             </Reveal>
           ))}
@@ -135,7 +138,7 @@ export default function PricingPage() {
                 summary={plan.summary}
                 features={plan.features}
                 recurring
-                cta={{ label: "Get a Free Speed & Security Report", href: "/contact" }}
+                cta={{ label: "Book a Free Growth Audit", href: "/contact" }}
               />
             </Reveal>
           ))}
@@ -172,7 +175,7 @@ export default function PricingPage() {
       <CTASection
         heading="Know your range? Let's talk specifics."
         body="Book a Free Growth Audit and we'll turn a range into a real, scoped number."
-        cta={{ label: "Book a Free Growth Audit", href: "/contact" }}
+        cta={primaryCta}
       />
     </>
   );
