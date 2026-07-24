@@ -7,8 +7,9 @@ import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
 import { JsonLd } from "@/components/JsonLd";
 import { FAQ } from "@/components/FAQ";
-import { serviceSchema, breadcrumbSchema } from "@/lib/seo";
+import { serviceSchema, breadcrumbSchema, selfCanonical } from "@/lib/seo";
 import { getService, services } from "@/lib/services";
+import { primaryCta } from "@/lib/site";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -22,10 +23,17 @@ export async function generateMetadata({
   const { slug } = await params;
   const service = getService(slug);
   if (!service) return { title: "Service not found" };
+  const path = `/services/${service.slug}`;
+  const { canonical, openGraph } = selfCanonical(path);
   return {
-    title: service.label,
+    title: `${service.primaryKeyword} | ${service.label}`,
     description: service.shortDescription,
-    alternates: { canonical: `/services/${service.slug}` },
+    alternates: { canonical },
+    openGraph: {
+      ...openGraph,
+      title: `${service.primaryKeyword} | ${service.label}`,
+      description: service.shortDescription,
+    },
   };
 }
 
@@ -52,14 +60,17 @@ export default async function ServicePage({
         <div className="max-w-3xl">
           <Eyebrow>{service.tagline}</Eyebrow>
           <h1 className="font-heading text-4xl font-bold tracking-tight text-navy sm:text-5xl">
-            {service.label}
+            {service.primaryKeyword}
           </h1>
+          <p className="mt-3 font-heading text-xl font-semibold text-navy/70">
+            {service.label}
+          </p>
           <p className="mt-6 text-lg leading-relaxed text-slate">
             {service.shortDescription}
           </p>
           <div className="mt-8">
-            <Button href="/contact" variant="primary">
-              Book a Free Growth Audit
+            <Button href={primaryCta.href} variant="primary">
+              {primaryCta.label}
             </Button>
           </div>
         </div>
@@ -76,6 +87,32 @@ export default async function ServicePage({
                 </p>
               ))}
             </div>
+
+            <h2 className="mt-12 font-heading text-2xl font-bold text-navy">
+              Who this is for
+            </h2>
+            <ul className="mt-6 flex flex-col gap-3">
+              {service.whoFor.map((item) => (
+                <li key={item} className="flex items-start gap-3 text-base text-slate">
+                  <span
+                    className="mt-2 h-2 w-2 shrink-0 rounded-full bg-gold"
+                    aria-hidden="true"
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            {service.seoSections.map((section) => (
+              <div key={section.heading} className="mt-12">
+                <h2 className="font-heading text-2xl font-bold text-navy">
+                  {section.heading}
+                </h2>
+                <p className="mt-4 text-lg leading-relaxed text-slate">
+                  {section.body}
+                </p>
+              </div>
+            ))}
 
             <h2 className="mt-12 font-heading text-2xl font-bold text-navy">
               What you get
@@ -114,7 +151,6 @@ export default async function ServicePage({
             </div>
           </div>
 
-          {/* Pricing anchor block */}
           <aside>
             <Reveal>
               <div className="sticky top-28 rounded-xl border border-navy/10 bg-white p-7 shadow-[0_12px_40px_-20px_rgba(11,31,58,0.3)]">
@@ -128,8 +164,8 @@ export default async function ServicePage({
                   {service.pricing.note}
                 </p>
                 <div className="mt-6 flex flex-col gap-3">
-                  <Button href="/contact" variant="primary" className="w-full">
-                    Book a Free Growth Audit
+                  <Button href={primaryCta.href} variant="primary" className="w-full">
+                    {primaryCta.label}
                   </Button>
                   <Button href="/pricing" variant="ghost" className="w-full">
                     See full pricing
@@ -189,9 +225,9 @@ export default async function ServicePage({
       )}
 
       <CTASection
-        heading={`Want a straight answer on ${service.label.toLowerCase()}?`}
+        heading={`Want a straight answer on ${service.primaryKeyword}?`}
         body="We'll review what you have now and tell you exactly what's worth doing."
-        cta={{ label: "Book a Free Growth Audit", href: "/contact" }}
+        cta={primaryCta}
       />
     </>
   );

@@ -4,12 +4,16 @@ import { StatCallout } from "@/components/StatCallout";
 import { CTASection } from "@/components/CTASection";
 import { Reveal } from "@/components/Reveal";
 import { siteConfig } from "@/lib/site";
+import { selfCanonical } from "@/lib/seo";
+
+const seo = selfCanonical("/about");
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About LaunchNest — Engineering-First Digital Agency",
   description:
-    "LaunchNest is an engineering-first digital solutions agency — a launch and growth partner for startups, SaaS companies, agencies, and growing businesses.",
-  alternates: { canonical: "/about" },
+    "LaunchNest is an engineering-first digital solutions agency and startup growth partner for SaaS companies, AI startups, and agencies in the UK, US, and Australia.",
+  alternates: { canonical: seo.canonical },
+  openGraph: { ...seo.openGraph },
 };
 
 const values = [

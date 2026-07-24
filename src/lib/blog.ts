@@ -36,8 +36,10 @@ export const posts: BlogPost[] = [
     author: "LaunchNest",
     body: [
       "Core Web Vitals are a useful proxy for user experience, but they aren't all equal in business terms. Largest Contentful Paint (LCP) is the one we watch most closely — it maps directly to how fast a user perceives your page as usable.",
-      "Our internal standard is an LCP under 2.5 seconds on a mid-range mobile device on a real network, not a lab machine on fiber. That constraint changes which optimizations are worth the effort.",
+      "Our internal standard is an LCP under 2.5 seconds on a mid-range mobile device on a real network, not a lab machine on fiber. That constraint changes which optimizations are worth the effort — and it is the same bar we use as a technical SEO agency when we audit SaaS marketing sites.",
       "Interaction to Next Paint (INP) matters most on interactive pages — checkouts, dashboards, configurators. Cumulative Layout Shift (CLS) is often the cheapest to fix: reserve space for images and embeds, and most of the score problem disappears.",
+      "If you are investing in SEO content writing without fixing LCP on money pages, you are paying for traffic that bounces before it converts. Technical SEO and Core Web Vitals should land before you scale blog volume.",
+      "Need a prioritized backlog for your site? Book a free growth audit and we will tell you which vitals are actually costing you pipeline.",
     ],
   },
   {
@@ -83,8 +85,9 @@ export const posts: BlogPost[] = [
     author: "LaunchNest",
     body: [
       "\"How much does a website cost?\" is a fair question with a frustrating answer: it depends. But it doesn't depend on nothing — it depends on a few specific things, and once you know them you can read a quote properly.",
-      "The biggest driver is whether the site is a template build or a bespoke platform. A well-executed template site can be genuinely great and start in the low hundreds. A custom platform with integrations, a real CMS, and performance guarantees is a different category, and pricing scales accordingly.",
-      "The second driver is what happens after launch. A cheap build with no maintenance is often more expensive over two years than a solid build with a care plan — because you pay for the emergencies instead of the prevention.",
+      "The biggest driver is whether the site is a template build or a bespoke platform. A well-executed template site can be genuinely great and start in the low hundreds. SaaS website development cost rises when you need custom conversion paths, CMS depth, integrations, and performance guarantees.",
+      "For most SaaS and startup teams we work with, the realistic starting band is Growth Engine territory — not the cheapest landing-page tier. Custom product / MVP scopes land higher because the engineering surface area is larger.",
+      "The second driver is what happens after launch. A cheap build with no website maintenance retainer is often more expensive over two years than a solid build with a care plan — because you pay for the emergencies instead of the prevention.",
       "Be wary of two extremes: a quote far below market usually means corners you'll pay for later, and a quote far above it should come with a very specific justification. A fair quote tells you what you're getting, what it's built on, and who maintains it. That's what we aim for with transparent starting ranges rather than a single mystery number.",
     ],
   },

@@ -5,12 +5,16 @@ import { CTASection } from "@/components/CTASection";
 import { Reveal } from "@/components/Reveal";
 import { services } from "@/lib/services";
 import { siteConfig } from "@/lib/site";
+import { selfCanonical } from "@/lib/seo";
+
+const seo = selfCanonical("/services");
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Digital Product Engineering Services for SaaS & Startups",
   description:
-    "Engineering-first digital solutions: website & product engineering, UI/UX, brand identity, AI & automation, technical SEO & content, and growth care retainers.",
-  alternates: { canonical: "/services" },
+    "Engineering-first digital product engineering services: SaaS website development, UI/UX, brand identity, AI automation, technical SEO, and website maintenance retainers.",
+  alternates: { canonical: seo.canonical },
+  openGraph: { ...seo.openGraph },
 };
 
 export default function ServicesPage() {
@@ -20,11 +24,12 @@ export default function ServicesPage() {
         <div className="max-w-3xl">
           <Eyebrow>Services</Eyebrow>
           <h1 className="font-heading text-4xl font-bold tracking-tight text-navy sm:text-5xl">
-            Complete launch solutions — one engineering-first partner.
+            Complete launch solutions — digital product engineering for SaaS and startups.
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-slate">
             {siteConfig.positioning.sell} Capabilities span branding, UI/UX,
-            development, content, SEO, QA, deployment, AI, automation, and ongoing care.
+            SaaS website development, content, technical SEO, QA, deployment, AI
+            integrations, automation, and ongoing website maintenance retainers.
           </p>
         </div>
       </Section>

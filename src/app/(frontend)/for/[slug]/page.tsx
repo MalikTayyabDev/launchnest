@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { Hero } from "@/components/Hero";
 import { Section, Eyebrow } from "@/components/Section";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
@@ -9,7 +10,7 @@ import { Reveal } from "@/components/Reveal";
 import { JsonLd } from "@/components/JsonLd";
 import { audiences, getAudience } from "@/lib/audiences";
 import { getCaseStudy } from "@/lib/content";
-import { breadcrumbSchema } from "@/lib/seo";
+import { breadcrumbSchema, selfCanonical } from "@/lib/seo";
 import { primaryCta } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -22,10 +23,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const audience = getAudience(slug);
   if (!audience) return { title: "For you" };
+  const path = `/for/${audience.slug}`;
+  const { canonical, openGraph } = selfCanonical(path);
   return {
     title: audience.title,
     description: audience.description,
-    alternates: { canonical: `/for/${audience.slug}` },
+    alternates: { canonical },
+    openGraph: {
+      ...openGraph,
+      title: audience.title,
+      description: audience.description,
+    },
   };
 }
 
@@ -75,6 +83,33 @@ export default async function AudiencePage({ params }: Props) {
         cta={primaryCta}
         secondaryCta={{ label: "See related work", href: "/portfolio" }}
       />
+
+      <Section tone="offwhite">
+        <div className="mx-auto max-w-3xl">
+          <Eyebrow>Why this page exists</Eyebrow>
+          <h2 className="font-heading text-3xl font-bold tracking-tight text-navy">
+            Built for how {audience.label.replace(/^For /, "")} teams buy
+          </h2>
+          <div className="mt-6 flex flex-col gap-5">
+            {audience.body.map((p) => (
+              <p key={p.slice(0, 48)} className="text-lg leading-relaxed text-slate">
+                {p}
+              </p>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            {audience.services.map((s) => (
+              <Link
+                key={s.href}
+                href={s.href}
+                className="rounded-full border border-navy/15 bg-white px-4 py-2 font-heading text-sm font-medium text-navy transition-colors hover:border-gold hover:text-gold"
+              >
+                {s.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </Section>
 
       <Section tone="white">
         <div className="grid gap-12 lg:grid-cols-2">

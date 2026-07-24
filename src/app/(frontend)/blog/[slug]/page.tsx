@@ -5,7 +5,7 @@ import { Section, Eyebrow } from "@/components/Section";
 import { CTASection } from "@/components/CTASection";
 import { PostBody } from "@/components/PostBody";
 import { JsonLd } from "@/components/JsonLd";
-import { articleSchema, breadcrumbSchema } from "@/lib/seo";
+import { articleSchema, breadcrumbSchema, selfCanonical } from "@/lib/seo";
 import { getPost, getPostSlugs } from "@/lib/content";
 
 export const revalidate = 60;
@@ -22,10 +22,17 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await getPost(slug);
   if (!post) return { title: "Post not found" };
+  const path = `/blog/${post.slug}`;
+  const { canonical, openGraph } = selfCanonical(path);
   return {
     title: post.seo?.metaTitle || post.title,
     description: post.seo?.metaDescription || post.excerpt,
-    alternates: { canonical: `/blog/${post.slug}` },
+    alternates: { canonical },
+    openGraph: {
+      ...openGraph,
+      title: post.seo?.metaTitle || post.title,
+      description: post.seo?.metaDescription || post.excerpt,
+    },
   };
 }
 

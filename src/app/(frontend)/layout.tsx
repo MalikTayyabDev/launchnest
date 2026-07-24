@@ -15,7 +15,8 @@ import { organizationSchema, websiteSchema } from "@/lib/seo";
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} — Engineering-First Digital Solutions`,
+    default:
+      "LaunchNest — Engineering-First Digital Solutions for SaaS & Startups",
     template: `%s — ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -28,12 +29,14 @@ export const metadata: Metadata = {
     "Next.js development",
     "website conversion optimization",
     "digital product engineering",
+    "SaaS marketing site agency",
+    "AI automation for startups",
   ],
   openGraph: {
     type: "website",
-    title: `${siteConfig.name} — Engineering-First Digital Solutions`,
+    title:
+      "LaunchNest — Engineering-First Digital Solutions for SaaS & Startups",
     description: siteConfig.description,
-    url: siteConfig.url,
     siteName: siteConfig.name,
     images: [
       {
@@ -46,12 +49,22 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} — Engineering-First Digital Solutions`,
+    title:
+      "LaunchNest — Engineering-First Digital Solutions for SaaS & Startups",
     description: siteConfig.description,
     images: [brandAssets.horizontalWhite.path],
   },
-  alternates: { canonical: "/" },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export const viewport: Viewport = {

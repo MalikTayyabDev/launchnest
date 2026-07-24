@@ -4,7 +4,7 @@ export const siteConfig = {
   name: "LaunchNest",
   tagline: "BUILD · OPTIMIZE · LAUNCH",
   description:
-    "LaunchNest is an engineering-first digital solutions agency. We help startups, SaaS companies, agencies, and growing businesses launch, scale, and optimize their digital presence through modern design, engineering, SEO, AI, and growth-focused solutions.",
+    "Engineering-first digital solutions agency for SaaS companies, AI startups, and agencies. We build conversion-focused websites, startup MVPs, technical SEO, and AI automation — UK, US, and Australia.",
   url:
     process.env.NEXT_PUBLIC_SERVER_URL?.replace(/\/$/, "") || CANONICAL_URL,
   email: "hello@launchnest.tech",

@@ -3,6 +3,25 @@ import { siteConfig, brandAssets } from "./site";
 /** Countries we actively target (UK, US, Australia). */
 export const targetCountries = ["GB", "US", "AU"];
 
+/** Absolute URL for a site path (always self-referencing for canonicals). */
+export function absoluteUrl(path = "/"): string {
+  const base = siteConfig.url.replace(/\/$/, "");
+  if (!path || path === "/") return `${base}/`;
+  return `${base}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
+/** Self-canonical + Open Graph URL for a page path. */
+export function selfCanonical(path = "/"): {
+  canonical: string;
+  openGraph: { url: string };
+} {
+  const url = absoluteUrl(path);
+  return {
+    canonical: url,
+    openGraph: { url },
+  };
+}
+
 /** Organization + ProfessionalService schema for the whole site. */
 export function organizationSchema(): Record<string, unknown> {
   return {

@@ -4,12 +4,16 @@ import { Section, Eyebrow } from "@/components/Section";
 import { CTASection } from "@/components/CTASection";
 import { Reveal } from "@/components/Reveal";
 import { getAllPosts } from "@/lib/content";
+import { selfCanonical } from "@/lib/seo";
+
+const seo = selfCanonical("/blog");
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "Technical SEO, Performance & Maintenance Blog",
   description:
-    "Specific, practical writing on web performance, technical SEO, and maintenance — no vague thought-leadership.",
-  alternates: { canonical: "/blog" },
+    "Practical articles on Core Web Vitals, Shopify speed, website maintenance, and SaaS website cost — written for founders and operators.",
+  alternates: { canonical: seo.canonical },
+  openGraph: { ...seo.openGraph },
 };
 
 // Revalidate periodically so CMS edits appear without a redeploy.

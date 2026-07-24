@@ -9,12 +9,16 @@ import { breadcrumbSchema } from "@/lib/seo";
 import { getGridProjects, getOfflineProjects } from "@/lib/projects";
 import { getAllCaseStudies } from "@/lib/content";
 import { primaryCta } from "@/lib/site";
+import { selfCanonical } from "@/lib/seo";
+
+const seo = selfCanonical("/portfolio");
 
 export const metadata: Metadata = {
-  title: "Portfolio & Case Studies",
+  title: "SaaS & Startup Portfolio and Case Studies",
   description:
-    "Outcome-based case studies and live builds for SaaS, startups, ecommerce, and growing businesses — proof before platform theater.",
-  alternates: { canonical: "/portfolio" },
+    "SaaS and startup portfolio with outcome case studies and live website builds — conversion, Core Web Vitals, migrations, and product launches.",
+  alternates: { canonical: seo.canonical },
+  openGraph: { ...seo.openGraph },
 };
 
 export const revalidate = 60;

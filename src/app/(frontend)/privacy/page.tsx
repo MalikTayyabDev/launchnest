@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import { Section, Eyebrow } from "@/components/Section";
 import { siteConfig } from "@/lib/site";
+import { selfCanonical } from "@/lib/seo";
+
+const seo = selfCanonical("/privacy");
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "How LaunchNest handles the information you share with us.",
-  alternates: { canonical: "/privacy" },
+  alternates: { canonical: seo.canonical },
+  openGraph: { ...seo.openGraph },
 };
 
 export default function PrivacyPage() {

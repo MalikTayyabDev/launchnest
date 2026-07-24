@@ -4,12 +4,16 @@ import { ContactForm } from "@/components/ContactForm";
 import { BookCallForm } from "@/components/BookCallForm";
 import { StatCallout } from "@/components/StatCallout";
 import { siteConfig } from "@/lib/site";
+import { selfCanonical } from "@/lib/seo";
+
+const seo = selfCanonical("/contact");
 
 export const metadata: Metadata = {
-  title: "Contact — Book a Call or Free Audit",
+  title: "Free Website Growth Audit — Contact LaunchNest",
   description:
-    "Book a free 30-minute discovery call or submit a technical audit request. We reply within one business day — no sales script.",
-  alternates: { canonical: "/contact" },
+    "Book a free website growth audit or 30-minute discovery call. We reply within one business day with specifics on leads, conversion, and speed — no sales script.",
+  alternates: { canonical: seo.canonical },
+  openGraph: { ...seo.openGraph },
 };
 
 const expect = [

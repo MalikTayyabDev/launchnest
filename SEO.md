@@ -10,14 +10,15 @@ locking long-term content bets.
 Priorities: (P1) commercial-intent money pages, (P2) supporting/service pages,
 (P3) informational blog posts that feed the money pages.
 
-## Global on-page setup (done)
+## Global on-page setup
 
-- `metadataBase`, per-page `title`/`description`, and `alternates.canonical` on every page.
+- `metadataBase` + **absolute self-canonical** on every public page (`selfCanonical()`).
+- Per-page Open Graph `url` matches the canonical (not forced to homepage).
 - Structured data (JSON-LD): `ProfessionalService` + `WebSite` site-wide, `Service`
   on service pages, `Article` on posts, `BreadcrumbList` on nested pages. `areaServed`
-  is set to `GB`, `US`, `AU`. Audience includes primary/secondary client types.
-- `sitemap.xml` and `robots.txt`.
-- Per-page Open Graph images for blog posts.
+  is set to `GB`, `US`, `AU`.
+- `sitemap.xml` includes services, `/for/*`, `/work/*`, blog.
+- `robots.txt`: allow `/`, disallow `/admin` and `/api/`, declare Sitemap + Host.
 
 ## Page → keyword mapping
 
@@ -33,34 +34,32 @@ Priorities: (P1) commercial-intent money pages, (P2) supporting/service pages,
 | `/services/maintenance-support` | P1 | website maintenance retainer | QA testing, hosting and deployment support |
 | `/pricing` | P1 | SaaS website development cost | digital agency pricing, growth retainer |
 | `/portfolio` | P2 | SaaS and startup portfolio | live website case proof |
+| `/for/saas` | P1 | SaaS marketing site agency | SaaS website development, trial conversion |
+| `/for/ai-startups` | P1 | AI startup website | MVP launch partner, Next.js for AI startups |
 | `/about` | P3 | engineering-first digital agency | launch partner for modern businesses |
 | `/contact` | P2 | free website growth audit | book discovery call digital agency |
 
-## Primary audiences (content + CTAs should speak to)
+## Ranking data (important)
 
-**Primary:** SaaS Companies, AI Startups, Tech Startups, Agencies  
-**Secondary:** SMBs, Healthcare, Law Firms, Home Services, Real Estate, Coaches, Consultants, Ecommerce Brands
+**Exact ranking keywords require Google Search Console → Performance → Queries.**
+Without a GSC export, we cannot truthfully list ranked terms. Early US analytics
+(pageviews) only show which URLs are being hit — not which queries ranked.
 
-## Blog topics (P3 → money pages)
+When you export GSC (last 28 days), share: Query, Clicks, Impressions, CTR, Position.
 
-- Shopify / checkout speed → performance + ecommerce secondary clients
-- Core Web Vitals → technical SEO + engineering
-- Website maintenance → retainers
-- How much a website should cost → pricing / Growth Engine
-- Webflow vs WordPress → website engineering (frame as stack choice, not agency type)
-- SaaS marketing site checklist → primary audience
+## Brand note
 
-## Multi-country strategy (after domain + GSC)
-
-- Single global site + `areaServed` GB/US/AU (current).
-- Later: country pages or `hreflang` if GSC shows clear demand.
+Other companies use “LaunchNest” on different domains (`.net`, `.com.au`, etc.).
+Differentiate with **launch-nest.com** + “engineering-first” + SaaS/AI messaging.
 
 ## Pre-launch / growth checklist
 
 - [x] Production domain `https://www.launch-nest.com`
+- [x] Absolute self-canonicals + page OG URLs
+- [x] Expanded robots.txt (admin/api disallow)
+- [x] Keyword-deeper service + audience page copy
 - [ ] Verify Google Search Console + Bing Webmaster Tools
 - [ ] Submit `sitemap.xml`
 - [ ] Confirm money-page titles against live SERP competitors
-- [ ] Add client logos + testimonials (trust for premium buyers)
+- [ ] Replace seed case studies with permissioned client stories
 - [ ] Track Core Web Vitals in GSC after launch
-- [x] Positioning aligned to Engineering-First Digital Solutions (not platform-shop)

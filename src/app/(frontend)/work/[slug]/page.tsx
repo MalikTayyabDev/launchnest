@@ -6,7 +6,7 @@ import { TestimonialQuote } from "@/components/TestimonialQuote";
 import { JsonLd } from "@/components/JsonLd";
 import { Button } from "@/components/Button";
 import { getCaseStudy, getCaseStudySlugs } from "@/lib/content";
-import { breadcrumbSchema } from "@/lib/seo";
+import { breadcrumbSchema, selfCanonical } from "@/lib/seo";
 import { primaryCta } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -20,11 +20,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const study = await getCaseStudy(slug);
   if (!study) return { title: "Case study" };
+  const path = `/work/${study.slug}`;
+  const { canonical, openGraph } = selfCanonical(path);
+  const title =
+    study.seo?.metaTitle || `${study.client} — ${study.headlineResult}`;
+  const description = study.seo?.metaDescription || study.summary;
   return {
-    title: study.seo?.metaTitle || `${study.client} — ${study.headlineResult}`,
-    description:
-      study.seo?.metaDescription || study.summary,
-    alternates: { canonical: `/work/${study.slug}` },
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: { ...openGraph, title, description },
   };
 }
 

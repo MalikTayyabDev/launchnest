@@ -6,12 +6,16 @@ import { Reveal } from "@/components/Reveal";
 import { CustomOfferForm } from "@/components/CustomOfferForm";
 import { packages, maintenancePlans } from "@/lib/pricing";
 import { primaryCta, whatsappLink } from "@/lib/site";
+import { selfCanonical } from "@/lib/seo";
+
+const seo = selfCanonical("/pricing");
 
 export const metadata: Metadata = {
-  title: "Pricing",
+  title: "SaaS Website Development Cost & Agency Pricing",
   description:
-    "Transparent starting ranges for launch and growth builds, plus recurring care retainers. Engineered for startups, SaaS, agencies, and growing businesses.",
-  alternates: { canonical: "/pricing" },
+    "Transparent SaaS website development cost ranges and growth retainers. Growth Engine and Custom Product pricing for startups, SaaS, and agencies — UK, US, AU.",
+  alternates: { canonical: seo.canonical },
+  openGraph: { ...seo.openGraph },
 };
 
 export default function PricingPage() {

@@ -13,15 +13,19 @@ import {
   introOfferWhatsappLink,
   INTRO_OFFER_PRICE,
 } from "@/lib/intro-offer";
+import { selfCanonical } from "@/lib/seo";
 
 /** Always read live slot counts from the admin global. */
 export const dynamic = "force-dynamic";
+
+const seo = selfCanonical("/intro-offer");
 
 export const metadata: Metadata = {
   title: "Intro offer — $20 landing page",
   description:
     "Limited first-client rate: a template-based landing page delivered in 3 business days for $20. Fixed scope, limited slots — building LaunchNest's review portfolio.",
-  alternates: { canonical: "/intro-offer" },
+  alternates: { canonical: seo.canonical },
+  openGraph: { ...seo.openGraph },
 };
 
 export default async function IntroOfferPage() {

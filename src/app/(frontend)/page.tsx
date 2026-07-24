@@ -14,7 +14,26 @@ import { Reveal } from "@/components/Reveal";
 import { getAllCaseStudies } from "@/lib/content";
 import { getFeaturedProjects } from "@/lib/projects";
 import { primaryCta, siteConfig } from "@/lib/site";
+import { selfCanonical } from "@/lib/seo";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+const homeCanonical = selfCanonical("/");
+
+export const metadata: Metadata = {
+  title: {
+    absolute:
+      "LaunchNest — Engineering-First Digital Solutions for SaaS & Startups",
+  },
+  description: siteConfig.description,
+  alternates: { canonical: homeCanonical.canonical },
+  openGraph: {
+    ...homeCanonical.openGraph,
+    title:
+      "LaunchNest — Engineering-First Digital Solutions for SaaS & Startups",
+    description: siteConfig.description,
+  },
+};
 
 const pillars = [
   {

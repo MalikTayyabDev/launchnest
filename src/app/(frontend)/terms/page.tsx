@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import { Section, Eyebrow } from "@/components/Section";
 import { siteConfig } from "@/lib/site";
+import { selfCanonical } from "@/lib/seo";
+
+const seo = selfCanonical("/terms");
 
 export const metadata: Metadata = {
   title: "Terms of Service",
   description: "The terms that apply to using the LaunchNest website.",
-  alternates: { canonical: "/terms" },
+  alternates: { canonical: seo.canonical },
+  openGraph: { ...seo.openGraph },
 };
 
 export default function TermsPage() {
