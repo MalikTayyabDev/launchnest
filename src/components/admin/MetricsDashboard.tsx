@@ -68,8 +68,33 @@ export async function MetricsDashboard() {
     marginTop: "0.35rem",
   };
 
+  const blobToken = process.env.BLOB_READ_WRITE_TOKEN || "";
+  const blobConfigured = /^vercel_blob_rw_/i.test(blobToken);
+  const onVercel = Boolean(process.env.VERCEL);
+
   return (
     <div style={{ marginBottom: "2rem" }}>
+      {onVercel && !blobConfigured && (
+        <div
+          style={{
+            marginBottom: "1.25rem",
+            padding: "1rem 1.25rem",
+            borderRadius: "6px",
+            border: "1px solid #C9A227",
+            background: "rgba(201, 162, 39, 0.12)",
+          }}
+        >
+          <strong style={{ display: "block", marginBottom: "0.35rem" }}>
+            Media uploads are disabled
+          </strong>
+          <span style={{ fontSize: "0.9rem", opacity: 0.9 }}>
+            Your Blob store (`BLOB_STORE_ID`) is connected, but Payload needs{" "}
+            <code>BLOB_READ_WRITE_TOKEN</code> (starts with{" "}
+            <code>vercel_blob_rw_</code>). OIDC alone is not enough for admin
+            uploads. Add that env var in Vercel → Redeploy → try Media again.
+          </span>
+        </div>
+      )}
       <h2 style={{ marginBottom: "1rem" }}>Overview</h2>
       <div
         style={{
