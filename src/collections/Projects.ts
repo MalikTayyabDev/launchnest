@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { APIError } from "payload";
 import { isAdmin, isAdminOrEditor, publishedOrLoggedIn } from "../access";
 import { captureScreenshot } from "../lib/screenshot";
 
@@ -18,7 +19,7 @@ export const Projects: CollectionConfig = {
     defaultColumns: ["name", "platform", "featured", "showInGrid", "status"],
     group: "Content",
     description:
-      "Portfolio sites shown on /portfolio and the home page. Add a project, upload a screenshot, pick the platform, and publish.",
+      "Portfolio sites on /portfolio and home. Paste the live URL, save — we auto-capture a screenshot into Media (thum.io / ScreenshotOne). Requires working media storage (Vercel Blob in production).",
   },
   access: {
     read: publishedOrLoggedIn,
@@ -35,7 +36,7 @@ export const Projects: CollectionConfig = {
         return data;
       },
       // Auto-capture a screenshot from the URL and store it in Media.
-      async ({ data, req, operation, originalDoc }) => {
+      async ({ data, req, originalDoc }) => {
         if (!data?.url) return data;
 
         const auto = data.autoScreenshot !== false;
@@ -66,13 +67,21 @@ export const Projects: CollectionConfig = {
               name: `${safe}-${Date.now()}.${shot.ext}`,
               size: shot.buffer.length,
             },
+            req,
           });
           data.screenshot = media.id;
         } catch (err) {
+          const detail = err instanceof Error ? err.message : String(err);
           req.payload.logger.error(
-            `Auto screenshot failed for ${data.url}: ${
-              err instanceof Error ? err.message : String(err)
-            }`,
+            `Auto screenshot failed for ${data.url}: ${detail}`,
+          );
+          // Surface a clear admin error instead of silently saving without an image.
+          const blobHint = process.env.BLOB_READ_WRITE_TOKEN
+            ? ""
+            : " If this is production, set BLOB_READ_WRITE_TOKEN (Vercel → Storage → Blob).";
+          throw new APIError(
+            `Could not capture/store screenshot for ${data.url}: ${detail}.${blobHint} Turn off “Auto screenshot” to save without an image, or upload a screenshot manually.`,
+            400,
           );
         }
 
@@ -142,7 +151,7 @@ export const Projects: CollectionConfig = {
       relationTo: "media",
       admin: {
         description:
-          "Auto-captured from the URL on save when left empty. You can also upload your own — a manual upload is kept unless you tick 'Re-capture'.",
+          "Auto-captured from the URL on save when left empty (HTTP screenshot service — not Python). Manual uploads are kept unless you tick 'Re-capture'.",
       },
     },
     {

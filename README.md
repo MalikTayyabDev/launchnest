@@ -87,8 +87,12 @@ See `.env.example`. Required for the CMS/admin:
 ## Media storage (Vercel Blob)
 
 Vercel's filesystem is ephemeral, so uploaded media must go to Blob storage.
-Create a Blob store in the Vercel dashboard (**Storage → Blob**) and set
-`BLOB_READ_WRITE_TOKEN`. Locally you can leave it blank to use the disk.
+Create a Blob store in the Vercel dashboard (**Storage → Blob**), connect it to
+this project, and ensure `BLOB_READ_WRITE_TOKEN` is set for Production (and Preview).
+Admin uploads use **clientUploads** so files bypass the ~4.5MB serverless limit.
+Locally you can leave the token blank to use the `/media` folder on disk.
+
+If Media uploads fail in production, the Blob token is almost always missing.
 
 ## Custom domain (www.launch-nest.com)
 

@@ -63,9 +63,14 @@ export default buildConfig({
   sharp,
   plugins: [
     vercelBlobStorage({
+      // Required on Vercel — without a token, uploads fail (ephemeral filesystem).
       enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
       collections: { media: true },
       token: process.env.BLOB_READ_WRITE_TOKEN || "",
+      // Bypass Vercel’s ~4.5MB serverless body limit for admin uploads.
+      clientUploads: true,
+      // Avoid name collisions when re-uploading the same filename.
+      addRandomSuffix: true,
     }),
   ],
 });
