@@ -3,7 +3,7 @@ import { siteConfig } from "@/lib/site";
 
 /**
  * Crawl rules for the public marketing site.
- * Disallow CMS admin + API surfaces; allow money pages and content.
+ * Note: do NOT emit a `Host:` line — Googlebot ignores it (Yandex-only) and GSC warns.
  */
 export default function robots(): MetadataRoute.Robots {
   const host = siteConfig.url.replace(/\/$/, "");
@@ -13,12 +13,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: [
-          "/admin",
-          "/admin/",
-          "/api/",
-          "/api/*",
-        ],
+        disallow: ["/admin/", "/api/"],
       },
       {
         userAgent: "GPTBot",
@@ -30,6 +25,5 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: `${host}/sitemap.xml`,
-    host,
   };
 }

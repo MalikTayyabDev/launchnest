@@ -18,7 +18,8 @@ Priorities: (P1) commercial-intent money pages, (P2) supporting/service pages,
   on service pages, `Article` on posts, `BreadcrumbList` on nested pages. `areaServed`
   is set to `GB`, `US`, `AU`.
 - `sitemap.xml` includes services, `/for/*`, `/work/*`, blog.
-- `robots.txt`: allow `/`, disallow `/admin` and `/api/`, declare Sitemap + Host.
+- `robots.txt`: allow `/`, disallow `/admin/` and `/api/`, declare Sitemap.
+  Do **not** use `Host:` (Googlebot ignores it → GSC warning).
 
 ## Page → keyword mapping
 
