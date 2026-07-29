@@ -204,6 +204,98 @@ export default async function HomePage() {
         </div>
       </div>
 
+      {/* Proof first — case studies + live builds before the service pitch */}
+      <Section tone="offwhite">
+        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <div className="max-w-2xl">
+            <Eyebrow>Outcomes</Eyebrow>
+            <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
+              Proof before pretty screenshots.
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-slate">
+              Situation, work, and metrics — the stories serious buyers in the US,
+              UK, and Australia actually need before they book a call.
+            </p>
+          </div>
+          <div className="hidden shrink-0 sm:block">
+            <Button href="/portfolio" variant="ghost">
+              View all work
+            </Button>
+          </div>
+        </div>
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {featuredStudies.map((study, i) => (
+            <Reveal key={study.slug} delay={i * 0.06}>
+              <CaseStudyCard study={study} priority={i === 0} />
+            </Reveal>
+          ))}
+        </div>
+        <div className="mt-10 sm:hidden">
+          <Button href="/portfolio" variant="primary" className="w-full">
+            View all work
+          </Button>
+        </div>
+      </Section>
+
+      <Section tone="white">
+        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <div className="max-w-2xl">
+            <Eyebrow>Live portfolio</Eyebrow>
+            <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
+              Sites in production across stacks.
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-slate">
+              Platforms are tools. Every card links to a live site — so you can
+              judge the work yourself, not a pitch deck.
+            </p>
+          </div>
+          <div className="hidden shrink-0 sm:block">
+            <Button href="/portfolio" variant="ghost">
+              View full portfolio
+            </Button>
+          </div>
+        </div>
+
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {featuredProjects.map((item, i) => (
+            <Reveal key={item.url} delay={i * 0.06}>
+              <PortfolioCard item={item} priority={i < 2} />
+            </Reveal>
+          ))}
+        </div>
+
+        <div className="mt-10 sm:hidden">
+          <Button href="/portfolio" variant="primary" className="w-full">
+            View full portfolio
+          </Button>
+        </div>
+      </Section>
+
+      {caseStudies.some((c) => c.quote.text) && (
+        <Section tone="offwhite">
+          <div className="max-w-2xl">
+            <Eyebrow>In their words</Eyebrow>
+            <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
+              The part clients actually remember.
+            </h2>
+          </div>
+          <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {caseStudies
+              .filter((c) => c.quote.text)
+              .slice(0, 3)
+              .map((c, i) => (
+                <Reveal key={c.slug} delay={i * 0.08}>
+                  <TestimonialQuote
+                    text={c.quote.text}
+                    name={c.quote.name}
+                    role={c.quote.role}
+                  />
+                </Reveal>
+              ))}
+          </div>
+        </Section>
+      )}
+
       <Section tone="white">
         <div className="max-w-2xl">
           <Eyebrow>What we do</Eyebrow>
@@ -232,37 +324,6 @@ export default async function HomePage() {
       </Section>
 
       <Section tone="offwhite">
-        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-          <div className="max-w-2xl">
-            <Eyebrow>Outcomes</Eyebrow>
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
-              Proof before pretty screenshots.
-            </h2>
-            <p className="mt-4 text-lg leading-relaxed text-slate">
-              Situation, work, and metrics — the stories serious buyers actually need.
-            </p>
-          </div>
-          <div className="hidden shrink-0 sm:block">
-            <Button href="/portfolio" variant="ghost">
-              View all work
-            </Button>
-          </div>
-        </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {featuredStudies.map((study, i) => (
-            <Reveal key={study.slug} delay={i * 0.06}>
-              <CaseStudyCard study={study} priority={i === 0} />
-            </Reveal>
-          ))}
-        </div>
-        <div className="mt-10 sm:hidden">
-          <Button href="/portfolio" variant="primary" className="w-full">
-            View all work
-          </Button>
-        </div>
-      </Section>
-
-      <Section tone="white">
         <div className="max-w-2xl">
           <Eyebrow>How we work</Eyebrow>
           <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
@@ -276,7 +337,7 @@ export default async function HomePage() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {process.map((p, i) => (
             <Reveal key={p.step} delay={i * 0.06}>
-              <div className="flex h-full flex-col rounded-lg border border-navy/10 bg-offwhite p-6">
+              <div className="flex h-full flex-col rounded-lg border border-navy/10 bg-white p-6">
                 <span className="font-mono text-sm font-bold text-gold">{p.step}</span>
                 <h3 className="mt-3 font-heading text-lg font-semibold text-navy">
                   {p.title}
@@ -299,64 +360,6 @@ export default async function HomePage() {
           <span className="mt-8 block h-0.5 w-14 bg-gold" aria-hidden="true" />
         </div>
       </section>
-
-      <Section tone="offwhite">
-        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-          <div className="max-w-2xl">
-            <Eyebrow>Live builds</Eyebrow>
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
-              Sites in production across stacks.
-            </h2>
-            <p className="mt-4 text-lg leading-relaxed text-slate">
-              Platforms are tools. Every card links to a live site.
-            </p>
-          </div>
-          <div className="hidden shrink-0 sm:block">
-            <Button href="/portfolio" variant="ghost">
-              View full portfolio
-            </Button>
-          </div>
-        </div>
-
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {featuredProjects.map((item, i) => (
-            <Reveal key={item.url} delay={i * 0.06}>
-              <PortfolioCard item={item} priority={i < 2} />
-            </Reveal>
-          ))}
-        </div>
-
-        <div className="mt-10 sm:hidden">
-          <Button href="/portfolio" variant="primary" className="w-full">
-            View full portfolio
-          </Button>
-        </div>
-      </Section>
-
-      {caseStudies.some((c) => c.quote.text) && (
-        <Section tone="white">
-          <div className="max-w-2xl">
-            <Eyebrow>In their words</Eyebrow>
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
-              The part clients actually remember.
-            </h2>
-          </div>
-          <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {caseStudies
-              .filter((c) => c.quote.text)
-              .slice(0, 3)
-              .map((c, i) => (
-                <Reveal key={c.slug} delay={i * 0.08}>
-                  <TestimonialQuote
-                    text={c.quote.text}
-                    name={c.quote.name}
-                    role={c.quote.role}
-                  />
-                </Reveal>
-              ))}
-          </div>
-        </Section>
-      )}
 
       <Section tone="offwhite">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
@@ -383,7 +386,7 @@ export default async function HomePage() {
         heading="Ready to launch or scale with an engineering-first partner?"
         body="Book a free growth audit. We'll tell you what's blocking leads, conversion, and speed — no sales script."
         cta={primaryCta}
-        secondaryCta={{ label: "See solutions", href: "/services" }}
+        secondaryCta={{ label: "See outcomes", href: "/portfolio" }}
       />
     </>
   );
