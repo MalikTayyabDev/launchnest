@@ -14,11 +14,32 @@ import { selfCanonical } from "@/lib/seo";
 const seo = selfCanonical("/portfolio");
 
 export const metadata: Metadata = {
-  title: "SaaS & Startup Portfolio and Case Studies",
+  title: "SaaS & Startup Portfolio and Case Studies (US, UK, AU)",
   description:
-    "SaaS and startup portfolio with outcome case studies and live website builds — conversion, Core Web Vitals, migrations, and product launches.",
+    "Outcome case studies and live builds for SaaS, startups, and ecommerce — conversion, Core Web Vitals, migrations, and product launches. Serving clients in the United States, United Kingdom, and Australia.",
+  keywords: [
+    "SaaS portfolio",
+    "startup case studies",
+    "website case study",
+    "US",
+    "UK",
+    "Australia",
+  ],
   alternates: { canonical: seo.canonical },
-  openGraph: { ...seo.openGraph },
+  openGraph: {
+    ...seo.openGraph,
+    title: "SaaS & Startup Portfolio and Case Studies | LaunchNest",
+    description:
+      "Outcome case studies and live website builds for teams in the US, UK, and Australia.",
+    locale: "en_US",
+    alternateLocale: ["en_GB", "en_AU"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SaaS & Startup Portfolio and Case Studies | LaunchNest",
+    description:
+      "Outcome case studies and live website builds for teams in the US, UK, and Australia.",
+  },
 };
 
 export const revalidate = 60;
@@ -50,7 +71,8 @@ export default async function PortfolioPage() {
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-slate">
             Case studies show the metrics. The grid shows sites in production —
-            across stacks, for SaaS, startups, ecommerce, and service businesses.
+            across stacks, for SaaS, startups, ecommerce, and service businesses
+            in the US, UK, and Australia.
           </p>
         </div>
 

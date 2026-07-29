@@ -48,6 +48,9 @@ export type CaseStudyItem = {
   results: { metric: string; label: string }[];
   quote: { text: string; name: string; role: string };
   accent: string;
+  coverImage?: { url: string; alt: string } | null;
+  primaryKeyword?: string;
+  relatedService?: string;
   seo?: { metaTitle?: string | null; metaDescription?: string | null };
 };
 
@@ -214,7 +217,7 @@ export async function getAllCaseStudies(): Promise<CaseStudyItem[]> {
         where: { status: { equals: "published" } },
         sort: "-createdAt",
         limit: 100,
-        depth: 0,
+        depth: 1,
       });
       if (res.docs.length > 0) {
         return res.docs.map(mapCaseStudy);
@@ -223,7 +226,7 @@ export async function getAllCaseStudies(): Promise<CaseStudyItem[]> {
       /* fall through */
     }
   }
-  return seedCaseStudies.map((c) => ({ ...c }));
+  return seedCaseStudies.map(mapSeedCaseStudy);
 }
 
 export async function getCaseStudySlugs(): Promise<string[]> {
@@ -231,6 +234,7 @@ export async function getCaseStudySlugs(): Promise<string[]> {
 }
 
 export async function getCaseStudy(slug: string): Promise<CaseStudyItem | null> {
+  const seed = seedCaseStudies.find((c) => c.slug === slug);
   const payload = await tryPayload();
   if (payload) {
     try {
@@ -238,18 +242,55 @@ export async function getCaseStudy(slug: string): Promise<CaseStudyItem | null> 
         collection: "case-studies",
         where: { slug: { equals: slug }, status: { equals: "published" } },
         limit: 1,
-        depth: 0,
+        depth: 1,
       });
       const doc = res.docs[0];
-      if (doc) return mapCaseStudy(doc);
+      if (doc) {
+        const mapped = mapCaseStudy(doc);
+        const cmsSeo =
+          mapped.seo?.metaTitle || mapped.seo?.metaDescription
+            ? mapped.seo
+            : undefined;
+        return {
+          ...mapped,
+          // Prefer richer catalog copy/SEO when CMS fields are thin or empty.
+          summary: mapped.summary || seed?.summary || "",
+          situation: mapped.situation || seed?.situation || "",
+          problem: mapped.problem || seed?.problem || "",
+          primaryKeyword: seed?.primaryKeyword,
+          relatedService: seed?.relatedService,
+          seo: cmsSeo ?? seed?.seo,
+        };
+      }
     } catch {
       /* fall through */
     }
   }
-  return seedCaseStudies.find((c) => c.slug === slug) ?? null;
+  return seed ? mapSeedCaseStudy(seed) : null;
+}
+
+function mapSeedCaseStudy(c: (typeof seedCaseStudies)[number]): CaseStudyItem {
+  return {
+    slug: c.slug,
+    client: c.client,
+    industry: c.industry,
+    headlineResult: c.headlineResult,
+    summary: c.summary,
+    situation: c.situation,
+    problem: c.problem,
+    whatWeDid: c.whatWeDid,
+    results: c.results,
+    quote: c.quote,
+    accent: c.accent,
+    coverImage: null,
+    primaryKeyword: c.primaryKeyword,
+    relatedService: c.relatedService,
+    seo: c.seo,
+  };
 }
 
 function mapCaseStudy(doc: Record<string, any>): CaseStudyItem {
+  const seed = seedCaseStudies.find((c) => c.slug === doc.slug);
   return {
     slug: doc.slug,
     client: doc.client,
@@ -273,6 +314,9 @@ function mapCaseStudy(doc: Record<string, any>): CaseStudyItem {
       role: doc.quote?.role ?? "",
     },
     accent: doc.accent ?? "#0B1F3A",
-    seo: doc.seo ?? undefined,
+    coverImage: mapCoverImage(doc.coverImage),
+    primaryKeyword: seed?.primaryKeyword,
+    relatedService: seed?.relatedService,
+    seo: doc.seo ?? seed?.seo ?? undefined,
   };
 }

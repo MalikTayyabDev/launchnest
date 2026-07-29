@@ -130,6 +130,58 @@ export function articleSchema(post: {
   };
 }
 
+export function caseStudySchema(study: {
+  client: string;
+  headlineResult: string;
+  summary: string;
+  slug: string;
+  industry: string;
+  primaryKeyword?: string;
+  coverImage?: { url: string; alt: string } | null;
+  quote?: { text: string; name: string; role: string } | null;
+}): Record<string, unknown> {
+  const url = `${siteConfig.url}/work/${study.slug}`;
+  const name = `${study.client}: ${study.headlineResult}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: name,
+    description: study.summary,
+    about: study.industry,
+    author: { "@type": "Organization", name: siteConfig.name },
+    publisher: {
+      "@id": `${siteConfig.url}/#organization`,
+      name: siteConfig.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}${brandAssets.monogram.path}`,
+      },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    url,
+    inLanguage: "en",
+    areaServed: targetCountries.map((code) => ({
+      "@type": "Country",
+      identifier: code,
+    })),
+    ...(study.coverImage?.url ? { image: [study.coverImage.url] } : {}),
+    ...(study.primaryKeyword ? { keywords: study.primaryKeyword } : {}),
+    ...(study.quote?.text
+      ? {
+          review: {
+            "@type": "Review",
+            reviewBody: study.quote.text,
+            author: {
+              "@type": "Person",
+              name: study.quote.name,
+              jobTitle: study.quote.role,
+            },
+          },
+        }
+      : {}),
+  };
+}
+
 export function breadcrumbSchema(
   items: { name: string; path: string }[]
 ): Record<string, unknown> {

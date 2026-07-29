@@ -34,7 +34,12 @@ Priorities: (P1) commercial-intent money pages, (P2) supporting/service pages,
 | `/services/seo` | P1 | technical SEO agency | SEO content writing for SaaS, Core Web Vitals |
 | `/services/maintenance-support` | P1 | website maintenance retainer | QA testing, hosting and deployment support |
 | `/pricing` | P1 | SaaS website development cost | digital agency pricing, growth retainer |
-| `/portfolio` | P2 | SaaS and startup portfolio | live website case proof |
+| `/portfolio` | P2 | SaaS and startup portfolio | live website case proof, US UK Australia |
+| `/work/northform-checkout-rebuild` | P2 | Shopify checkout optimization | ecommerce conversion case study |
+| `/work/meridian-legal-site` | P2 | professional services website redesign | law firm website case study |
+| `/work/cadence-saas-performance` | P2 | SaaS Core Web Vitals optimization | marketing site performance |
+| `/work/harbour-goods-replatform` | P2 | Shopify migration SEO | zero-downtime replatform |
+| `/work/brightpath-saas-onboarding` | P2 | SaaS onboarding UX conversion | trial-to-paid case study |
 | `/for/saas` | P1 | SaaS marketing site agency | SaaS website development, trial conversion |
 | `/for/ai-startups` | P1 | AI startup website | MVP launch partner, Next.js for AI startups |
 | `/about` | P3 | engineering-first digital agency | launch partner for modern businesses |

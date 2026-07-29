@@ -154,31 +154,47 @@ const seed = async () => {
     }
   }
 
-  // 3. Case studies (create-only)
+  // 3. Case studies (upsert content + SEO)
   for (const cs of seedCaseStudies) {
-    const exists = await payload.count({
+    const existing = await payload.find({
       collection: "case-studies",
       where: { slug: { equals: cs.slug } },
+      limit: 1,
+      depth: 0,
     });
-    if (exists.totalDocs > 0) continue;
-    await payload.create({
-      collection: "case-studies",
-      data: {
-        client: cs.client,
-        slug: cs.slug,
-        industry: cs.industry,
-        headlineResult: cs.headlineResult,
-        summary: cs.summary,
-        accent: cs.accent,
-        situation: cs.situation,
-        problem: cs.problem,
-        whatWeDid: cs.whatWeDid.map((step) => ({ step })),
-        results: cs.results.map((r) => ({ metric: r.metric, label: r.label })),
-        quote: cs.quote,
-        status: "published",
+    const data = {
+      client: cs.client,
+      slug: cs.slug,
+      industry: cs.industry,
+      headlineResult: cs.headlineResult,
+      summary: cs.summary,
+      accent: cs.accent,
+      situation: cs.situation,
+      problem: cs.problem,
+      whatWeDid: cs.whatWeDid.map((step) => ({ step })),
+      results: cs.results.map((r) => ({ metric: r.metric, label: r.label })),
+      quote: cs.quote,
+      status: "published" as const,
+      seo: {
+        metaTitle: cs.seo.metaTitle,
+        metaDescription: cs.seo.metaDescription,
       },
-    });
-    payload.logger.info(`Seeded case study: ${cs.slug}`);
+    };
+    const doc = existing.docs[0];
+    if (doc) {
+      await payload.update({
+        collection: "case-studies",
+        id: doc.id,
+        data,
+      });
+      payload.logger.info(`Updated case study: ${cs.slug}`);
+    } else {
+      await payload.create({
+        collection: "case-studies",
+        data,
+      });
+      payload.logger.info(`Seeded case study: ${cs.slug}`);
+    }
   }
 
   payload.logger.info("Seed complete.");
