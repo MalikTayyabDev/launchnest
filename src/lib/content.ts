@@ -93,15 +93,8 @@ export async function getAllPosts(): Promise<PostSummary[]> {
         depth: 1,
       });
       if (res.docs.length > 0) {
-        const cms = res.docs.map(mapPostSummary);
-        const cmsSlugs = new Set(cms.map((p) => p.slug));
-        // Include catalog posts not yet synced to CMS so new articles still ship.
-        const seedOnly = seedPosts
-          .filter((p) => !cmsSlugs.has(p.slug))
-          .map(mapSeedSummary);
-        return [...cms, ...seedOnly].sort(
-          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-        );
+        // CMS is source of truth when reachable — keeps admin and public site in sync.
+        return res.docs.map(mapPostSummary);
       }
     } catch {
       /* fall through to seed */
