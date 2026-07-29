@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Section, Eyebrow } from "@/components/Section";
 import { CTASection } from "@/components/CTASection";
-import { PostBody } from "@/components/PostBody";
+import { PostBody, PostCoverImage } from "@/components/PostBody";
 import { JsonLd } from "@/components/JsonLd";
 import { articleSchema, breadcrumbSchema, selfCanonical } from "@/lib/seo";
 import { getPost, getPostSlugs } from "@/lib/content";
@@ -24,14 +24,30 @@ export async function generateMetadata({
   if (!post) return { title: "Post not found" };
   const path = `/blog/${post.slug}`;
   const { canonical, openGraph } = selfCanonical(path);
+  const title = post.seo?.metaTitle || post.title;
+  const description = post.seo?.metaDescription || post.excerpt;
+  const ogImages = post.coverImage?.url
+    ? [{ url: post.coverImage.url, alt: post.coverImage.alt || post.title }]
+    : undefined;
   return {
-    title: post.seo?.metaTitle || post.title,
-    description: post.seo?.metaDescription || post.excerpt,
+    title,
+    description,
+    keywords: post.primaryKeyword ? [post.primaryKeyword] : undefined,
     alternates: { canonical },
     openGraph: {
       ...openGraph,
-      title: post.seo?.metaTitle || post.title,
-      description: post.seo?.metaDescription || post.excerpt,
+      type: "article",
+      title,
+      description,
+      publishedTime: post.date,
+      authors: [post.author],
+      images: ogImages,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ogImages?.map((img) => img.url),
     },
   };
 }
@@ -76,18 +92,34 @@ export default async function BlogPostPage({
             <span aria-hidden="true">·</span>
             <span>{post.readingTime}</span>
             <span aria-hidden="true">·</span>
-            <span>{formatDate(post.date)}</span>
+            <time dateTime={post.date}>{formatDate(post.date)}</time>
           </div>
           <h1 className="mt-4 font-heading text-4xl font-bold leading-tight tracking-tight text-navy sm:text-5xl">
             {post.title}
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-slate">{post.excerpt}</p>
+          {post.coverImage?.url ? (
+            <div className="mt-10 overflow-hidden rounded-lg">
+              <PostCoverImage
+                src={post.coverImage.url}
+                alt={post.coverImage.alt || post.title}
+                priority
+              />
+            </div>
+          ) : null}
         </div>
       </Section>
 
       <Section tone="white">
         <article className="mx-auto max-w-3xl">
-          <PostBody richText={post.richText} paragraphs={post.paragraphs} />
+          <PostBody
+            richText={post.richText}
+            paragraphs={post.paragraphs}
+            intro={post.intro}
+            sections={post.sections}
+            conclusion={post.conclusion}
+            relatedService={post.relatedService}
+          />
 
           <div className="mt-12 flex items-center gap-3 border-t border-navy/10 pt-8">
             <Eyebrow>Written by</Eyebrow>

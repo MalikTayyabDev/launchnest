@@ -97,7 +97,10 @@ export function articleSchema(post: {
   slug: string;
   date: string;
   author: string;
+  coverImage?: { url: string; alt: string } | null;
+  primaryKeyword?: string;
 }): Record<string, unknown> {
+  const url = `${siteConfig.url}/blog/${post.slug}`;
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -106,8 +109,24 @@ export function articleSchema(post: {
     datePublished: post.date,
     dateModified: post.date,
     author: { "@type": "Organization", name: post.author },
-    publisher: { "@id": `${siteConfig.url}/#organization` },
-    mainEntityOfPage: `${siteConfig.url}/blog/${post.slug}`,
+    publisher: {
+      "@id": `${siteConfig.url}/#organization`,
+      name: siteConfig.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}${brandAssets.monogram.path}`,
+      },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    url,
+    ...(post.coverImage?.url
+      ? {
+          image: [post.coverImage.url],
+        }
+      : {}),
+    ...(post.primaryKeyword
+      ? { keywords: post.primaryKeyword }
+      : {}),
   };
 }
 

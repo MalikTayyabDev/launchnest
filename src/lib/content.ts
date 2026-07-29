@@ -20,13 +20,19 @@ export type PostSummary = {
   date: string;
   readingTime: string;
   author: string;
+  coverImage?: { url: string; alt: string } | null;
 };
 
 export type PostDetail = PostSummary & {
   /** Lexical rich text (CMS) — rendered with the Lexical React renderer. */
   richText?: LexicalContent | null;
-  /** Plain paragraphs (seed fallback). */
+  /** Plain paragraphs (legacy seed fallback). */
   paragraphs?: string[];
+  intro?: string[];
+  sections?: import("./blog").BlogSection[];
+  conclusion?: string[];
+  relatedService?: string;
+  primaryKeyword?: string;
   seo?: { metaTitle?: string | null; metaDescription?: string | null };
 };
 
@@ -62,6 +68,19 @@ async function tryPayload(): Promise<Payload | null> {
 
 // ---------- Blog posts ----------
 
+function mapSeedSummary(p: (typeof seedPosts)[number]): PostSummary {
+  return {
+    slug: p.slug,
+    title: p.title,
+    excerpt: p.excerpt,
+    category: p.category,
+    date: p.date,
+    readingTime: p.readingTime,
+    author: p.author,
+    coverImage: null,
+  };
+}
+
 export async function getAllPosts(): Promise<PostSummary[]> {
   const payload = await tryPayload();
   if (payload) {
@@ -71,24 +90,24 @@ export async function getAllPosts(): Promise<PostSummary[]> {
         where: { status: { equals: "published" } },
         sort: "-publishedAt",
         limit: 100,
-        depth: 0,
+        depth: 1,
       });
       if (res.docs.length > 0) {
-        return res.docs.map(mapPostSummary);
+        const cms = res.docs.map(mapPostSummary);
+        const cmsSlugs = new Set(cms.map((p) => p.slug));
+        // Include catalog posts not yet synced to CMS so new articles still ship.
+        const seedOnly = seedPosts
+          .filter((p) => !cmsSlugs.has(p.slug))
+          .map(mapSeedSummary);
+        return [...cms, ...seedOnly].sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+        );
       }
     } catch {
       /* fall through to seed */
     }
   }
-  return seedPosts.map((p) => ({
-    slug: p.slug,
-    title: p.title,
-    excerpt: p.excerpt,
-    category: p.category,
-    date: p.date,
-    readingTime: p.readingTime,
-    author: p.author,
-  }));
+  return seedPosts.map(mapSeedSummary);
 }
 
 export async function getPostSlugs(): Promise<string[]> {
@@ -96,6 +115,7 @@ export async function getPostSlugs(): Promise<string[]> {
 }
 
 export async function getPost(slug: string): Promise<PostDetail | null> {
+  const seed = seedPosts.find((p) => p.slug === slug);
   const payload = await tryPayload();
   if (payload) {
     try {
@@ -103,31 +123,77 @@ export async function getPost(slug: string): Promise<PostDetail | null> {
         collection: "posts",
         where: { slug: { equals: slug }, status: { equals: "published" } },
         limit: 1,
-        depth: 0,
+        depth: 1,
       });
       const doc = res.docs[0];
       if (doc) {
+        const summary = mapPostSummary(doc);
+        const seo =
+          (doc.seo?.metaTitle || doc.seo?.metaDescription
+            ? doc.seo
+            : null) ??
+          seed?.seo ??
+          undefined;
+        // Prefer structured seed body for catalog posts (detailed + SEO H2s).
+        // CMS-only posts (no seed) render Lexical rich text. Cover image always from CMS.
+        if (seed?.sections?.length) {
+          return {
+            ...summary,
+            title: summary.title || seed.title,
+            excerpt: summary.excerpt || seed.excerpt,
+            intro: seed.intro,
+            sections: seed.sections,
+            conclusion: seed.conclusion,
+            relatedService: seed.relatedService,
+            primaryKeyword: seed.primaryKeyword,
+            seo,
+          };
+        }
         return {
-          ...mapPostSummary(doc),
+          ...summary,
           richText: (doc.body as LexicalContent) ?? null,
-          seo: doc.seo ?? undefined,
+          relatedService: seed?.relatedService,
+          primaryKeyword: seed?.primaryKeyword,
+          seo,
         };
       }
     } catch {
       /* fall through */
     }
   }
-  const seed = seedPosts.find((p) => p.slug === slug);
   if (!seed) return null;
   return {
-    slug: seed.slug,
-    title: seed.title,
-    excerpt: seed.excerpt,
-    category: seed.category,
-    date: seed.date,
-    readingTime: seed.readingTime,
-    author: seed.author,
-    paragraphs: seed.body,
+    ...mapSeedSummary(seed),
+    intro: seed.intro,
+    sections: seed.sections,
+    conclusion: seed.conclusion,
+    relatedService: seed.relatedService,
+    primaryKeyword: seed.primaryKeyword,
+    seo: seed.seo,
+  };
+}
+
+function resolveMediaUrl(url: string): string {
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  const base = process.env.NEXT_PUBLIC_SERVER_URL?.replace(/\/$/, "") || "";
+  return base ? `${base}${url.startsWith("/") ? url : `/${url}`}` : url;
+}
+
+function mapCoverImage(
+  cover: unknown,
+): { url: string; alt: string } | null {
+  if (!cover || typeof cover !== "object") return null;
+  const c = cover as {
+    url?: string | null;
+    alt?: string | null;
+    sizes?: { hero?: { url?: string | null }; card?: { url?: string | null } };
+  };
+  const raw =
+    c.sizes?.hero?.url || c.sizes?.card?.url || c.url || null;
+  if (!raw) return null;
+  return {
+    url: resolveMediaUrl(raw),
+    alt: c.alt || "Article cover image",
   };
 }
 
@@ -140,6 +206,7 @@ function mapPostSummary(doc: Record<string, any>): PostSummary {
     date: doc.publishedAt ?? doc.createdAt,
     readingTime: doc.readingTime ?? "",
     author: doc.author ?? "LaunchNest",
+    coverImage: mapCoverImage(doc.coverImage),
   };
 }
 

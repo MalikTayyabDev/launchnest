@@ -1,17 +1,90 @@
 import { getPayload } from "payload";
 import config from "@payload-config";
 import type { Post } from "../payload-types";
-import { posts as seedPosts } from "../lib/blog";
+import { posts as seedPosts, type BlogSection } from "../lib/blog";
 import { caseStudies as seedCaseStudies } from "../lib/work";
 
 /**
- * One-time seed: creates an initial admin user and migrates the bundled
- * blog posts + case studies into the CMS. Idempotent - skips anything that
- * already exists. Run with: `npm run seed` (requires DATABASE_URL + a migrated DB).
+ * Seeds admin + migrates bundled blog posts and case studies into the CMS.
+ * Upserts blog posts (create or update body/SEO) so content stays in sync with
+ * `src/lib/blog.ts`. Case studies remain create-only (skip if slug exists).
+ * Run with: `npm run seed` (requires DATABASE_URL + a migrated DB).
  */
 
-/** Build a minimal Lexical editor state from plain paragraphs. */
-function paragraphsToLexical(paragraphs: string[]): Post["body"] {
+type LexicalNode = Record<string, unknown>;
+
+function textNode(text: string): LexicalNode {
+  return {
+    type: "text",
+    text,
+    version: 1,
+    format: 0,
+    mode: "normal",
+    style: "",
+    detail: 0,
+  };
+}
+
+function paragraphNode(text: string): LexicalNode {
+  return {
+    type: "paragraph",
+    version: 1,
+    format: "",
+    indent: 0,
+    direction: "ltr" as const,
+    textFormat: 0,
+    children: [textNode(text)],
+  };
+}
+
+function headingNode(text: string, tag: "h2" | "h3" = "h2"): LexicalNode {
+  return {
+    type: "heading",
+    tag,
+    version: 1,
+    format: "",
+    indent: 0,
+    direction: "ltr" as const,
+    children: [textNode(text)],
+  };
+}
+
+function listNode(items: string[]): LexicalNode {
+  return {
+    type: "list",
+    listType: "bullet",
+    version: 1,
+    format: "",
+    indent: 0,
+    direction: "ltr" as const,
+    start: 1,
+    children: items.map((text, i) => ({
+      type: "listitem",
+      version: 1,
+      format: "",
+      indent: 0,
+      direction: "ltr" as const,
+      value: i + 1,
+      children: [paragraphNode(text)],
+    })),
+  };
+}
+
+/** Build Lexical editor state from structured blog seed content. */
+function postToLexical(post: {
+  intro: string[];
+  sections: BlogSection[];
+  conclusion: string[];
+}): Post["body"] {
+  const children: LexicalNode[] = [];
+  for (const p of post.intro) children.push(paragraphNode(p));
+  for (const section of post.sections) {
+    children.push(headingNode(section.heading, "h2"));
+    for (const p of section.paragraphs) children.push(paragraphNode(p));
+    if (section.bullets?.length) children.push(listNode(section.bullets));
+  }
+  for (const p of post.conclusion) children.push(paragraphNode(p));
+
   return {
     root: {
       type: "root",
@@ -19,25 +92,7 @@ function paragraphsToLexical(paragraphs: string[]): Post["body"] {
       indent: 0,
       version: 1,
       direction: "ltr" as const,
-      children: paragraphs.map((text) => ({
-        type: "paragraph",
-        version: 1,
-        format: "",
-        indent: 0,
-        direction: "ltr" as const,
-        textFormat: 0,
-        children: [
-          {
-            type: "text",
-            text,
-            version: 1,
-            format: 0,
-            mode: "normal",
-            style: "",
-            detail: 0,
-          },
-        ],
-      })),
+      children,
     },
   } as unknown as Post["body"];
 }
@@ -59,31 +114,47 @@ const seed = async () => {
     payload.logger.info("Users already exist - skipping admin creation.");
   }
 
-  // 2. Blog posts
+  // 2. Blog posts (upsert — refresh body + SEO from catalog)
   for (const post of seedPosts) {
-    const exists = await payload.count({
+    const existing = await payload.find({
       collection: "posts",
       where: { slug: { equals: post.slug } },
+      limit: 1,
+      depth: 0,
     });
-    if (exists.totalDocs > 0) continue;
-    await payload.create({
-      collection: "posts",
-      data: {
-        title: post.title,
-        slug: post.slug,
-        category: post.category,
-        readingTime: post.readingTime,
-        excerpt: post.excerpt,
-        author: post.author,
-        publishedAt: new Date(post.date).toISOString(),
-        status: "published",
-        body: paragraphsToLexical(post.body),
+    const data = {
+      title: post.title,
+      slug: post.slug,
+      category: post.category,
+      readingTime: post.readingTime,
+      excerpt: post.excerpt,
+      author: post.author,
+      publishedAt: new Date(post.date).toISOString(),
+      status: "published" as const,
+      body: postToLexical(post),
+      seo: {
+        metaTitle: post.seo.metaTitle,
+        metaDescription: post.seo.metaDescription,
       },
-    });
-    payload.logger.info(`Seeded post: ${post.slug}`);
+    };
+    const doc = existing.docs[0];
+    if (doc) {
+      await payload.update({
+        collection: "posts",
+        id: doc.id,
+        data,
+      });
+      payload.logger.info(`Updated post: ${post.slug}`);
+    } else {
+      await payload.create({
+        collection: "posts",
+        data,
+      });
+      payload.logger.info(`Seeded post: ${post.slug}`);
+    }
   }
 
-  // 3. Case studies
+  // 3. Case studies (create-only)
   for (const cs of seedCaseStudies) {
     const exists = await payload.count({
       collection: "case-studies",
@@ -113,7 +184,6 @@ const seed = async () => {
   payload.logger.info("Seed complete.");
 };
 
-// Top-level await so `payload run` waits for seeding to finish before exiting.
 try {
   await seed();
   process.exit(0);

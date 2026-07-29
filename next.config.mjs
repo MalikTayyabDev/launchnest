@@ -44,9 +44,13 @@ const nextConfig = {
     formats: ["image/avif", "image/webp"],
     // Cache optimized images at the edge for 30 days.
     minimumCacheTTL: 60 * 60 * 24 * 30,
-    // Allow CMS media served from Vercel Blob.
+    // Allow CMS media served from Vercel Blob (store + wildcard).
     remotePatterns: [
       { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
+      {
+        protocol: "https",
+        hostname: "xixzixf2fkg7rpev.public.blob.vercel-storage.com",
+      },
     ],
   },
   async headers() {

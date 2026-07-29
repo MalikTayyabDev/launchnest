@@ -40,6 +40,23 @@ Priorities: (P1) commercial-intent money pages, (P2) supporting/service pages,
 | `/about` | P3 | engineering-first digital agency | launch partner for modern businesses |
 | `/contact` | P2 | free website growth audit | book discovery call digital agency |
 
+## Blog → keyword mapping (P3 → feeds money pages)
+
+| Post slug | Primary keyword | Feeds service |
+| --- | --- | --- |
+| `/blog/saas-marketing-site-checklist` | SaaS website development | website-design-dev |
+| `/blog/saas-ui-ux-that-converts` | SaaS UI UX design | ui-ux-design |
+| `/blog/brand-identity-for-startups` | brand identity for startups | graphic-design |
+| `/blog/ai-automation-for-saas-growth` | AI integrations for SaaS | ai-automation |
+| `/blog/core-web-vitals-that-matter` | Core Web Vitals / technical SEO | seo |
+| `/blog/what-maintenance-actually-means` | website maintenance retainer | maintenance-support |
+| `/blog/why-your-checkout-is-slow` | conversion / performance | website-design-dev |
+| `/blog/shopify-speed-optimization-checklist` | Shopify speed | website-design-dev |
+| `/blog/how-much-should-a-website-cost` | website development cost | website-design-dev |
+| `/blog/webflow-vs-wordpress` | Webflow vs WordPress (comparison) | website-design-dev |
+
+On-page for posts: unique `metaTitle` / `metaDescription`, H2 sections, internal link to related service, Article JSON-LD (incl. cover `image` when set), OG/Twitter large image when `coverImage` is uploaded in CMS.
+
 ## Ranking data (important)
 
 **Exact ranking keywords require Google Search Console → Performance → Queries.**
@@ -60,7 +77,7 @@ Differentiate with **launch-nest.com** + “engineering-first” + SaaS/AI messa
 - [x] Expanded robots.txt (admin/api disallow)
 - [x] Keyword-deeper service + audience page copy
 - [ ] Verify Google Search Console + Bing Webmaster Tools
-- [ ] Submit `sitemap.xml`
+- [ ] Submit `https://www.launch-nest.com/sitemap.xml` in GSC + Bing
 - [ ] Confirm money-page titles against live SERP competitors
 - [ ] Replace seed case studies with permissioned client stories
 - [ ] Track Core Web Vitals in GSC after launch
