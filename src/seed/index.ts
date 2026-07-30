@@ -6,9 +6,8 @@ import { caseStudies as seedCaseStudies } from "../lib/work";
 
 /**
  * Seeds admin + migrates bundled blog posts and case studies into the CMS.
- * Upserts blog posts (create or update body/SEO) so content stays in sync with
- * `src/lib/blog.ts`. Case studies remain create-only (skip if slug exists).
- * Run with: `npm run seed` (requires DATABASE_URL + a migrated DB).
+ * Create-only for content: existing posts/case studies are never overwritten,
+ * so dashboard edits always win. Run with: `npm run seed`.
  */
 
 type LexicalNode = Record<string, unknown>;
@@ -97,16 +96,6 @@ function postToLexical(post: {
   } as unknown as Post["body"];
 }
 
-/** Preserve upload relations on upsert without wiping CMS covers. */
-function relationId(value: unknown): number | undefined {
-  if (typeof value === "number" && Number.isFinite(value)) return value;
-  if (typeof value === "string" && /^\d+$/.test(value)) return Number(value);
-  if (typeof value === "object" && value !== null && "id" in value) {
-    return relationId((value as { id: unknown }).id);
-  }
-  return undefined;
-}
-
 const seed = async () => {
   const payload = await getPayload({ config });
 
@@ -124,7 +113,7 @@ const seed = async () => {
     payload.logger.info("Users already exist - skipping admin creation.");
   }
 
-  // 2. Blog posts (upsert — refresh body + SEO from catalog)
+  // 2. Blog posts — create missing only. Never overwrite dashboard edits.
   for (const post of seedPosts) {
     const existing = await payload.find({
       collection: "posts",
@@ -132,41 +121,32 @@ const seed = async () => {
       limit: 1,
       depth: 0,
     });
-    const doc = existing.docs[0];
-    const coverImage = relationId(doc?.coverImage);
-    const data = {
-      title: post.title,
-      slug: post.slug,
-      category: post.category,
-      readingTime: post.readingTime,
-      excerpt: post.excerpt,
-      author: post.author,
-      publishedAt: new Date(post.date).toISOString(),
-      status: "published" as const,
-      body: postToLexical(post),
-      seo: {
-        metaTitle: post.seo.metaTitle,
-        metaDescription: post.seo.metaDescription,
-      },
-      ...(coverImage !== undefined ? { coverImage } : {}),
-    };
-    if (doc) {
-      await payload.update({
-        collection: "posts",
-        id: doc.id,
-        data,
-      });
-      payload.logger.info(`Updated post: ${post.slug}`);
-    } else {
-      await payload.create({
-        collection: "posts",
-        data,
-      });
-      payload.logger.info(`Seeded post: ${post.slug}`);
+    if (existing.docs[0]) {
+      payload.logger.info(`Post exists (skipped): ${post.slug}`);
+      continue;
     }
+    await payload.create({
+      collection: "posts",
+      data: {
+        title: post.title,
+        slug: post.slug,
+        category: post.category,
+        readingTime: post.readingTime,
+        excerpt: post.excerpt,
+        author: post.author,
+        publishedAt: new Date(post.date).toISOString(),
+        status: "published",
+        body: postToLexical(post),
+        seo: {
+          metaTitle: post.seo.metaTitle,
+          metaDescription: post.seo.metaDescription,
+        },
+      },
+    });
+    payload.logger.info(`Seeded post: ${post.slug}`);
   }
 
-  // 3. Case studies (upsert content + SEO)
+  // 3. Case studies — create missing only. Never overwrite dashboard edits.
   for (const cs of seedCaseStudies) {
     const existing = await payload.find({
       collection: "case-studies",
@@ -174,41 +154,32 @@ const seed = async () => {
       limit: 1,
       depth: 0,
     });
-    const doc = existing.docs[0];
-    const coverImage = relationId(doc?.coverImage);
-    const data = {
-      client: cs.client,
-      slug: cs.slug,
-      industry: cs.industry,
-      headlineResult: cs.headlineResult,
-      summary: cs.summary,
-      accent: cs.accent,
-      situation: cs.situation,
-      problem: cs.problem,
-      whatWeDid: cs.whatWeDid.map((step) => ({ step })),
-      results: cs.results.map((r) => ({ metric: r.metric, label: r.label })),
-      quote: cs.quote,
-      status: "published" as const,
-      seo: {
-        metaTitle: cs.seo.metaTitle,
-        metaDescription: cs.seo.metaDescription,
-      },
-      ...(coverImage !== undefined ? { coverImage } : {}),
-    };
-    if (doc) {
-      await payload.update({
-        collection: "case-studies",
-        id: doc.id,
-        data,
-      });
-      payload.logger.info(`Updated case study: ${cs.slug}`);
-    } else {
-      await payload.create({
-        collection: "case-studies",
-        data,
-      });
-      payload.logger.info(`Seeded case study: ${cs.slug}`);
+    if (existing.docs[0]) {
+      payload.logger.info(`Case study exists (skipped): ${cs.slug}`);
+      continue;
     }
+    await payload.create({
+      collection: "case-studies",
+      data: {
+        client: cs.client,
+        slug: cs.slug,
+        industry: cs.industry,
+        headlineResult: cs.headlineResult,
+        summary: cs.summary,
+        accent: cs.accent,
+        situation: cs.situation,
+        problem: cs.problem,
+        whatWeDid: cs.whatWeDid.map((step) => ({ step })),
+        results: cs.results.map((r) => ({ metric: r.metric, label: r.label })),
+        quote: cs.quote,
+        status: "published",
+        seo: {
+          metaTitle: cs.seo.metaTitle,
+          metaDescription: cs.seo.metaDescription,
+        },
+      },
+    });
+    payload.logger.info(`Seeded case study: ${cs.slug}`);
   }
 
   payload.logger.info("Seed complete.");

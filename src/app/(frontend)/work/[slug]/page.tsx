@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export const revalidate = 60;
+export const revalidate = 10;
 
 export default async function CaseStudyPage({ params }: Props) {
   const { slug } = await params;

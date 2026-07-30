@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 60;
+export const revalidate = 10;
 
 export default async function PortfolioPage() {
   const [portfolioLive, portfolioOffline, caseStudies] = await Promise.all([

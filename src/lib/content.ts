@@ -165,19 +165,27 @@ export async function getPost(slug: string): Promise<PostDetail | null> {
             doc.title || "Article cover image",
           );
         }
-        const seo =
-          (doc.seo?.metaTitle || doc.seo?.metaDescription
-            ? doc.seo
-            : null) ??
-          seed?.seo ??
-          undefined;
-        // Prefer structured seed body for catalog posts (detailed + SEO H2s).
-        // CMS-only posts (no seed) render Lexical rich text. Cover image always from CMS.
+        const cmsSeo =
+          doc.seo?.metaTitle || doc.seo?.metaDescription ? doc.seo : undefined;
+        const seo = cmsSeo ?? seed?.seo ?? undefined;
+        const richText = hasLexicalBody(doc.body)
+          ? (doc.body as LexicalContent)
+          : null;
+
+        // CMS is source of truth when a published post exists.
+        // Seed sections only fill in if the CMS body is empty (never override dashboard edits).
+        if (richText) {
+          return {
+            ...summary,
+            richText,
+            relatedService: seed?.relatedService,
+            primaryKeyword: seed?.primaryKeyword,
+            seo,
+          };
+        }
         if (seed?.sections?.length) {
           return {
             ...summary,
-            title: summary.title || seed.title,
-            excerpt: summary.excerpt || seed.excerpt,
             intro: seed.intro,
             sections: seed.sections,
             conclusion: seed.conclusion,
@@ -188,7 +196,7 @@ export async function getPost(slug: string): Promise<PostDetail | null> {
         }
         return {
           ...summary,
-          richText: (doc.body as LexicalContent) ?? null,
+          richText: null,
           relatedService: seed?.relatedService,
           primaryKeyword: seed?.primaryKeyword,
           seo,
@@ -208,6 +216,13 @@ export async function getPost(slug: string): Promise<PostDetail | null> {
     primaryKeyword: seed.primaryKeyword,
     seo: seed.seo,
   };
+}
+
+/** True when Lexical body has at least one non-empty child. */
+function hasLexicalBody(body: unknown): boolean {
+  if (!body || typeof body !== "object") return false;
+  const children = (body as { root?: { children?: unknown[] } }).root?.children;
+  return Array.isArray(children) && children.length > 0;
 }
 
 function mapPostSummary(doc: Record<string, any>): PostSummary {
@@ -277,12 +292,12 @@ export async function getCaseStudy(slug: string): Promise<CaseStudyItem | null> 
             : undefined;
         return {
           ...mapped,
-          // Prefer richer catalog copy/SEO when CMS fields are thin or empty.
+          primaryKeyword: seed?.primaryKeyword,
+          relatedService: seed?.relatedService,
+          // CMS fields win; seed only fills blanks.
           summary: mapped.summary || seed?.summary || "",
           situation: mapped.situation || seed?.situation || "",
           problem: mapped.problem || seed?.problem || "",
-          primaryKeyword: seed?.primaryKeyword,
-          relatedService: seed?.relatedService,
           seo: cmsSeo ?? seed?.seo,
         };
       }

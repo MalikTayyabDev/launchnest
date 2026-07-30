@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 60;
+export const revalidate = 10;
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", {

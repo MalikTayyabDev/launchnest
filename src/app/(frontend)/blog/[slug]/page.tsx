@@ -8,7 +8,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { articleSchema, breadcrumbSchema, selfCanonical } from "@/lib/seo";
 import { getPost, getPostSlugs } from "@/lib/content";
 
-export const revalidate = 60;
+export const revalidate = 10;
 
 export async function generateStaticParams() {
   return (await getPostSlugs()).map((slug) => ({ slug }));
