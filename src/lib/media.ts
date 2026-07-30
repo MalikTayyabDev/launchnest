@@ -5,34 +5,44 @@ export type MediaLike = {
   url?: string | null;
   alt?: string | null;
   filename?: string | null;
-  sizes?: {
-    thumbnail?: { url?: string | null; filename?: string | null } | null;
-    card?: { url?: string | null; filename?: string | null } | null;
-    hero?: { url?: string | null; filename?: string | null } | null;
-  } | null;
 };
 
 export type ResolvedCover = { url: string; alt: string };
+
+/**
+ * Normalize a Vercel Blob store id.
+ * Dashboard labels often look like `store_n8abscuqkk8r6asr`, but public CDN
+ * hostnames are `n8abscuqkk8r6asr.public.blob.vercel-storage.com` (no `store_`).
+ */
+export function normalizeBlobStoreId(raw: string | null | undefined): string | null {
+  if (!raw) return null;
+  let id = raw.trim().toLowerCase();
+  id = id.replace(/^store[_-]/, "");
+  id = id.replace(/\.public\.blob\.vercel-storage\.com$/i, "");
+  id = id.replace(/^https?:\/\//, "").split("/")[0] || "";
+  id = id.replace(/^store[_-]/, "");
+  return /^[a-z\d]+$/.test(id) ? id : null;
+}
 
 /** Parse Vercel Blob store id from token or BLOB_STORE_ID env. */
 export function blobStoreIdFromToken(
   token = process.env.BLOB_READ_WRITE_TOKEN || "",
 ): string | null {
-  const fromEnv = (process.env.BLOB_STORE_ID || "").trim().toLowerCase();
+  const fromEnv = normalizeBlobStoreId(process.env.BLOB_STORE_ID);
   if (fromEnv) return fromEnv;
   const match = token.match(/^vercel_blob_rw_([a-z\d]+)_[a-z\d]+$/i);
-  return match?.[1]?.toLowerCase() ?? null;
+  return normalizeBlobStoreId(match?.[1] ?? null);
 }
 
 export function blobPublicBaseUrl(
   token = process.env.BLOB_READ_WRITE_TOKEN || "",
 ): string | null {
+  if (process.env.STORAGE_VERCEL_BLOB_BASE_URL) {
+    return process.env.STORAGE_VERCEL_BLOB_BASE_URL.replace(/\/$/, "");
+  }
   const storeId = blobStoreIdFromToken(token);
   if (!storeId) return null;
-  return (
-    process.env.STORAGE_VERCEL_BLOB_BASE_URL?.replace(/\/$/, "") ||
-    `https://${storeId}.public.blob.vercel-storage.com`
-  );
+  return `https://${storeId}.public.blob.vercel-storage.com`;
 }
 
 /**
@@ -48,6 +58,22 @@ export function blobObjectUrl(baseUrl: string, filename: string): string {
   return dir ? `${baseUrl}/${dir}/${encoded}` : `${baseUrl}/${encoded}`;
 }
 
+/** Fix mistaken `store_` hostnames → real public Blob CDN host. */
+export function repairBlobUrl(url: string): string {
+  try {
+    const u = new URL(url);
+    const host = u.hostname;
+    const m = host.match(/^store[_-]([a-z\d]+)\.public\.blob\.vercel-storage\.com$/i);
+    if (m) {
+      u.hostname = `${m[1].toLowerCase()}.public.blob.vercel-storage.com`;
+      return u.toString();
+    }
+    return url;
+  } catch {
+    return url;
+  }
+}
+
 function filenameFromMediaPath(raw: string): string | null {
   const marker = "/api/media/file/";
   const idx = raw.indexOf(marker);
@@ -56,6 +82,15 @@ function filenameFromMediaPath(raw: string): string | null {
     return decodeURIComponent(raw.slice(idx + marker.length).split("?")[0] || "");
   } catch {
     return raw.slice(idx + marker.length).split("?")[0] || null;
+  }
+}
+
+function isBlobCdnUrl(url: string): boolean {
+  try {
+    const host = new URL(url).hostname;
+    return /\.public\.blob\.vercel-storage\.com$/i.test(host);
+  } catch {
+    return false;
   }
 }
 
@@ -74,14 +109,19 @@ function publicOrigin(): string {
 
 /**
  * Resolve a stored Payload media URL for the public site.
- * Prefer Vercel Blob CDN when store id is known — never depend on /_next/image
- * fetching /api/media/file (that path 400s when the optimizer cannot pull the file).
+ * If Payload already returned a Blob CDN URL, keep it (only repair bad store_ hosts).
+ * Otherwise rewrite /api/media/file/* to the public CDN when store id is known.
  */
 export function resolveMediaUrl(
   raw: string | null | undefined,
   filename?: string | null,
 ): string | null {
   if (!raw && !filename) return null;
+
+  // Trust (and repair) absolute Blob CDN URLs from Payload — do not rebuild them.
+  if (raw && /^https?:\/\//i.test(raw) && isBlobCdnUrl(raw)) {
+    return repairBlobUrl(raw);
+  }
 
   const blobBase = blobPublicBaseUrl();
   const name =
@@ -94,8 +134,7 @@ export function resolveMediaUrl(
 
   if (!raw) return null;
   if (raw.startsWith("http://") || raw.startsWith("https://")) {
-    // Still on our own /api/media proxy — keep absolute but callers use <img>, not optimizer.
-    return raw;
+    return repairBlobUrl(raw);
   }
 
   const origin = publicOrigin();
@@ -105,8 +144,7 @@ export function resolveMediaUrl(
 
 /**
  * Map a Payload upload relation to a cover image.
- * ONLY use the original upload — resized sizes (card/hero) are often missing on Blob
- * and were causing /_next/image?url=...960x640.png → 400.
+ * ONLY use the original upload — never resized size variants.
  */
 export function mapUploadCover(
   cover: unknown,
