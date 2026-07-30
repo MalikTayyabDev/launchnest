@@ -43,7 +43,10 @@ export const CaseStudies: CollectionConfig = {
       ],
     },
     { name: "summary", type: "textarea", required: true },
-    { name: "coverImage", type: "upload", relationTo: "media" },
+    { name: "coverImage", type: "upload", relationTo: "media", admin: {
+      description:
+        "Optional cover for the case study page + Open Graph. Upload here and Save. Seed sync preserves this field.",
+    } },
     {
       name: "accent",
       type: "text",

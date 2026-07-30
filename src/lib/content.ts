@@ -2,6 +2,7 @@ import { getPayload, type Payload } from "payload";
 import configPromise from "@payload-config";
 import { posts as seedPosts } from "./blog";
 import { caseStudies as seedCaseStudies, type Industry } from "./work";
+import { mapUploadCover } from "./media";
 
 /** Lexical rich-text document shape (kept loose to avoid deep type coupling). */
 export type LexicalContent = { root: unknown } & Record<string, unknown>;
@@ -84,6 +85,28 @@ function mapSeedSummary(p: (typeof seedPosts)[number]): PostSummary {
   };
 }
 
+async function resolveCoverFromDoc(
+  payload: Payload,
+  cover: unknown,
+  fallbackAlt: string,
+): Promise<{ url: string; alt: string } | null> {
+  const direct = mapUploadCover(cover, fallbackAlt);
+  if (direct) return direct;
+  const id =
+    typeof cover === "number" || typeof cover === "string" ? cover : null;
+  if (id == null) return null;
+  try {
+    const media = await payload.findByID({
+      collection: "media",
+      id,
+      depth: 0,
+    });
+    return mapUploadCover(media, fallbackAlt);
+  } catch {
+    return null;
+  }
+}
+
 export async function getAllPosts(): Promise<PostSummary[]> {
   const payload = await tryPayload();
   if (payload) {
@@ -96,8 +119,19 @@ export async function getAllPosts(): Promise<PostSummary[]> {
         depth: 1,
       });
       if (res.docs.length > 0) {
-        // CMS is source of truth when reachable — keeps admin and public site in sync.
-        return res.docs.map(mapPostSummary);
+        return Promise.all(
+          res.docs.map(async (doc) => {
+            const summary = mapPostSummary(doc);
+            if (!summary.coverImage && doc.coverImage != null) {
+              summary.coverImage = await resolveCoverFromDoc(
+                payload,
+                doc.coverImage,
+                doc.title || "Article cover image",
+              );
+            }
+            return summary;
+          }),
+        );
       }
     } catch {
       /* fall through to seed */
@@ -124,6 +158,13 @@ export async function getPost(slug: string): Promise<PostDetail | null> {
       const doc = res.docs[0];
       if (doc) {
         const summary = mapPostSummary(doc);
+        if (!summary.coverImage && doc.coverImage != null) {
+          summary.coverImage = await resolveCoverFromDoc(
+            payload,
+            doc.coverImage,
+            doc.title || "Article cover image",
+          );
+        }
         const seo =
           (doc.seo?.metaTitle || doc.seo?.metaDescription
             ? doc.seo
@@ -169,30 +210,6 @@ export async function getPost(slug: string): Promise<PostDetail | null> {
   };
 }
 
-function resolveMediaUrl(url: string): string {
-  if (url.startsWith("http://") || url.startsWith("https://")) return url;
-  const base = process.env.NEXT_PUBLIC_SERVER_URL?.replace(/\/$/, "") || "";
-  return base ? `${base}${url.startsWith("/") ? url : `/${url}`}` : url;
-}
-
-function mapCoverImage(
-  cover: unknown,
-): { url: string; alt: string } | null {
-  if (!cover || typeof cover !== "object") return null;
-  const c = cover as {
-    url?: string | null;
-    alt?: string | null;
-    sizes?: { hero?: { url?: string | null }; card?: { url?: string | null } };
-  };
-  const raw =
-    c.sizes?.hero?.url || c.sizes?.card?.url || c.url || null;
-  if (!raw) return null;
-  return {
-    url: resolveMediaUrl(raw),
-    alt: c.alt || "Article cover image",
-  };
-}
-
 function mapPostSummary(doc: Record<string, any>): PostSummary {
   return {
     slug: doc.slug,
@@ -202,7 +219,7 @@ function mapPostSummary(doc: Record<string, any>): PostSummary {
     date: doc.publishedAt ?? doc.createdAt,
     readingTime: doc.readingTime ?? "",
     author: doc.author ?? "LaunchNest",
-    coverImage: mapCoverImage(doc.coverImage),
+    coverImage: mapUploadCover(doc.coverImage, doc.title || "Article cover image"),
   };
 }
 
@@ -247,6 +264,13 @@ export async function getCaseStudy(slug: string): Promise<CaseStudyItem | null> 
       const doc = res.docs[0];
       if (doc) {
         const mapped = mapCaseStudy(doc);
+        if (!mapped.coverImage && doc.coverImage != null) {
+          mapped.coverImage = await resolveCoverFromDoc(
+            payload,
+            doc.coverImage,
+            `${doc.client || "Case study"} cover image`,
+          );
+        }
         const cmsSeo =
           mapped.seo?.metaTitle || mapped.seo?.metaDescription
             ? mapped.seo
@@ -314,7 +338,10 @@ function mapCaseStudy(doc: Record<string, any>): CaseStudyItem {
       role: doc.quote?.role ?? "",
     },
     accent: doc.accent ?? "#0B1F3A",
-    coverImage: mapCoverImage(doc.coverImage),
+    coverImage: mapUploadCover(
+      doc.coverImage,
+      `${doc.client || "Case study"} cover image`,
+    ),
     primaryKeyword: seed?.primaryKeyword,
     relatedService: seed?.relatedService,
     seo: doc.seo ?? seed?.seo ?? undefined,

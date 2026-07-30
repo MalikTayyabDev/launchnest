@@ -42,7 +42,10 @@ export const Posts: CollectionConfig = {
       required: true,
       admin: { description: "One or two sentences shown on the blog index and share cards." },
     },
-    { name: "coverImage", type: "upload", relationTo: "media" },
+    { name: "coverImage", type: "upload", relationTo: "media", admin: {
+      description:
+        "Required for the blog card + post hero on the public site. Upload here (or pick from Media), set Alt text, then Save. Re-upload if an older file 404s — seed sync never clears this field.",
+    } },
     { name: "body", type: "richText" },
     {
       type: "row",

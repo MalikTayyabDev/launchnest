@@ -44,12 +44,32 @@ const nextConfig = {
     formats: ["image/avif", "image/webp"],
     // Cache optimized images at the edge for 30 days.
     minimumCacheTTL: 60 * 60 * 24 * 30,
-    // Allow CMS media served from Vercel Blob (store + wildcard).
+    // Allow CMS media: Vercel Blob CDN + same-origin Payload file routes.
     remotePatterns: [
-      { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
+      {
+        protocol: "https",
+        hostname: "*.public.blob.vercel-storage.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "**.public.blob.vercel-storage.com",
+        pathname: "/**",
+      },
       {
         protocol: "https",
         hostname: "xixzixf2fkg7rpev.public.blob.vercel-storage.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.launch-nest.com",
+        pathname: "/api/media/**",
+      },
+      {
+        protocol: "https",
+        hostname: "launch-nest.com",
+        pathname: "/api/media/**",
       },
     ],
   },

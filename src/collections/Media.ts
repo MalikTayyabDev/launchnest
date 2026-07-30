@@ -11,7 +11,7 @@ export const Media: CollectionConfig = {
   admin: {
     group: "Content",
     description:
-      "Image uploads for projects, posts, and case studies. Production uses Vercel Blob (BLOB_READ_WRITE_TOKEN); local dev writes to /media on disk.",
+      "Image uploads for projects, posts, and case studies. Production requires BLOB_READ_WRITE_TOKEN (Vercel Blob). After uploading, open the Blog Post / Case Study and set Cover Image, then Save — files only in Media are not shown on the site until linked.",
   },
   access: {
     read: () => true, // public assets

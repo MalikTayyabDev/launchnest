@@ -122,7 +122,7 @@ const seed = async () => {
       limit: 1,
       depth: 0,
     });
-    const data = {
+    const data: Record<string, unknown> = {
       title: post.title,
       slug: post.slug,
       category: post.category,
@@ -139,16 +139,25 @@ const seed = async () => {
     };
     const doc = existing.docs[0];
     if (doc) {
+      // Never wipe CMS cover images / media relations on content sync.
+      if (doc.coverImage != null) {
+        data.coverImage =
+          typeof doc.coverImage === "object" && doc.coverImage !== null
+            ? (doc.coverImage as { id: number | string }).id
+            : doc.coverImage;
+      }
       await payload.update({
         collection: "posts",
         id: doc.id,
-        data,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data: data as any,
       });
       payload.logger.info(`Updated post: ${post.slug}`);
     } else {
       await payload.create({
         collection: "posts",
-        data,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data: data as any,
       });
       payload.logger.info(`Seeded post: ${post.slug}`);
     }
@@ -162,7 +171,7 @@ const seed = async () => {
       limit: 1,
       depth: 0,
     });
-    const data = {
+    const data: Record<string, unknown> = {
       client: cs.client,
       slug: cs.slug,
       industry: cs.industry,
@@ -182,16 +191,24 @@ const seed = async () => {
     };
     const doc = existing.docs[0];
     if (doc) {
+      if (doc.coverImage != null) {
+        data.coverImage =
+          typeof doc.coverImage === "object" && doc.coverImage !== null
+            ? (doc.coverImage as { id: number | string }).id
+            : doc.coverImage;
+      }
       await payload.update({
         collection: "case-studies",
         id: doc.id,
-        data,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data: data as any,
       });
       payload.logger.info(`Updated case study: ${cs.slug}`);
     } else {
       await payload.create({
         collection: "case-studies",
-        data,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data: data as any,
       });
       payload.logger.info(`Seeded case study: ${cs.slug}`);
     }

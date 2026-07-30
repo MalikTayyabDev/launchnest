@@ -105,6 +105,9 @@ export function PostCoverImage({
   priority?: boolean;
   className?: string;
 }) {
+  // Absolute remote URLs (Vercel Blob) + same-origin /api/media paths both work.
+  // unoptimized avoids optimizer 404s when Blob is briefly unavailable during deploy.
+  const isRemote = /^https?:\/\//i.test(src);
   return (
     <div
       className={`relative aspect-[16/9] w-full overflow-hidden bg-offwhite ${className}`}
@@ -114,6 +117,7 @@ export function PostCoverImage({
         alt={alt}
         fill
         priority={priority}
+        unoptimized={isRemote}
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 720px"
         className="object-cover"
       />

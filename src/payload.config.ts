@@ -65,7 +65,15 @@ export default buildConfig({
     vercelBlobStorage({
       // Required on Vercel — without a token, uploads fail (ephemeral filesystem).
       enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
-      collections: { media: true },
+      // Keep prefix fields in schema even when token is missing locally.
+      alwaysInsertFields: true,
+      collections: {
+        media: {
+          // Serve public CDN URLs on read so the frontend never depends on
+          // /api/media/file proxy working for next/image.
+          disablePayloadAccessControl: true,
+        },
+      },
       token: process.env.BLOB_READ_WRITE_TOKEN || "",
       // Bypass Vercel’s ~4.5MB serverless body limit for admin uploads.
       clientUploads: true,
