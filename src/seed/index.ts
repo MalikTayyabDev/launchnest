@@ -97,6 +97,17 @@ function postToLexical(post: {
   } as unknown as Post["body"];
 }
 
+/** Preserve upload relations on upsert without wiping CMS covers. */
+function relationId(value: unknown): number | string | undefined {
+  if (value == null) return undefined;
+  if (typeof value === "number" || typeof value === "string") return value;
+  if (typeof value === "object" && value !== null && "id" in value) {
+    const id = (value as { id: unknown }).id;
+    if (typeof id === "number" || typeof id === "string") return id;
+  }
+  return undefined;
+}
+
 const seed = async () => {
   const payload = await getPayload({ config });
 
@@ -122,7 +133,9 @@ const seed = async () => {
       limit: 1,
       depth: 0,
     });
-    const data: Record<string, unknown> = {
+    const doc = existing.docs[0];
+    const coverImage = relationId(doc?.coverImage);
+    const data = {
       title: post.title,
       slug: post.slug,
       category: post.category,
@@ -136,28 +149,19 @@ const seed = async () => {
         metaTitle: post.seo.metaTitle,
         metaDescription: post.seo.metaDescription,
       },
+      ...(coverImage !== undefined ? { coverImage } : {}),
     };
-    const doc = existing.docs[0];
     if (doc) {
-      // Never wipe CMS cover images / media relations on content sync.
-      if (doc.coverImage != null) {
-        data.coverImage =
-          typeof doc.coverImage === "object" && doc.coverImage !== null
-            ? (doc.coverImage as { id: number | string }).id
-            : doc.coverImage;
-      }
       await payload.update({
         collection: "posts",
         id: doc.id,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        data: data as any,
+        data,
       });
       payload.logger.info(`Updated post: ${post.slug}`);
     } else {
       await payload.create({
         collection: "posts",
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        data: data as any,
+        data,
       });
       payload.logger.info(`Seeded post: ${post.slug}`);
     }
@@ -171,7 +175,9 @@ const seed = async () => {
       limit: 1,
       depth: 0,
     });
-    const data: Record<string, unknown> = {
+    const doc = existing.docs[0];
+    const coverImage = relationId(doc?.coverImage);
+    const data = {
       client: cs.client,
       slug: cs.slug,
       industry: cs.industry,
@@ -188,27 +194,19 @@ const seed = async () => {
         metaTitle: cs.seo.metaTitle,
         metaDescription: cs.seo.metaDescription,
       },
+      ...(coverImage !== undefined ? { coverImage } : {}),
     };
-    const doc = existing.docs[0];
     if (doc) {
-      if (doc.coverImage != null) {
-        data.coverImage =
-          typeof doc.coverImage === "object" && doc.coverImage !== null
-            ? (doc.coverImage as { id: number | string }).id
-            : doc.coverImage;
-      }
       await payload.update({
         collection: "case-studies",
         id: doc.id,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        data: data as any,
+        data,
       });
       payload.logger.info(`Updated case study: ${cs.slug}`);
     } else {
       await payload.create({
         collection: "case-studies",
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        data: data as any,
+        data,
       });
       payload.logger.info(`Seeded case study: ${cs.slug}`);
     }
