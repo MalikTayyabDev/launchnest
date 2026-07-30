@@ -24,11 +24,8 @@ export const Media: CollectionConfig = {
     staticDir: path.resolve(dirname, "../../media"),
     // Restrict uploads to images (defence against arbitrary file upload).
     mimeTypes: ["image/*"],
-    imageSizes: [
-      { name: "thumbnail", width: 480 },
-      { name: "card", width: 960 },
-      { name: "hero", width: 1600 },
-    ],
+    // No derived sizes — resized variants often 404 on Blob and caused
+    // /_next/image 400s when the frontend preferred card/hero over the original.
     focalPoint: true,
   },
   fields: [

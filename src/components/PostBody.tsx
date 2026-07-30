@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import type { BlogSection } from "@/lib/blog";
@@ -93,7 +92,10 @@ function RelatedServiceLink({ slug }: { slug: string }) {
   );
 }
 
-/** Cover image for blog index cards and post heroes. */
+/** Cover image for blog index cards and post heroes.
+ * Uses a plain <img> (not next/image optimizer) so CMS/Blob URLs never hit
+ * /_next/image 400s when /api/media/file is unreachable or not allowlisted.
+ */
 export function PostCoverImage({
   src,
   alt,
@@ -105,21 +107,18 @@ export function PostCoverImage({
   priority?: boolean;
   className?: string;
 }) {
-  // Absolute remote URLs (Vercel Blob) + same-origin /api/media paths both work.
-  // unoptimized avoids optimizer 404s when Blob is briefly unavailable during deploy.
-  const isRemote = /^https?:\/\//i.test(src);
   return (
     <div
       className={`relative aspect-[16/9] w-full overflow-hidden bg-offwhite ${className}`}
     >
-      <Image
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
         src={src}
         alt={alt}
-        fill
-        priority={priority}
-        unoptimized={isRemote}
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 720px"
-        className="object-cover"
+        loading={priority ? "eager" : "lazy"}
+        decoding="async"
+        fetchPriority={priority ? "high" : "auto"}
+        className="absolute inset-0 h-full w-full object-cover"
       />
     </div>
   );
