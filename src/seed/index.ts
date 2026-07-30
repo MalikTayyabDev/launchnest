@@ -98,12 +98,11 @@ function postToLexical(post: {
 }
 
 /** Preserve upload relations on upsert without wiping CMS covers. */
-function relationId(value: unknown): number | string | undefined {
-  if (value == null) return undefined;
-  if (typeof value === "number" || typeof value === "string") return value;
+function relationId(value: unknown): number | undefined {
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  if (typeof value === "string" && /^\d+$/.test(value)) return Number(value);
   if (typeof value === "object" && value !== null && "id" in value) {
-    const id = (value as { id: unknown }).id;
-    if (typeof id === "number" || typeof id === "string") return id;
+    return relationId((value as { id: unknown }).id);
   }
   return undefined;
 }
