@@ -51,6 +51,8 @@ export type CaseStudyItem = {
   accent: string;
   liveUrl?: string | null;
   liveDomain?: string | null;
+  /** True when a live URL exists internally — never expose the URL publicly. */
+  hasLiveSite?: boolean;
   coverImage?: { url: string; alt: string } | null;
   primaryKeyword?: string;
   relatedService?: string;
@@ -242,6 +244,16 @@ function mapPostSummary(doc: Record<string, any>): PostSummary {
 
 // ---------- Case studies ----------
 
+/** Strip live URLs from public responses — share privately after contact. */
+function redactPublicCaseStudy(study: CaseStudyItem): CaseStudyItem {
+  return {
+    ...study,
+    hasLiveSite: Boolean(study.liveUrl),
+    liveUrl: null,
+    liveDomain: null,
+  };
+}
+
 export async function getAllCaseStudies(): Promise<CaseStudyItem[]> {
   const payload = await tryPayload();
   const cmsBySlug = new Map<string, CaseStudyItem>();
@@ -283,7 +295,7 @@ export async function getAllCaseStudies(): Promise<CaseStudyItem[]> {
     (c) => !catalogSlugs.has(c.slug) && Boolean(c.liveUrl),
   );
 
-  return [...fromCatalog, ...cmsOnlyLive];
+  return [...fromCatalog, ...cmsOnlyLive].map(redactPublicCaseStudy);
 }
 
 export async function getCaseStudySlugs(): Promise<string[]> {
@@ -330,13 +342,13 @@ export async function getCaseStudy(slug: string): Promise<CaseStudyItem | null> 
         };
         // Fictional / unverifiable CMS-only studies without a live URL stay hidden.
         if (!merged.liveUrl) return null;
-        return merged;
+        return redactPublicCaseStudy(merged);
       }
     } catch {
       /* fall through */
     }
   }
-  return seed ? mapSeedCaseStudy(seed) : null;
+  return seed ? redactPublicCaseStudy(mapSeedCaseStudy(seed)) : null;
 }
 
 function mapSeedCaseStudy(c: (typeof seedCaseStudies)[number]): CaseStudyItem {

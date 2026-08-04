@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { PortfolioItem } from "@/lib/portfolio";
+import type { PublicPortfolioItem } from "@/lib/projects";
 import { PortfolioCard, dotColor } from "./PortfolioCard";
 
 const CATEGORY_ORDER = [
@@ -13,7 +13,7 @@ const CATEGORY_ORDER = [
   "Custom",
 ];
 
-export function PortfolioGrid({ items }: { items: PortfolioItem[] }) {
+export function PortfolioGrid({ items }: { items: PublicPortfolioItem[] }) {
   const [active, setActive] = useState<string>("All");
 
   const categories = useMemo(() => {
@@ -31,7 +31,10 @@ export function PortfolioGrid({ items }: { items: PortfolioItem[] }) {
     active === "All" ? items : items.filter((i) => i.category === active);
 
   return (
-    <div>
+    <div
+      className="select-none"
+      onContextMenu={(e) => e.preventDefault()}
+    >
       <div
         className="flex flex-wrap gap-2"
         role="tablist"
@@ -72,7 +75,7 @@ export function PortfolioGrid({ items }: { items: PortfolioItem[] }) {
 
       <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {visible.map((item) => (
-          <PortfolioCard key={item.url} item={item} />
+          <PortfolioCard key={item.id} item={item} />
         ))}
       </div>
 

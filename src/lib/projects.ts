@@ -9,11 +9,35 @@ import {
 /**
  * Projects data access layer. Reads portfolio projects from Payload (CMS) when
  * the database is reachable, and transparently falls back to the bundled static
- * portfolio data otherwise. Every consumer works with the shared PortfolioItem
- * shape so the UI is identical regardless of source.
+ * portfolio data otherwise.
+ *
+ * Public pages receive PublicPortfolioItem (no live URLs) so client HTML/RSC
+ * payloads cannot be scraped for the project link list.
  */
 
 export type { PortfolioItem };
+
+/** Safe public shape — never includes url or domain. */
+export type PublicPortfolioItem = {
+  id: string;
+  name: string;
+  stack: string;
+  category: string;
+  image: string;
+};
+
+export function toPublicPortfolioItem(item: PortfolioItem): PublicPortfolioItem {
+  const id =
+    item.image?.replace(/^\/portfolio\//, "").replace(/\.jpg$/, "") ||
+    item.name.toLowerCase().replace(/\s+/g, "-");
+  return {
+    id,
+    name: item.name,
+    stack: item.stack,
+    category: item.category,
+    image: item.image || "",
+  };
+}
 
 /** The six projects promoted to the home page when no CMS data is available. */
 const FEATURED_FALLBACK_SLUGS = [
@@ -76,30 +100,35 @@ async function fetchProjects(where: Record<string, unknown>) {
   }
 }
 
-/** Live projects shown in the visual, filterable grid. */
-export async function getGridProjects(): Promise<PortfolioItem[]> {
+/** Live projects shown in the visual, filterable grid (URLs stripped). */
+export async function getGridProjects(): Promise<PublicPortfolioItem[]> {
   const docs = await fetchProjects({ showInGrid: { equals: true } });
-  if (docs && docs.length > 0) return docs.map(mapProject);
-  return portfolioLive;
+  const items =
+    docs && docs.length > 0 ? docs.map(mapProject) : portfolioLive;
+  return items.map(toPublicPortfolioItem);
 }
 
-/** Projects listed under "Also delivered" (no live preview). */
-export async function getOfflineProjects(): Promise<PortfolioItem[]> {
+/** Projects listed under "Also delivered" (no live preview / no URLs). */
+export async function getOfflineProjects(): Promise<PublicPortfolioItem[]> {
   const docs = await fetchProjects({ showInGrid: { equals: false } });
-  if (docs) return docs.map(mapProject);
-  return portfolioOffline;
+  const items = docs ? docs.map(mapProject) : portfolioOffline;
+  return items.map(toPublicPortfolioItem);
 }
 
-/** Featured projects promoted on the home page. */
-export async function getFeaturedProjects(limit = 6): Promise<PortfolioItem[]> {
+/** Featured projects promoted on the home page (URLs stripped). */
+export async function getFeaturedProjects(
+  limit = 6,
+): Promise<PublicPortfolioItem[]> {
   const docs = await fetchProjects({
     featured: { equals: true },
     showInGrid: { equals: true },
   });
-  if (docs && docs.length > 0) return docs.slice(0, limit).map(mapProject);
+  if (docs && docs.length > 0) {
+    return docs.slice(0, limit).map(mapProject).map(toPublicPortfolioItem);
+  }
 
   const featured = FEATURED_FALLBACK_SLUGS.map((slug) =>
     portfolioLive.find((p) => slugFromImage(p.image) === slug),
   ).filter((p): p is PortfolioItem => Boolean(p));
-  return featured.slice(0, limit);
+  return featured.slice(0, limit).map(toPublicPortfolioItem);
 }

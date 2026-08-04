@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Section, Eyebrow } from "@/components/Section";
 import { CTASection } from "@/components/CTASection";
 import { PortfolioGrid } from "@/components/PortfolioGrid";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { Reveal } from "@/components/Reveal";
 import { JsonLd } from "@/components/JsonLd";
-import { breadcrumbSchema } from "@/lib/seo";
+import { breadcrumbSchema, selfCanonical } from "@/lib/seo";
 import { getGridProjects, getOfflineProjects } from "@/lib/projects";
 import { getAllCaseStudies } from "@/lib/content";
-import { primaryCta } from "@/lib/site";
-import { selfCanonical } from "@/lib/seo";
 
 const seo = selfCanonical("/portfolio");
 
@@ -70,8 +69,8 @@ export default async function PortfolioPage() {
             Outcomes first. Live builds second.
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-slate">
-            Featured case studies are live, checkable projects — the same URLs appear
-            in the portfolio grid below. Open the site, then read the story.
+            Featured case studies and production builds — previews on this page,
+            live URLs shared after you contact us so client projects stay private.
           </p>
         </div>
 
@@ -100,8 +99,8 @@ export default async function PortfolioPage() {
               Situation. Work. Results.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-slate">
-              Live production URLs first — stories that match the grid so you can
-              verify the work yourself.
+              Outcome stories you can read here. Contact us to receive the matching
+              live URLs under NDA-friendly sharing.
             </p>
           </div>
           <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -116,12 +115,13 @@ export default async function PortfolioPage() {
 
       <Section tone="offwhite">
         <div className="max-w-3xl">
-          <Eyebrow>Live sites</Eyebrow>
+          <Eyebrow>Production work</Eyebrow>
           <h2 className="font-heading text-2xl font-bold tracking-tight text-navy sm:text-3xl">
             In production across platforms
           </h2>
           <p className="mt-4 text-base leading-relaxed text-slate">
-            Filter by platform, or browse. Every card links to the live site.
+            Filter by platform and browse previews. Live website links are shared
+            privately — use the contact button on any card.
           </p>
         </div>
         <div className="mt-10">
@@ -137,19 +137,16 @@ export default async function PortfolioPage() {
               More projects
             </h2>
             <p className="mt-4 text-base leading-relaxed text-slate">
-              These are live but bot-protected, moved to a new provider, or since
-              retired by the client — so we haven&apos;t shown a live preview.
-              Listed here for completeness.
+              Additional deliveries without public previews. Ask us for details and
+              live access when you get in touch.
             </p>
           </div>
 
           <ul className="mt-8 flex flex-wrap gap-3">
             {portfolioOffline.map((item) => (
-              <li key={item.url}>
-                <a
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <li key={item.id}>
+                <Link
+                  href="/contact"
                   className="inline-flex items-center gap-2 rounded-full border border-navy/15 bg-offwhite px-4 py-2 text-sm text-slate transition-colors hover:border-navy/40 hover:text-navy"
                 >
                   <span className="font-heading font-medium text-navy">
@@ -158,7 +155,7 @@ export default async function PortfolioPage() {
                   <span className="font-mono text-[11px] text-slate/70">
                     {item.stack}
                   </span>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -166,9 +163,9 @@ export default async function PortfolioPage() {
       )}
 
       <CTASection
-        heading="Want results like these — or better?"
-        body="Book a free growth audit. We'll map the right solution and show you what it takes to ship."
-        cta={primaryCta}
+        heading="Want the full portfolio with live links?"
+        body="Book a free growth audit or send a short note — we'll share relevant live sites for your review."
+        cta={{ label: "Contact to view full portfolio", href: "/contact" }}
       />
     </>
   );

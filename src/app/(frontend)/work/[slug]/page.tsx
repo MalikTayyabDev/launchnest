@@ -92,17 +92,14 @@ export default async function CaseStudyPage({ params }: Props) {
             {study.headlineResult}
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-slate">{study.summary}</p>
-          {study.liveUrl ? (
+          {study.hasLiveSite ? (
             <p className="mt-6">
-              <a
-                href={study.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/contact"
                 className="inline-flex items-center gap-2 rounded-md bg-navy px-5 py-3 font-heading text-sm font-semibold text-offwhite transition-colors hover:bg-gold hover:text-navy"
               >
-                Visit live site
-                {study.liveDomain ? ` — ${study.liveDomain}` : ""}
-              </a>
+                Contact to view live site
+              </Link>
             </p>
           ) : null}
           {study.coverImage?.url ? (

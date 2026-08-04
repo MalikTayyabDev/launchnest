@@ -165,7 +165,6 @@ export function caseStudySchema(study: {
       "@type": "Country",
       identifier: code,
     })),
-    ...(study.liveUrl ? { sameAs: [study.liveUrl] } : {}),
     ...(study.coverImage?.url ? { image: [study.coverImage.url] } : {}),
     ...(study.primaryKeyword ? { keywords: study.primaryKeyword } : {}),
     ...(study.quote?.text

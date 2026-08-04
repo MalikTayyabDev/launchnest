@@ -218,7 +218,7 @@ export default async function HomePage() {
               Proof before pretty screenshots.
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-slate">
-              Live, checkable projects — click through to the production site, then
+              Live, private-verified projects — contact us for live URLs, then
               read the story. Proof for SaaS and tech buyers in the US, UK, and
               Australia.
             </p>
@@ -246,13 +246,13 @@ export default async function HomePage() {
       <Section tone="white">
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div className="max-w-2xl">
-            <Eyebrow>Live portfolio</Eyebrow>
+            <Eyebrow>Portfolio</Eyebrow>
             <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
               Sites in production across stacks.
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-slate">
-              Platforms are tools. Every card links to a live site — so you can
-              judge the work yourself, not a pitch deck.
+              Preview the work here. Live website links are shared privately —
+              contact us when you want the full portfolio with URLs.
             </p>
           </div>
           <div className="hidden shrink-0 sm:block">
@@ -264,7 +264,7 @@ export default async function HomePage() {
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {featuredProjects.map((item, i) => (
-            <Reveal key={item.url} delay={i * 0.06}>
+            <Reveal key={item.id} delay={i * 0.06}>
               <PortfolioCard item={item} priority={i < 2} />
             </Reveal>
           ))}
