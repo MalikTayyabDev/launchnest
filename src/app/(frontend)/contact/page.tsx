@@ -3,7 +3,8 @@ import { Section, Eyebrow } from "@/components/Section";
 import { ContactForm } from "@/components/ContactForm";
 import { BookCallForm } from "@/components/BookCallForm";
 import { StatCallout } from "@/components/StatCallout";
-import { siteConfig } from "@/lib/site";
+import { GrowthAuditAgenda } from "@/components/GrowthAuditAgenda";
+import { siteConfig, whatsappLink } from "@/lib/site";
 import { selfCanonical } from "@/lib/seo";
 
 const seo = selfCanonical("/contact");
@@ -11,16 +12,10 @@ const seo = selfCanonical("/contact");
 export const metadata: Metadata = {
   title: "Free Website Growth Audit — Contact LaunchNest",
   description:
-    "Book a free website growth audit or 30-minute discovery call. We reply within one business day with specifics on leads, conversion, and speed — no sales script.",
+    "Book a free website growth audit or 30-minute discovery call. We reply within one business day with a concrete agenda: speed, messaging, SEO, stack fit, and prioritized next steps.",
   alternates: { canonical: seo.canonical },
   openGraph: { ...seo.openGraph },
 };
-
-const expect = [
-  "A real review of your speed, security, and what's costing you conversions.",
-  "Specific findings — the exact scripts, queries, or assets slowing you down.",
-  "An honest read on whether you even need us. Sometimes you don't.",
-];
 
 const callExpect = [
   "30 minutes, video or phone — your choice.",
@@ -91,31 +86,10 @@ export default function ContactPage() {
               A few questions so we can come prepared. The more specific you are, the
               more specific our answer will be.
             </p>
-            <ul className="mt-8 flex flex-col gap-4">
-              {expect.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 18 18"
-                    fill="none"
-                    aria-hidden="true"
-                    className="mt-1 shrink-0"
-                  >
-                    <path
-                      d="M3.5 9.5 7 13l7.5-8"
-                      stroke="#1E8E5A"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <span className="text-base leading-relaxed text-slate">{item}</span>
-                </li>
-              ))}
-            </ul>
+            <GrowthAuditAgenda className="mt-8" />
             <div className="mt-10 flex gap-10 border-t border-navy/10 pt-8">
               <StatCallout value="100+" label="projects delivered" />
+              <StatCallout value="82+" label="sites in portfolio" />
             </div>
             <p className="mt-8 text-sm text-slate">
               Prefer email?{" "}
@@ -124,6 +98,17 @@ export default function ContactPage() {
                 className="font-heading font-semibold text-navy underline decoration-gold decoration-2 underline-offset-4"
               >
                 {siteConfig.email}
+              </a>
+            </p>
+            <p className="mt-4 text-sm text-slate">
+              Prefer WhatsApp?{" "}
+              <a
+                href={whatsappLink}
+                className="font-heading font-semibold text-navy underline decoration-gold decoration-2 underline-offset-4"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Message us
               </a>
             </p>
             <p className="mt-4 text-sm text-slate">

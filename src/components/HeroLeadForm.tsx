@@ -91,7 +91,7 @@ export function HeroLeadForm() {
         Get a free growth audit
       </h3>
       <p className="mt-1.5 text-sm leading-relaxed text-slate">
-        Name + email — we reply within one business day. No sales script.
+        Name + email — we reply within one business day with a concrete audit agenda.
       </p>
       <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-4">
         <div>
@@ -151,7 +151,7 @@ export function HeroLeadForm() {
           {status === "submitting" ? "Sending…" : "Book my free growth audit"}
         </button>
         <p className="text-center font-mono text-[11px] text-slate">
-          No spam. No sales script. A real technical review.
+          No spam. Speed, messaging, SEO, stack fit, next steps.
         </p>
       </form>
     </div>

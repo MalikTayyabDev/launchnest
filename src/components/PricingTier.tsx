@@ -3,6 +3,7 @@ import { Button } from "./Button";
 type PricingTierProps = {
   name: string;
   range: string;
+  typical?: string;
   summary?: string;
   features: string[];
   featured?: boolean;
@@ -14,6 +15,7 @@ type PricingTierProps = {
 export function PricingTier({
   name,
   range,
+  typical,
   summary,
   features,
   featured = false,
@@ -49,6 +51,15 @@ export function PricingTier({
           {range}
         </span>
       </div>
+      {typical ? (
+        <p
+          className={`mt-2 font-mono text-xs tracking-wide ${
+            featured ? "text-gold/90" : "text-navy/70"
+          }`}
+        >
+          {typical}
+        </p>
+      ) : null}
       {summary && (
         <p
           className={`mt-3 text-sm leading-relaxed ${

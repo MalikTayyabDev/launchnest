@@ -47,7 +47,11 @@ export const audiences: AudiencePage[] = [
       { label: "Technical SEO agency", href: "/services/seo" },
       { label: "AI integrations for SaaS", href: "/services/ai-automation" },
     ],
-    caseStudySlugs: ["cadence-saas-performance", "brightpath-saas-onboarding"],
+    caseStudySlugs: [
+      "wiz-ai-product-site",
+      "clearmatrix-custom-platform",
+      "algorithmicsoftware-uk-commerce",
+    ],
   },
   {
     slug: "ai-startups",
@@ -81,7 +85,11 @@ export const audiences: AudiencePage[] = [
       { label: "AI integrations", href: "/services/ai-automation" },
       { label: "Technical SEO & content", href: "/services/seo" },
     ],
-    caseStudySlugs: ["brightpath-saas-onboarding", "cadence-saas-performance"],
+    caseStudySlugs: [
+      "wiz-ai-product-site",
+      "clearmatrix-custom-platform",
+      "algorithmicsoftware-uk-commerce",
+    ],
   },
 ];
 

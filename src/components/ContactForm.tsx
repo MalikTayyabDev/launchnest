@@ -90,7 +90,7 @@ export function ContactForm() {
         <h3 className="font-heading text-xl font-semibold text-navy">Request received.</h3>
         <p className="mt-2 text-sm leading-relaxed text-slate">
           We&apos;ll review your details and reply within one business day with next
-          steps for your free growth audit. No sales script.
+          steps for your free growth audit.
         </p>
       </div>
     );
@@ -223,7 +223,7 @@ export function ContactForm() {
         {status === "submitting" ? "Sending…" : "Book a Free Growth Audit"}
       </button>
       <p className="text-center font-mono text-xs text-slate">
-        No spam. No sales script. A real technical review.
+        No spam — a real technical review against the audit agenda.
       </p>
     </form>
   );

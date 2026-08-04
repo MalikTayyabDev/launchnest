@@ -11,6 +11,7 @@ import { TestimonialQuote } from "@/components/TestimonialQuote";
 import { CTASection } from "@/components/CTASection";
 import { FAQ } from "@/components/FAQ";
 import { Reveal } from "@/components/Reveal";
+import { GrowthAuditAgenda } from "@/components/GrowthAuditAgenda";
 import { getAllCaseStudies } from "@/lib/content";
 import { getFeaturedProjects } from "@/lib/projects";
 import { primaryCta, siteConfig } from "@/lib/site";
@@ -127,9 +128,9 @@ const homeFaqs = [
 
 const socialProof = [
   { value: "100+", label: "Projects shipped" },
+  { value: "82+", label: "Sites in portfolio" },
   { value: "< 2.5s", label: "LCP standard" },
   { value: "1 day", label: "Typical reply time" },
-  { value: "est. 2022", label: "Building since" },
 ];
 
 export const revalidate = 60;
@@ -175,6 +176,10 @@ export default async function HomePage() {
       <div className="border-b border-navy/10 bg-white">
         <div className="mx-auto w-full max-w-content px-6 py-6 lg:px-8">
           <p className="mb-4 text-center font-mono text-xs uppercase tracking-[0.16em] text-slate">
+            LaunchNest · launch-nest.com · engineering-first — not other "Launch Nest"
+            brands
+          </p>
+          <p className="mb-4 text-center font-mono text-xs uppercase tracking-[0.16em] text-slate">
             Built for the clients we partner with
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
@@ -213,8 +218,9 @@ export default async function HomePage() {
               Proof before pretty screenshots.
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-slate">
-              Situation, work, and metrics — the stories serious buyers in the US,
-              UK, and Australia actually need before they book a call.
+              Live, checkable projects — click through to the production site, then
+              read the story. Proof for SaaS and tech buyers in the US, UK, and
+              Australia.
             </p>
           </div>
           <div className="hidden shrink-0 sm:block">
@@ -382,9 +388,32 @@ export default async function HomePage() {
         </div>
       </Section>
 
+      <Section tone="white" id="audit-form">
+        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+          <GrowthAuditAgenda />
+          <div className="rounded-xl border border-navy/10 bg-offwhite p-6 sm:p-8">
+            <p className="font-heading text-lg font-bold tracking-tight text-navy">
+              Ready when you are
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-slate">
+              Book the audit or send a short brief — we reply within one business day
+              with specifics for your URL.
+            </p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <Button href="/contact#audit" variant="primary">
+                Book a free growth audit
+              </Button>
+              <Button href="/portfolio" variant="ghost">
+                See live portfolio
+              </Button>
+            </div>
+          </div>
+        </div>
+      </Section>
+
       <CTASection
         heading="Ready to launch or scale with an engineering-first partner?"
-        body="Book a free growth audit. We'll tell you what's blocking leads, conversion, and speed — no sales script."
+        body="Book a free growth audit — we'll walk the agenda above against your live site and leave you with prioritized next steps."
         cta={primaryCta}
         secondaryCta={{ label: "See outcomes", href: "/portfolio" }}
       />

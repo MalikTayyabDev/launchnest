@@ -2,14 +2,17 @@ import type { CollectionConfig } from "payload";
 import { isAdmin, isAdminOrEditor, publishedOrLoggedIn } from "../access";
 import { slugField } from "../fields/slug";
 import { seoField } from "../fields/seo";
+import { revalidateCaseStudy } from "../lib/revalidate";
 
 export const CaseStudies: CollectionConfig = {
   slug: "case-studies",
   labels: { singular: "Case Study", plural: "Case Studies" },
   admin: {
     useAsTitle: "client",
-    defaultColumns: ["client", "industry", "headlineResult", "status"],
+    defaultColumns: ["client", "industry", "liveDomain", "status"],
     group: "Content",
+    description:
+      "Featured outcomes must include a Live URL that matches the portfolio grid. Edits publish when Status is Published.",
   },
   access: {
     read: publishedOrLoggedIn,
@@ -38,20 +41,54 @@ export const CaseStudies: CollectionConfig = {
           name: "headlineResult",
           type: "text",
           required: true,
-          admin: { width: "50%", description: "One-line stat for the card, e.g. 'Checkout load time cut by 1.8s'" },
+          admin: {
+            width: "50%",
+            description:
+              "One-line outcome for the card, e.g. 'Live AI product marketing site in production'",
+          },
         },
       ],
     },
     { name: "summary", type: "textarea", required: true },
-    { name: "coverImage", type: "upload", relationTo: "media", admin: {
-      description:
-        "Optional cover for the case study page + Open Graph. Upload here and Save. Seed sync preserves this field.",
-    } },
+    {
+      type: "row",
+      fields: [
+        {
+          name: "liveUrl",
+          type: "text",
+          required: true,
+          admin: {
+            width: "60%",
+            description:
+              "Full https URL of the live site (must appear in the portfolio grid).",
+          },
+        },
+        {
+          name: "liveDomain",
+          type: "text",
+          admin: {
+            width: "40%",
+            description: "Display domain, e.g. wiz.ai",
+          },
+        },
+      ],
+    },
+    {
+      name: "coverImage",
+      type: "upload",
+      relationTo: "media",
+      admin: {
+        description:
+          "Optional cover for the case study page + Open Graph.",
+      },
+    },
     {
       name: "accent",
       type: "text",
       defaultValue: "#0B1F3A",
-      admin: { description: "Hex color for the thumbnail block (brand palette only)." },
+      admin: {
+        description: "Hex color for the thumbnail block (brand palette only).",
+      },
     },
     { name: "situation", type: "textarea", required: true },
     { name: "problem", type: "textarea", required: true },
@@ -69,8 +106,18 @@ export const CaseStudies: CollectionConfig = {
         {
           type: "row",
           fields: [
-            { name: "metric", type: "text", required: true, admin: { width: "50%" } },
-            { name: "label", type: "text", required: true, admin: { width: "50%" } },
+            {
+              name: "metric",
+              type: "text",
+              required: true,
+              admin: { width: "50%" },
+            },
+            {
+              name: "label",
+              type: "text",
+              required: true,
+              admin: { width: "50%" },
+            },
           ],
         },
       ],
@@ -78,6 +125,10 @@ export const CaseStudies: CollectionConfig = {
     {
       name: "quote",
       type: "group",
+      admin: {
+        description:
+          "Optional — only add permissioned client quotes. Leave blank until approved.",
+      },
       fields: [
         { name: "text", type: "textarea" },
         {
@@ -102,4 +153,20 @@ export const CaseStudies: CollectionConfig = {
       admin: { position: "sidebar" },
     },
   ],
+  hooks: {
+    afterChange: [
+      ({ doc, previousDoc }) => {
+        if (doc?.slug) revalidateCaseStudy(String(doc.slug));
+        const prevSlug = previousDoc?.slug;
+        if (prevSlug && prevSlug !== doc?.slug) {
+          revalidateCaseStudy(String(prevSlug));
+        }
+      },
+    ],
+    afterDelete: [
+      ({ doc }) => {
+        if (doc?.slug) revalidateCaseStudy(String(doc.slug));
+      },
+    ],
+  },
 };

@@ -187,7 +187,7 @@ export default async function AudiencePage({ params }: Props) {
 
       <CTASection
         heading="Ready to grow with an engineering-first partner?"
-        body="Book a free growth audit. We'll tell you what's blocking pipeline — no sales script."
+        body="Book a free growth audit. We'll map what's blocking pipeline — speed, messaging, SEO, and stack fit."
         cta={primaryCta}
         secondaryCta={{ label: "View pricing", href: "/pricing" }}
       />

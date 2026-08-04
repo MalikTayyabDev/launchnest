@@ -130,6 +130,8 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * Edits publish to the live site immediately when Status is Published. Title, excerpt, cover, body, and SEO all come from here — not from code.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts".
  */
@@ -152,6 +154,9 @@ export interface Post {
    * One or two sentences shown on the blog index and share cards.
    */
   excerpt: string;
+  /**
+   * Shown on /blog cards and the post hero. Upload here, set Alt text, Save. Status must be Published.
+   */
   coverImage?: (number | null) | Media;
   body?: {
     root: {
@@ -188,6 +193,8 @@ export interface Post {
   createdAt: string;
 }
 /**
+ * Image uploads for projects, posts, and case studies. Production requires BLOB_READ_WRITE_TOKEN (Vercel Blob). After uploading, open the Blog Post / Case Study and set Cover Image, then Save — files only in Media are not shown on the site until linked.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
@@ -197,6 +204,7 @@ export interface Media {
    * Describe the image for accessibility and SEO.
    */
   alt: string;
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -208,34 +216,10 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
-  sizes?: {
-    thumbnail?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    card?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    hero?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-  };
 }
 /**
+ * Featured outcomes must include a Live URL that matches the portfolio grid. Edits publish when Status is Published.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "case-studies".
  */
@@ -248,10 +232,21 @@ export interface CaseStudy {
   slug: string;
   industry: 'E-commerce' | 'Professional Services' | 'SaaS';
   /**
-   * One-line stat for the card, e.g. 'Checkout load time cut by 1.8s'
+   * One-line outcome for the card, e.g. 'Live AI product marketing site in production'
    */
   headlineResult: string;
   summary: string;
+  /**
+   * Full https URL of the live site (must appear in the portfolio grid).
+   */
+  liveUrl: string;
+  /**
+   * Display domain, e.g. wiz.ai
+   */
+  liveDomain?: string | null;
+  /**
+   * Optional cover for the case study page + Open Graph.
+   */
   coverImage?: (number | null) | Media;
   /**
    * Hex color for the thumbnail block (brand palette only).
@@ -272,6 +267,9 @@ export interface CaseStudy {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Optional — only add permissioned client quotes. Leave blank until approved.
+   */
   quote?: {
     text?: string | null;
     name?: string | null;
@@ -295,7 +293,7 @@ export interface CaseStudy {
   createdAt: string;
 }
 /**
- * Portfolio sites shown on /portfolio and the home page. Add a project, upload a screenshot, pick the platform, and publish.
+ * Portfolio sites on /portfolio and home. Paste the live URL, save — we auto-capture a screenshot into Media (thum.io / ScreenshotOne). Requires working media storage (Vercel Blob in production).
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "projects".
@@ -323,7 +321,7 @@ export interface Project {
    */
   stackLabel?: string | null;
   /**
-   * Auto-captured from the URL on save when left empty. You can also upload your own — a manual upload is kept unless you tick 'Re-capture'.
+   * Auto-captured from the URL on save when left empty (HTTP screenshot service — not Python). Manual uploads are kept unless you tick 'Re-capture'.
    */
   screenshot?: (number | null) | Media;
   /**
@@ -531,6 +529,8 @@ export interface CaseStudiesSelect<T extends boolean = true> {
   industry?: T;
   headlineResult?: T;
   summary?: T;
+  liveUrl?: T;
+  liveDomain?: T;
   coverImage?: T;
   accent?: T;
   situation?: T;
@@ -592,6 +592,7 @@ export interface ProjectsSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  prefix?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -603,40 +604,6 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
-  sizes?:
-    | T
-    | {
-        thumbnail?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        card?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        hero?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -720,7 +687,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
- * Control the $20 intro landing page offer — open/close it and track booked slots.
+ * Control the $20 intro landing page offer — open/close it and track booked slots. Changes show on the site within about a minute.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "intro-offer".
@@ -728,7 +695,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface IntroOffer {
   id: number;
   /**
-   * Uncheck when slots are full or you want to pause the offer.
+   * Uncheck to hide the banner and close the claim form immediately (after revalidate).
    */
   open?: boolean | null;
   /**
@@ -736,7 +703,7 @@ export interface IntroOffer {
    */
   maxSlots: number;
   /**
-   * Increment when you confirm/book an intro client.
+   * Increment by 1 each time you confirm/book an intro client.
    */
   slotsUsed: number;
   updatedAt?: string | null;

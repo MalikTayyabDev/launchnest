@@ -165,7 +165,7 @@ function replyForTopic(topic: ChatTopicId): ChatReply {
       };
     case "audit":
       return {
-        text: "Our **free growth audit** covers speed, security, conversion blockers, and growth opportunities — specific findings, no sales script. Use the contact form or the home page form.",
+        text: "Our **free growth audit** covers: live URL speed & conversion blockers, messaging/CTA clarity, technical SEO snapshot, stack fit, and prioritized next steps. Use the contact form or the home page form.",
         links: [
           { label: "Book free audit", href: "/contact" },
           { label: "Home audit form", href: "/#audit-form" },

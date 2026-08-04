@@ -76,7 +76,7 @@ export function BookCallForm() {
         <h3 className="font-heading text-xl font-semibold text-navy">Call request received.</h3>
         <p className="mt-2 text-sm leading-relaxed text-slate">
           We&apos;ll email you within one business day with available times for your free
-          30-minute discovery call. No sales script — just a focused conversation about
+          30-minute discovery call — a focused conversation about
           your project.
         </p>
       </div>

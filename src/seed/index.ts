@@ -166,11 +166,16 @@ const seed = async () => {
         industry: cs.industry,
         headlineResult: cs.headlineResult,
         summary: cs.summary,
+        liveUrl: cs.liveUrl,
+        liveDomain: cs.liveDomain,
         accent: cs.accent,
         situation: cs.situation,
         problem: cs.problem,
         whatWeDid: cs.whatWeDid.map((step) => ({ step })),
-        results: cs.results.map((r) => ({ metric: r.metric, label: r.label })),
+        results: cs.results.map((r) => ({
+          metric: r.metric,
+          label: r.label,
+        })),
         quote: cs.quote,
         status: "published",
         seo: {

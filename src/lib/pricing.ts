@@ -1,6 +1,8 @@
 export type PricingPackage = {
   name: string;
   range: string;
+  /** Typical / most-common price point shown under the range. */
+  typical?: string;
   summary: string;
   features: string[];
   featured?: boolean;
@@ -10,6 +12,7 @@ export const packages: PricingPackage[] = [
   {
     name: "Growth Engine",
     range: "$199 – $449",
+    typical: "Most SaaS builds land near $350",
     summary:
       "Where most SaaS, agencies, and growth-stage businesses start — a site built to generate leads and convert.",
     features: [
@@ -24,7 +27,9 @@ export const packages: PricingPackage[] = [
   {
     name: "Custom Product",
     range: "$599 – $1,499",
-    summary: "For SaaS marketing sites, startup MVPs, advanced ecommerce, and integrations.",
+    typical: "Most custom builds land near $899",
+    summary:
+      "For SaaS marketing sites, startup MVPs, advanced ecommerce, and integrations.",
     features: [
       "Bespoke web product or advanced ecommerce",
       "API, CRM, and third-party integrations",
@@ -33,24 +38,12 @@ export const packages: PricingPackage[] = [
       "Documentation for your team",
     ],
   },
-  {
-    name: "Starter Launch",
-    range: "$79 – $149",
-    summary:
-      "Focused landing / early presence builds. Most product teams scale into Growth Engine.",
-    features: [
-      "Up to 5 pages / focused landing build",
-      "Template-based design, conversion-minded",
-      "On-page SEO basics",
-      "Mobile-first and responsive",
-      "Contact / lead form setup",
-    ],
-  },
 ];
 
 export type MaintenancePlan = {
   name: string;
   price: string;
+  typical?: string;
   summary: string;
   features: string[];
 };
@@ -58,7 +51,8 @@ export type MaintenancePlan = {
 export const maintenancePlans: MaintenancePlan[] = [
   {
     name: "Care",
-    price: "from $9/mo",
+    price: "from $49/mo",
+    typical: "Most Care retainers land near $59/mo",
     summary: "Keep the lights on — updates, backups, monitoring.",
     features: [
       "Software and plugin updates",
@@ -69,7 +63,8 @@ export const maintenancePlans: MaintenancePlan[] = [
   },
   {
     name: "Growth",
-    price: "from $25/mo",
+    price: "from $99/mo",
+    typical: "Most Growth retainers land near $129/mo",
     summary: "Maintenance plus ongoing improvements.",
     features: [
       "Everything in Care",
@@ -80,7 +75,8 @@ export const maintenancePlans: MaintenancePlan[] = [
   },
   {
     name: "Partner",
-    price: "from $59/mo",
+    price: "from $199/mo",
+    typical: "Most Partner retainers land near $249/mo",
     summary: "A growth retainer — roadmap, support, and included engineering time.",
     features: [
       "Everything in Growth",

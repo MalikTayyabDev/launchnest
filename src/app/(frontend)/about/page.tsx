@@ -67,6 +67,18 @@ export default function AboutPage() {
             engineering, SEO, AI, and growth-focused solutions.
           </p>
           <p className="mt-4 text-lg leading-relaxed text-slate">
+            We are LaunchNest at{" "}
+            <a
+              href="https://www.launch-nest.com"
+              className="font-heading font-semibold text-navy underline decoration-gold underline-offset-2"
+            >
+              launch-nest.com
+            </a>{" "}
+            — an engineering-first partner for SaaS and AI teams. Other companies use
+            similar names on different domains; our proof is the live portfolio and the
+            work you can click through.
+          </p>
+          <p className="mt-4 text-lg leading-relaxed text-slate">
             We are not just another web development agency — and we are not a
             WordPress, Shopify, or &ldquo;web design&rdquo; shop. We are a launch
             partner for modern businesses.
@@ -96,7 +108,7 @@ export default function AboutPage() {
 
           <div className="flex flex-col justify-center gap-8 rounded-xl bg-navy p-8">
             <StatCallout value="100+" label="projects delivered" onNavy />
-            <StatCallout value="est. 2022" label="building since" onNavy />
+            <StatCallout value="82+" label="sites in portfolio" onNavy />
             <StatCallout value="< 2.5s" label="LCP standard" onNavy />
             <StatCallout value="0" label="disappearing acts" onNavy />
           </div>

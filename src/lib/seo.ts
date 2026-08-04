@@ -137,6 +137,7 @@ export function caseStudySchema(study: {
   slug: string;
   industry: string;
   primaryKeyword?: string;
+  liveUrl?: string | null;
   coverImage?: { url: string; alt: string } | null;
   quote?: { text: string; name: string; role: string } | null;
 }): Record<string, unknown> {
@@ -164,6 +165,7 @@ export function caseStudySchema(study: {
       "@type": "Country",
       identifier: code,
     })),
+    ...(study.liveUrl ? { sameAs: [study.liveUrl] } : {}),
     ...(study.coverImage?.url ? { image: [study.coverImage.url] } : {}),
     ...(study.primaryKeyword ? { keywords: study.primaryKeyword } : {}),
     ...(study.quote?.text

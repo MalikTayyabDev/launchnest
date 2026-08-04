@@ -49,6 +49,8 @@ export type CaseStudyItem = {
   results: { metric: string; label: string }[];
   quote: { text: string; name: string; role: string };
   accent: string;
+  liveUrl?: string | null;
+  liveDomain?: string | null;
   coverImage?: { url: string; alt: string } | null;
   primaryKeyword?: string;
   relatedService?: string;
@@ -242,6 +244,7 @@ function mapPostSummary(doc: Record<string, any>): PostSummary {
 
 export async function getAllCaseStudies(): Promise<CaseStudyItem[]> {
   const payload = await tryPayload();
+  const cmsBySlug = new Map<string, CaseStudyItem>();
   if (payload) {
     try {
       const res = await payload.find({
@@ -251,14 +254,36 @@ export async function getAllCaseStudies(): Promise<CaseStudyItem[]> {
         limit: 100,
         depth: 1,
       });
-      if (res.docs.length > 0) {
-        return res.docs.map(mapCaseStudy);
+      for (const doc of res.docs) {
+        cmsBySlug.set(doc.slug, mapCaseStudy(doc));
       }
     } catch {
       /* fall through */
     }
   }
-  return seedCaseStudies.map(mapSeedCaseStudy);
+
+  // Catalog (all live-linked) wins for featured proof; CMS overlays same-slug edits.
+  const fromCatalog = seedCaseStudies.map((seed) => {
+    const cms = cmsBySlug.get(seed.slug);
+    if (!cms) return mapSeedCaseStudy(seed);
+    return {
+      ...mapSeedCaseStudy(seed),
+      ...cms,
+      liveUrl: cms.liveUrl || seed.liveUrl,
+      liveDomain: cms.liveDomain || seed.liveDomain,
+      primaryKeyword: seed.primaryKeyword,
+      relatedService: seed.relatedService,
+      seo: cms.seo ?? seed.seo,
+    };
+  });
+
+  // Extra CMS-only studies only if they have a verifiable live URL.
+  const catalogSlugs = new Set(seedCaseStudies.map((s) => s.slug));
+  const cmsOnlyLive = [...cmsBySlug.values()].filter(
+    (c) => !catalogSlugs.has(c.slug) && Boolean(c.liveUrl),
+  );
+
+  return [...fromCatalog, ...cmsOnlyLive];
 }
 
 export async function getCaseStudySlugs(): Promise<string[]> {
@@ -290,16 +315,22 @@ export async function getCaseStudy(slug: string): Promise<CaseStudyItem | null> 
           mapped.seo?.metaTitle || mapped.seo?.metaDescription
             ? mapped.seo
             : undefined;
-        return {
+        const base = seed ? mapSeedCaseStudy(seed) : null;
+        const merged: CaseStudyItem = {
+          ...(base ?? mapped),
           ...mapped,
           primaryKeyword: seed?.primaryKeyword,
           relatedService: seed?.relatedService,
-          // CMS fields win; seed only fills blanks.
           summary: mapped.summary || seed?.summary || "",
           situation: mapped.situation || seed?.situation || "",
           problem: mapped.problem || seed?.problem || "",
+          liveUrl: mapped.liveUrl || seed?.liveUrl || null,
+          liveDomain: mapped.liveDomain || seed?.liveDomain || null,
           seo: cmsSeo ?? seed?.seo,
         };
+        // Fictional / unverifiable CMS-only studies without a live URL stay hidden.
+        if (!merged.liveUrl) return null;
+        return merged;
       }
     } catch {
       /* fall through */
@@ -321,6 +352,8 @@ function mapSeedCaseStudy(c: (typeof seedCaseStudies)[number]): CaseStudyItem {
     results: c.results,
     quote: c.quote,
     accent: c.accent,
+    liveUrl: c.liveUrl,
+    liveDomain: c.liveDomain,
     coverImage: null,
     primaryKeyword: c.primaryKeyword,
     relatedService: c.relatedService,
@@ -353,6 +386,8 @@ function mapCaseStudy(doc: Record<string, any>): CaseStudyItem {
       role: doc.quote?.role ?? "",
     },
     accent: doc.accent ?? "#0B1F3A",
+    liveUrl: doc.liveUrl || seed?.liveUrl || null,
+    liveDomain: doc.liveDomain || seed?.liveDomain || null,
     coverImage: mapUploadCover(
       doc.coverImage,
       `${doc.client || "Case study"} cover image`,

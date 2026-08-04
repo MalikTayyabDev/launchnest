@@ -70,9 +70,8 @@ export default async function PortfolioPage() {
             Outcomes first. Live builds second.
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-slate">
-            Case studies show the metrics. The grid shows sites in production —
-            across stacks, for SaaS, startups, ecommerce, and service businesses
-            in the US, UK, and Australia.
+            Featured case studies are live, checkable projects — the same URLs appear
+            in the portfolio grid below. Open the site, then read the story.
           </p>
         </div>
 
@@ -101,7 +100,8 @@ export default async function PortfolioPage() {
               Situation. Work. Results.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-slate">
-              The stories buyers use to de-risk hiring us.
+              Live production URLs first — stories that match the grid so you can
+              verify the work yourself.
             </p>
           </div>
           <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">

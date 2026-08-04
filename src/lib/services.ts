@@ -65,7 +65,7 @@ export const services: Service[] = [
     ],
     pricing: {
       anchor: "from $199",
-      note: "Most SaaS and growth builds start at Growth Engine ($199+). Starter landings from $79. Custom SaaS / MVP / ecommerce from $599.",
+      note: "Most SaaS and growth builds start at Growth Engine ($199+; most land near $350). Custom SaaS / MVP / ecommerce from $599.",
     },
     outcome:
       "A digital presence that loads fast, converts better, and is documented so your team — or the next engineer — can own it.",
@@ -316,8 +316,8 @@ export const services: Service[] = [
       "Priority support with real response times",
     ],
     pricing: {
-      anchor: "from $9/mo",
-      note: "Care, Growth, and Partner retainers — designed for recurring partnership, not one-off firefighting.",
+      anchor: "from $49/mo",
+      note: "Care, Growth, and Partner retainers — designed for recurring partnership, not one-off firefighting. Care starts at $49/mo.",
     },
     outcome:
       "Stable uptime, fewer emergencies, and a partner who already knows your stack when growth work is needed.",

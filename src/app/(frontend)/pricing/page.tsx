@@ -43,12 +43,13 @@ export default function PricingPage() {
         <h2 className="font-heading text-3xl font-bold tracking-tight text-navy">
           One-time builds
         </h2>
-        <div className="mt-12 grid gap-6 lg:grid-cols-3 lg:items-stretch">
+        <div className="mt-12 grid gap-6 lg:grid-cols-2 lg:items-stretch">
           {packages.map((pkg, i) => (
             <Reveal key={pkg.name} delay={i * 0.08}>
               <PricingTier
                 name={pkg.name}
                 range={pkg.range}
+                typical={pkg.typical}
                 summary={pkg.summary}
                 features={pkg.features}
                 featured={pkg.featured}
@@ -139,6 +140,7 @@ export default function PricingPage() {
               <PricingTier
                 name={plan.name}
                 range={plan.price}
+                typical={plan.typical}
                 summary={plan.summary}
                 features={plan.features}
                 recurring
