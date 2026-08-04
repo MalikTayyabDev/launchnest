@@ -176,8 +176,8 @@ export default async function HomePage() {
       <div className="border-b border-navy/10 bg-white">
         <div className="mx-auto w-full max-w-content px-6 py-6 lg:px-8">
           <p className="mb-4 text-center font-mono text-xs uppercase tracking-[0.16em] text-slate">
-            LaunchNest · launch-nest.com · engineering-first — not other "Launch Nest"
-            brands
+            LaunchNest · launch-nest.com · engineering-first — not other &ldquo;Launch
+            Nest&rdquo; brands
           </p>
           <p className="mb-4 text-center font-mono text-xs uppercase tracking-[0.16em] text-slate">
             Built for the clients we partner with
