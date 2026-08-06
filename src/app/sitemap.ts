@@ -4,6 +4,12 @@ import { services } from "@/lib/services";
 import { getAllPosts, getCaseStudySlugs } from "@/lib/content";
 import { audiences } from "@/lib/audiences";
 
+/**
+ * Dynamic sitemap — rebuilt from CMS on publish (see revalidate.ts hooks) and
+ * at most once per hour as a safety net. No manual sitemap edits for new blogs.
+ */
+export const revalidate = 3600;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteConfig.url;
   const now = new Date();
@@ -91,7 +97,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await getAllPosts();
   const blogRoutes: MetadataRoute.Sitemap = posts.map((p) => ({
     url: `${base}/blog/${p.slug}`,
-    lastModified: new Date(p.date),
+    lastModified: new Date(p.modifiedAt ?? p.date),
     changeFrequency: "monthly",
     priority: 0.7,
   }));

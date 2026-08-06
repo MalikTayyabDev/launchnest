@@ -1,5 +1,14 @@
 import { revalidatePath } from "next/cache";
 
+/** Bust the rendered sitemap route (cached separately from CMS data). */
+export function revalidateSitemap(): void {
+  try {
+    revalidatePath("/sitemap.xml");
+  } catch {
+    // Outside Next request context (e.g. CLI seed) — ignore.
+  }
+}
+
 /**
  * Bust Next.js ISR/cache for public pages after CMS edits.
  * Safe to call from Payload hooks in the Next runtime (Vercel / local).
@@ -9,7 +18,7 @@ export function revalidateBlogPost(slug: string): void {
     revalidatePath("/blog");
     revalidatePath(`/blog/${slug}`);
     revalidatePath(`/blog/${slug}`, "page");
-    revalidatePath("/sitemap.xml");
+    revalidateSitemap();
   } catch {
     // Outside Next request context (e.g. CLI seed) — ignore.
   }
@@ -21,7 +30,7 @@ export function revalidateCaseStudy(slug: string): void {
     revalidatePath(`/work/${slug}`);
     revalidatePath(`/work/${slug}`, "page");
     revalidatePath("/");
-    revalidatePath("/sitemap.xml");
+    revalidateSitemap();
   } catch {
     // ignore
   }
@@ -32,7 +41,7 @@ export function revalidateAllContent(): void {
     revalidatePath("/blog");
     revalidatePath("/portfolio");
     revalidatePath("/");
-    revalidatePath("/sitemap.xml");
+    revalidateSitemap();
   } catch {
     // ignore
   }

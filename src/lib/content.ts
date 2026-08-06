@@ -19,6 +19,8 @@ export type PostSummary = {
   excerpt: string;
   category: string;
   date: string;
+  /** Latest CMS update — used for sitemap lastModified. */
+  modifiedAt?: string;
   readingTime: string;
   author: string;
   coverImage?: { url: string; alt: string } | null;
@@ -119,7 +121,7 @@ export async function getAllPosts(): Promise<PostSummary[]> {
         collection: "posts",
         where: { status: { equals: "published" } },
         sort: "-publishedAt",
-        limit: 100,
+        limit: 500,
         depth: 1,
       });
       if (res.docs.length > 0) {
@@ -230,12 +232,15 @@ function hasLexicalBody(body: unknown): boolean {
 }
 
 function mapPostSummary(doc: Record<string, any>): PostSummary {
+  const published = doc.publishedAt ?? doc.createdAt;
+  const modified = doc.updatedAt ?? published;
   return {
     slug: doc.slug,
     title: doc.title,
     excerpt: doc.excerpt,
     category: doc.category,
-    date: doc.publishedAt ?? doc.createdAt,
+    date: published,
+    modifiedAt: modified,
     readingTime: doc.readingTime ?? "",
     author: doc.author ?? "LaunchNest",
     coverImage: mapUploadCover(doc.coverImage, doc.title || "Article cover image"),

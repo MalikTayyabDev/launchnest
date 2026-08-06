@@ -18,7 +18,7 @@ Priorities: (P1) commercial-intent money pages, (P2) supporting/service pages,
 - Structured data (JSON-LD): `ProfessionalService` + `WebSite` site-wide, `Service`
   on service pages, `Article` on posts, `BreadcrumbList` on nested pages. `areaServed`
   is set to `GB`, `US`, `AU`.
-- `sitemap.xml` includes services, `/for/*`, `/work/*`, blog.
+- `sitemap.xml` includes services, `/for/*`, `/work/*`, blog — **auto-updated** when you publish or edit CMS posts/case studies (no manual sitemap file).
 - `robots.ts`: allow `/`, disallow `/admin/` and `/api/`, declare Sitemap.
   Do **not** use `Host:` (Googlebot ignores it → GSC warning).
 - Money pages use `index: true` (layout default) — never noindex home, pricing, about, portfolio, or services.
@@ -78,7 +78,17 @@ Differentiate with **launch-nest.com** + engineering-first + SaaS/AI messaging +
 ## Indexing hygiene (code verified)
 
 - [x] `robots.ts` allows `/`, blocks `/admin/` `/api/`
-- [x] `sitemap.ts` includes money pages + `/work/*` + blog
+- [x] `sitemap.ts` includes money pages + `/work/*` + blog (CMS-driven, refreshes on publish)
+
+## Sitemap auto-update (you do not edit sitemap.xml by hand)
+
+When you **Publish** a blog post or case study in Payload Admin, hooks immediately refresh `/sitemap.xml` plus the live page and index.
+
+Fallback: the sitemap route also revalidates at most once per hour.
+
+**Your workflow:** publish in CMS → optionally spot-check `https://www.launch-nest.com/sitemap.xml` → in GSC use **Sitemaps → Resubmit** (or Request indexing on the new URL). Google still chooses crawl timing; the sitemap stays accurate without code changes.
+
+New **code-only** pages (new route files) still need a one-line entry in `src/app/sitemap.ts` `staticRoutes` — blogs and `/work/*` do not.
 - [x] Absolute self-canonicals via `selfCanonical()` / www host
 - [x] Featured case studies are live, linkable portfolio projects
 
