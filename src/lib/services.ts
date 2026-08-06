@@ -1,8 +1,12 @@
+import { siteConfig } from "./site";
+
 export type Service = {
   slug: string;
   label: string;
   /** SEO-focused H1 / title keyword phrase */
   primaryKeyword: string;
+  /** Optional override for <title> (before layout adds " — LaunchNest"). */
+  metaTitle?: string;
   shortDescription: string;
   tagline: string;
   overview: string[];
@@ -336,4 +340,20 @@ export const services: Service[] = [
 
 export function getService(slug: string): Service | undefined {
   return services.find((s) => s.slug === slug);
+}
+
+const TITLE_BRAND_SUFFIX = ` — ${siteConfig.name}`;
+
+/**
+ * Service page <title> segment (layout adds " — LaunchNest").
+ * Keeps total length ≤ 70 chars for SEO tools and SERP display.
+ */
+export function serviceMetaTitle(service: Service): string {
+  if (service.metaTitle) return service.metaTitle;
+  const withLabel = `${service.primaryKeyword} | ${service.label}`;
+  if (withLabel.length + TITLE_BRAND_SUFFIX.length <= 70) return withLabel;
+  if (service.primaryKeyword.length + TITLE_BRAND_SUFFIX.length <= 70) {
+    return service.primaryKeyword;
+  }
+  return service.label;
 }

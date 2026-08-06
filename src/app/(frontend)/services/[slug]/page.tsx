@@ -8,7 +8,7 @@ import { Reveal } from "@/components/Reveal";
 import { JsonLd } from "@/components/JsonLd";
 import { FAQ } from "@/components/FAQ";
 import { serviceSchema, breadcrumbSchema, selfCanonical } from "@/lib/seo";
-import { getService, services } from "@/lib/services";
+import { getService, serviceMetaTitle, services } from "@/lib/services";
 import { primaryCta } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -25,13 +25,14 @@ export async function generateMetadata({
   if (!service) return { title: "Service not found" };
   const path = `/services/${service.slug}`;
   const { canonical, openGraph } = selfCanonical(path);
+  const title = serviceMetaTitle(service);
   return {
-    title: `${service.primaryKeyword} | ${service.label}`,
+    title,
     description: service.shortDescription,
     alternates: { canonical },
     openGraph: {
       ...openGraph,
-      title: `${service.primaryKeyword} | ${service.label}`,
+      title,
       description: service.shortDescription,
     },
   };
