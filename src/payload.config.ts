@@ -4,7 +4,7 @@ import { buildConfig } from "payload";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
-import { resendAdapter } from "@payloadcms/email-resend";
+import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
 import sharp from "sharp";
 
 import { Users } from "./collections/Users";
@@ -18,6 +18,11 @@ import { getAllowedOrigins } from "./lib/site-origins";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
+
+const smtpHost = process.env.SMTP_HOST?.trim();
+const smtpUser = process.env.SMTP_USER?.trim();
+const smtpPass = process.env.SMTP_PASS?.trim();
+const smtpConfigured = Boolean(smtpHost && smtpUser && smtpPass);
 
 export default buildConfig({
   admin: {
@@ -33,13 +38,22 @@ export default buildConfig({
   collections: [Posts, CaseStudies, Projects, Media, Leads, Users],
   globals: [IntroOffer],
   editor: lexicalEditor(),
-  // Transactional email via Resend. When RESEND_API_KEY is unset, Payload falls
-  // back to logging emails to the console (safe no-op for local dev).
-  email: process.env.RESEND_API_KEY
-    ? resendAdapter({
-        defaultFromAddress: process.env.EMAIL_FROM || "onboarding@resend.dev",
-        defaultFromName: "LaunchNest",
-        apiKey: process.env.RESEND_API_KEY,
+  // Business webmail via SMTP (solutions@launch-nest.com). When SMTP_* is unset,
+  // Payload skips the adapter and logs outbound mail attempts (safe for local dev).
+  email: smtpConfigured
+    ? nodemailerAdapter({
+        defaultFromAddress:
+          process.env.EMAIL_FROM || "solutions@launch-nest.com",
+        defaultFromName: process.env.EMAIL_FROM_NAME || "LaunchNest",
+        transportOptions: {
+          host: smtpHost,
+          port: Number(process.env.SMTP_PORT || 465),
+          secure: process.env.SMTP_SECURE !== "false",
+          auth: {
+            user: smtpUser!,
+            pass: smtpPass!,
+          },
+        },
       })
     : undefined,
   secret: process.env.PAYLOAD_SECRET || "",

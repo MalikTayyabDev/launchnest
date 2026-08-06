@@ -70,7 +70,7 @@ async function main() {
     pass("Users collection", `count=${users.totalDocs}`);
 
     // Round-trip: create + delete a handled smoke lead (cleanup).
-    const smokeEmail = `smoke-admin+${Date.now()}@launchnest.tech`;
+    const smokeEmail = `smoke-admin+${Date.now()}@launch-nest.com`;
     const created = await payload.create({
       collection: "leads",
       data: {

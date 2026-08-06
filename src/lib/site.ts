@@ -7,7 +7,7 @@ export const siteConfig = {
     "Engineering-first digital solutions agency for SaaS companies, AI startups, and agencies. We build conversion-focused websites, startup MVPs, technical SEO, and AI automation — UK, US, and Australia.",
   url:
     process.env.NEXT_PUBLIC_SERVER_URL?.replace(/\/$/, "") || CANONICAL_URL,
-  email: "hello@launchnest.tech",
+  email: "solutions@launch-nest.com",
   founded: "est. 2022",
   // Digits only (international format, no "+"), used to build wa.me links.
   whatsapp: "923149555617",

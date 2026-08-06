@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.86.0",
-    "@payloadcms/email-resend": "^3.86.0",
+    "@payloadcms/email-nodemailer": "^3.86.0",
     "@payloadcms/next": "3.86.0",
     "@payloadcms/richtext-lexical": "3.86.0",
     "@payloadcms/storage-vercel-blob": "3.86.0",
@@ -28,6 +28,7 @@
     "framer-motion": "^12.42.2",
     "graphql": "^16.8.1",
     "next": "15.4.11",
+    "nodemailer": "^9.0.4",
     "payload": "3.86.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
+    "@types/nodemailer": "^8.0.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "autoprefixer": "^10.4.19",
