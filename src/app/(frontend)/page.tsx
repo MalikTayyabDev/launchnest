@@ -24,14 +24,24 @@ const homeCanonical = selfCanonical("/");
 export const metadata: Metadata = {
   title: {
     absolute:
-      "LaunchNest — Engineering-First Digital Solutions for SaaS & Startups",
+      "LaunchNest (launch-nest.com) — SaaS Website Development Agency",
   },
   description: siteConfig.description,
+  keywords: [
+    "LaunchNest",
+    "launch-nest.com",
+    "SaaS website development",
+    "website developer for startups",
+    "startup web development",
+    "graphic design agency for startups",
+    "UI UX design",
+    "technical SEO agency",
+  ],
   alternates: { canonical: homeCanonical.canonical },
   openGraph: {
     ...homeCanonical.openGraph,
     title:
-      "LaunchNest — Engineering-First Digital Solutions for SaaS & Startups",
+      "LaunchNest (launch-nest.com) — SaaS Website Development Agency",
     description: siteConfig.description,
   },
 };

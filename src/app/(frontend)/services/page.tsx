@@ -10,11 +10,24 @@ import { selfCanonical } from "@/lib/seo";
 const seo = selfCanonical("/services");
 
 export const metadata: Metadata = {
-  title: "Digital Product Engineering Services for SaaS & Startups",
+  title: "Web Development, UI UX & Brand Design Services",
   description:
-    "Engineering-first digital product engineering services: SaaS website development, UI/UX, brand identity, AI automation, technical SEO, and website maintenance retainers.",
+    "LaunchNest (launch-nest.com) services: SaaS website development, UI/UX design, graphic design & brand identity, AI automation, technical SEO, and website maintenance.",
+  keywords: [
+    "website development services",
+    "graphic design for startups",
+    "UI UX design agency",
+    "SaaS website development",
+    "technical SEO agency",
+    "launch-nest.com",
+  ],
   alternates: { canonical: seo.canonical },
-  openGraph: { ...seo.openGraph },
+  openGraph: {
+    ...seo.openGraph,
+    title: "Web Development, UI UX & Brand Design Services — LaunchNest",
+    description:
+      "Engineering-first digital services for SaaS and startups from LaunchNest at launch-nest.com.",
+  },
 };
 
 export default function ServicesPage() {

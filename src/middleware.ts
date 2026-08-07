@@ -32,9 +32,9 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Match all paths except static assets and metadata routes that should stay
-     * reachable on any host during DNS propagation.
+     * Match all paths except Next internals and static file extensions.
+     * Include robots.txt + sitemap.xml so apex requests also redirect to www.
      */
-    "/((?!_next/static|_next/image|favicon.ico|icon.png|robots.txt|sitemap.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff2?)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|icon.png|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff2?)$).*)",
   ],
 };

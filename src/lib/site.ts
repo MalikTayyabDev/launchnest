@@ -2,9 +2,15 @@ import { CANONICAL_URL } from "./site-origins";
 
 export const siteConfig = {
   name: "LaunchNest",
+  /** Domain-tied names for SERP/entity disambiguation (not other “Launch Nest” brands). */
+  alternateName: [
+    "LaunchNest launch-nest.com",
+    "Launch Nest at launch-nest.com",
+    "LaunchNest Solutions",
+  ],
   tagline: "BUILD · OPTIMIZE · LAUNCH",
   description:
-    "Engineering-first digital solutions agency for SaaS companies, AI startups, and agencies. We build conversion-focused websites, startup MVPs, technical SEO, and AI automation — UK, US, and Australia.",
+    "LaunchNest (launch-nest.com) is an engineering-first digital agency for SaaS and AI startups — website development, UI/UX, brand identity, technical SEO, and AI automation across the UK, US, and Australia.",
   url:
     process.env.NEXT_PUBLIC_SERVER_URL?.replace(/\/$/, "") || CANONICAL_URL,
   email: "solutions@launch-nest.com",
@@ -14,9 +20,12 @@ export const siteConfig = {
   social: {
     instagram: "https://www.instagram.com/launchnest.tech",
     facebook: "https://www.facebook.com/profile.php?id=61592234365519",
+    clutch: "https://clutch.co/profile/launchnest",
   },
-  /** Google Business Profile — public listing (share / Maps). */
-  googleBusiness: "https://share.google/EWYjKD1MeRhaSHdZy",
+  /** Stable Google Business Profile shortlink (Maps / listing). */
+  googleBusiness: "https://g.page/r/CaBoV6foQh89EBI",
+  /** Shareable GBP link (same listing). */
+  googleBusinessShare: "https://share.google/EWYjKD1MeRhaSHdZy",
   /** Direct “Write a review” deep link for the same GBP. */
   googleReview: "https://g.page/r/CaBoV6foQh89EBI/review",
   positioning: {

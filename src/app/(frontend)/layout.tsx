@@ -16,28 +16,31 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
     default:
-      "LaunchNest — Engineering-First Digital Solutions for SaaS & Startups",
+      "LaunchNest (launch-nest.com) — SaaS Website & Digital Agency",
     template: `%s — ${siteConfig.name}`,
   },
   description: siteConfig.description,
   keywords: [
-    "engineering-first digital solutions agency",
-    "startup growth partner",
+    "LaunchNest launch-nest.com",
     "SaaS website development",
-    "AI startup digital agency",
+    "website developer for startups",
+    "startup web development agency",
+    "graphic design for startups",
+    "brand identity for startups",
+    "UI UX design SaaS",
     "technical SEO agency",
-    "Next.js development",
-    "website conversion optimization",
-    "digital product engineering",
-    "SaaS marketing site agency",
-    "AI automation for startups",
+    "AI automation for SaaS",
+    "website maintenance retainer",
+    "engineering-first digital agency",
+    "Next.js development agency",
   ],
   openGraph: {
     type: "website",
     title:
-      "LaunchNest — Engineering-First Digital Solutions for SaaS & Startups",
+      "LaunchNest (launch-nest.com) — SaaS Website & Digital Agency",
     description: siteConfig.description,
     siteName: siteConfig.name,
+    url: siteConfig.url,
     images: [
       {
         url: brandAssets.horizontalWhite.path,
@@ -50,7 +53,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title:
-      "LaunchNest — Engineering-First Digital Solutions for SaaS & Startups",
+      "LaunchNest (launch-nest.com) — SaaS Website & Digital Agency",
     description: siteConfig.description,
     images: [brandAssets.horizontalWhite.path],
   },

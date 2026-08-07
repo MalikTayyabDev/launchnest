@@ -49,7 +49,14 @@ export default async function ServicePage({
 
   return (
     <>
-      <JsonLd data={serviceSchema(service)} />
+      <JsonLd
+        data={serviceSchema({
+          label: service.label,
+          shortDescription: service.shortDescription,
+          slug: service.slug,
+          primaryKeyword: service.primaryKeyword,
+        })}
+      />
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", path: "/" },

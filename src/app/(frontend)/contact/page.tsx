@@ -10,11 +10,22 @@ import { selfCanonical } from "@/lib/seo";
 const seo = selfCanonical("/contact");
 
 export const metadata: Metadata = {
-  title: "Free Website Growth Audit — Contact LaunchNest",
+  title: "Free Website Growth Audit | Contact LaunchNest",
   description:
-    "Book a free website growth audit or 30-minute discovery call. We reply within one business day with a concrete agenda: speed, messaging, SEO, stack fit, and prioritized next steps.",
+    "Contact LaunchNest (launch-nest.com) for a free website growth audit or 30-minute call — speed, messaging, SEO, stack fit, and next steps for SaaS and startups.",
+  keywords: [
+    "free website growth audit",
+    "contact LaunchNest",
+    "launch-nest.com",
+    "SaaS website agency",
+  ],
   alternates: { canonical: seo.canonical },
-  openGraph: { ...seo.openGraph },
+  openGraph: {
+    ...seo.openGraph,
+    title: "Free Website Growth Audit | Contact LaunchNest",
+    description:
+      "Book a free growth audit with LaunchNest at launch-nest.com.",
+  },
 };
 
 const callExpect = [

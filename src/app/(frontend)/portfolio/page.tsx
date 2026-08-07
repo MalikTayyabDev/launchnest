@@ -13,31 +13,30 @@ import { getAllCaseStudies } from "@/lib/content";
 const seo = selfCanonical("/portfolio");
 
 export const metadata: Metadata = {
-  title: "SaaS & Startup Portfolio and Case Studies (US, UK, AU)",
+  title: "SaaS & Startup Website Portfolio & Case Studies",
   description:
-    "Outcome case studies and live builds for SaaS, startups, and ecommerce — conversion, Core Web Vitals, migrations, and product launches. Serving clients in the United States, United Kingdom, and Australia.",
+    "LaunchNest (launch-nest.com) portfolio — SaaS and startup website case studies and live builds across WordPress, Shopify, Webflow, Wix, and custom stacks (US, UK, AU).",
   keywords: [
     "SaaS portfolio",
-    "startup case studies",
-    "website case study",
-    "US",
-    "UK",
-    "Australia",
+    "startup website portfolio",
+    "website case studies",
+    "LaunchNest portfolio",
+    "launch-nest.com",
   ],
   alternates: { canonical: seo.canonical },
   openGraph: {
     ...seo.openGraph,
-    title: "SaaS & Startup Portfolio and Case Studies | LaunchNest",
+    title: "SaaS & Startup Website Portfolio & Case Studies | LaunchNest",
     description:
-      "Outcome case studies and live website builds for teams in the US, UK, and Australia.",
+      "Live website case studies and portfolio from LaunchNest at launch-nest.com.",
     locale: "en_US",
     alternateLocale: ["en_GB", "en_AU"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "SaaS & Startup Portfolio and Case Studies | LaunchNest",
+    title: "SaaS & Startup Website Portfolio & Case Studies | LaunchNest",
     description:
-      "Outcome case studies and live website builds for teams in the US, UK, and Australia.",
+      "Live website case studies and portfolio from LaunchNest at launch-nest.com.",
   },
 };
 

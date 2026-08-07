@@ -26,23 +26,40 @@ export function selfCanonical(path = "/"): {
 export function organizationSchema(): Record<string, unknown> {
   return {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
+    "@type": ["ProfessionalService", "Organization"],
     "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.name,
+    alternateName: siteConfig.alternateName,
+    legalName: "LaunchNest",
     description: siteConfig.description,
     url: siteConfig.url,
     email: siteConfig.email,
     image: `${siteConfig.url}${brandAssets.horizontalWhite.path}`,
-    logo: `${siteConfig.url}${brandAssets.monogram.path}`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${siteConfig.url}${brandAssets.monogram.path}`,
+    },
     areaServed: targetCountries.map((code) => ({
       "@type": "Country",
       identifier: code,
     })),
+    knowsAbout: [
+      "SaaS website development",
+      "Startup web development",
+      "UI UX design",
+      "Brand identity design",
+      "Graphic design for startups",
+      "Technical SEO",
+      "AI automation",
+      "Website maintenance",
+      "Next.js development",
+    ],
     serviceType: [
       "Digital product engineering",
       "SaaS and startup website development",
+      "Web development for SaaS",
       "UI/UX design",
-      "Brand identity",
+      "Brand identity and graphic design",
       "Technical SEO and content",
       "AI integrations and automation",
       "CRM integration",
@@ -52,7 +69,9 @@ export function organizationSchema(): Record<string, unknown> {
     sameAs: [
       siteConfig.social.instagram,
       siteConfig.social.facebook,
+      siteConfig.social.clutch,
       siteConfig.googleBusiness,
+      siteConfig.googleBusinessShare,
     ],
     audience: [
       ...siteConfig.positioning.primaryClients,
@@ -70,9 +89,12 @@ export function websiteSchema(): Record<string, unknown> {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${siteConfig.url}/#website`,
-    name: siteConfig.name,
+    name: `${siteConfig.name} — launch-nest.com`,
+    alternateName: siteConfig.alternateName,
     url: siteConfig.url,
+    description: siteConfig.description,
     publisher: { "@id": `${siteConfig.url}/#organization` },
+    inLanguage: "en",
   };
 }
 
@@ -80,11 +102,13 @@ export function serviceSchema(service: {
   label: string;
   shortDescription: string;
   slug: string;
+  primaryKeyword?: string;
 }): Record<string, unknown> {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: service.label,
+    name: service.primaryKeyword || service.label,
+    alternateName: service.label,
     description: service.shortDescription,
     url: `${siteConfig.url}/services/${service.slug}`,
     provider: { "@id": `${siteConfig.url}/#organization` },
@@ -92,6 +116,9 @@ export function serviceSchema(service: {
       "@type": "Country",
       identifier: code,
     })),
+    ...(service.primaryKeyword
+      ? { serviceType: service.primaryKeyword }
+      : {}),
   };
 }
 

@@ -32,11 +32,12 @@ export const services: Service[] = [
     slug: "website-design-dev",
     label: "Website & Product Engineering",
     primaryKeyword: "SaaS website development",
+    metaTitle: "SaaS Website Developer & Startup Web Agency",
     shortDescription:
-      "SaaS website development, startup MVP builds, landing pages, and conversion redesigns — engineered for speed, trials, and pipeline.",
+      "Website developer and SaaS website development partner for startups — landing pages, MVP sites, and conversion redesigns engineered for trials and pipeline (LaunchNest · launch-nest.com).",
     tagline: "Built to launch. Engineered to scale.",
     overview: [
-      "LaunchNest is an engineering-first digital solutions partner for SaaS companies, AI startups, agencies, and growth-stage businesses. We do not sell templates — we ship digital products that generate leads, convert trials, and support revenue.",
+      "LaunchNest at launch-nest.com is an engineering-first digital solutions partner for SaaS companies, AI startups, agencies, and growth-stage businesses. We do not sell templates — we ship digital products that generate leads, convert trials, and support revenue.",
       "Whether you need a high-converting landing page, a SaaS marketing site, a startup MVP, an ecommerce storefront, or a full conversion redesign, we choose the stack that fits your roadmap: Next.js, WordPress, Shopify, Webflow, Wix, or GoHighLevel — then we build it properly and hand it over clean.",
     ],
     seoSections: [
@@ -45,8 +46,8 @@ export const services: Service[] = [
         body: "A SaaS marketing site has one job: turn visitors into trials, demos, or sales conversations. We structure messaging, page speed, and conversion paths around that outcome — not decoration. Typical scopes include homepage, product pages, pricing, docs entry points, and instrumentation so you can see where pipeline drops.",
       },
       {
-        heading: "Startup MVP and launch sites",
-        body: "Early-stage teams need a credible web presence fast without locking into the wrong stack. We build startup MVP shells and launch sites that look investment-ready, load under our Core Web Vitals standard, and stay editable as your product story changes.",
+        heading: "Website developer for startups and MVPs",
+        body: "Early-stage teams need a credible web presence fast without locking into the wrong stack. As a startup web development partner, we build MVP shells and launch sites that look investment-ready, load under our Core Web Vitals standard, and stay editable as your product story changes.",
       },
       {
         heading: "Conversion website redesign",
@@ -92,8 +93,9 @@ export const services: Service[] = [
     slug: "ui-ux-design",
     label: "UI/UX Design",
     primaryKeyword: "SaaS UI UX design",
+    metaTitle: "SaaS UI UX Design & Product Design",
     shortDescription:
-      "SaaS UI/UX design for marketing sites, onboarding, and product flows — built for activation and conversion, not decoration.",
+      "UI UX design for SaaS and startups — marketing sites, onboarding, and product flows built for activation and conversion (LaunchNest · launch-nest.com).",
     tagline: "Design that drives decisions.",
     overview: [
       "We design for startups, SaaS teams, and growing businesses that need users to understand value fast and take the next step — signup, book a call, buy, or activate.",
@@ -142,17 +144,18 @@ export const services: Service[] = [
     slug: "graphic-design",
     label: "Brand Identity",
     primaryKeyword: "brand identity for startups",
+    metaTitle: "Brand Identity & Graphic Design for Startups",
     shortDescription:
-      "Brand identity for startups and agencies — logos, visual systems, and marketing assets that look investment-ready.",
+      "Graphic design and brand identity for startups — logos, visual systems, and marketing assets that look investment-ready (LaunchNest · launch-nest.com).",
     tagline: "Identity that travels with you.",
     overview: [
-      "Brand identity for modern businesses — logos, systems, and collateral that stay consistent from your landing page to your pitch deck to your product UI.",
+      "Brand identity and graphic design for modern businesses — logos, systems, and collateral that stay consistent from your landing page to your pitch deck to your product UI.",
       "We deliver source files and usage guidelines so your team can move fast without going off-brand.",
     ],
     seoSections: [
       {
-        heading: "Premium brand systems for early-stage companies",
-        body: "Investors and customers judge credibility in seconds. We build brand identity for startups that holds up on a SaaS marketing site, pitch deck, and product UI — with guidelines your team can actually use.",
+        heading: "Brand identity and graphic design for early-stage companies",
+        body: "Investors and customers judge credibility in seconds. We build brand identity for startups that holds up on a SaaS marketing site, pitch deck, and product UI — with guidelines your team can actually use. Looking for a graphic designer who ships systems, not one-off logos — that is the work.",
       },
     ],
     whoFor: [
@@ -188,8 +191,9 @@ export const services: Service[] = [
     slug: "ai-automation",
     label: "AI, Automation & Integrations",
     primaryKeyword: "AI integrations for SaaS",
+    metaTitle: "AI Automation & Integrations for SaaS",
     shortDescription:
-      "AI integrations for SaaS, marketing automation, and CRM workflows that remove manual work and speed growth.",
+      "AI automation and CRM integrations for SaaS — assistants, workflows, and ops systems that remove manual work (LaunchNest · launch-nest.com).",
     tagline: "Systems that compound.",
     overview: [
       "Built for SaaS companies, AI startups, agencies, and operators who need more than a brochure site — chat agents, automations, CRM sync, and AI-assisted workflows wired into the product or marketing stack.",
@@ -238,8 +242,9 @@ export const services: Service[] = [
     slug: "seo",
     label: "Technical SEO & Content",
     primaryKeyword: "technical SEO agency",
+    metaTitle: "Technical SEO Agency for SaaS & Startups",
     shortDescription:
-      "Technical SEO agency services for SaaS and startups — Core Web Vitals, indexing fixes, and content that drives qualified demand.",
+      "Technical SEO agency for SaaS and startups — Core Web Vitals, indexing fixes, and content that drives qualified demand (LaunchNest · launch-nest.com).",
     tagline: "Visibility with a commercial point.",
     overview: [
       "We fix what blocks indexing and speed first — then we write and structure content around the keywords that attract SaaS buyers, startup founders, agencies, and growth-stage businesses.",
@@ -289,8 +294,9 @@ export const services: Service[] = [
     slug: "maintenance-support",
     label: "Maintenance, QA & Growth Care",
     primaryKeyword: "website maintenance retainer",
+    metaTitle: "Website Maintenance Retainer & QA Care",
     shortDescription:
-      "Website maintenance retainer with QA testing, hosting support, updates, monitoring, and ongoing growth care.",
+      "Website maintenance retainer with QA, hosting support, updates, monitoring, and growth care after launch (LaunchNest · launch-nest.com).",
     tagline: "Launch is day one. Partnership is the product.",
     overview: [
       "We stay after launch — QA before release, hosting and deployment support when needed, then ongoing updates, backups, monitoring, and performance checks.",

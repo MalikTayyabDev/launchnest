@@ -11,11 +11,23 @@ import { selfCanonical } from "@/lib/seo";
 const seo = selfCanonical("/pricing");
 
 export const metadata: Metadata = {
-  title: "SaaS Website Development Cost & Agency Pricing",
+  title: "SaaS Website Cost & Digital Agency Pricing",
   description:
-    "Transparent SaaS website development cost ranges and growth retainers. Growth Engine and Custom Product pricing for startups, SaaS, and agencies — UK, US, AU.",
+    "LaunchNest (launch-nest.com) pricing: SaaS website development cost, Growth Engine and Custom Product ranges, plus website maintenance retainers — UK, US, AU.",
+  keywords: [
+    "SaaS website development cost",
+    "digital agency pricing",
+    "website developer pricing",
+    "LaunchNest pricing",
+    "launch-nest.com",
+  ],
   alternates: { canonical: seo.canonical },
-  openGraph: { ...seo.openGraph },
+  openGraph: {
+    ...seo.openGraph,
+    title: "SaaS Website Cost & Digital Agency Pricing — LaunchNest",
+    description:
+      "Transparent SaaS website and retainer pricing from LaunchNest at launch-nest.com.",
+  },
 };
 
 export default function PricingPage() {

@@ -70,9 +70,38 @@ Without a GSC export, we cannot truthfully list ranked terms. Early US analytics
 
 When you export GSC (last 28 days), share: Query, Clicks, Impressions, CTR, Position.
 
+## Brand / entity clarity (organic + AI Overviews)
+
+Google and AI Overviews confuse LaunchNest with other “Launch Nest” brands
+(`.net`, `.io`, `.com.au`, `.dev`, `.co.uk`). On-site entity fingerprint:
+
+- Homepage / default titles include **LaunchNest (launch-nest.com)**
+- `siteConfig.description` names the domain in the first sentence
+- JSON-LD `ProfessionalService` + `Organization` with `alternateName`, `knowsAbout`, and `sameAs` (IG, FB, Clutch, GBP)
+
+### Commercial keyword priorities (page-1 path)
+
+Do **not** expect overnight page-1 for bare “web developer” / “graphic designer”
+(hyper-competitive). Win these first, then broaden:
+
+| Priority | Target queries | Primary URL |
+| --- | --- | --- |
+| P0 brand | LaunchNest, launch-nest, launch-nest.com | `/` |
+| P1 | SaaS website development, startup web development | `/services/website-design-dev` |
+| P1 | SaaS website cost / agency pricing | `/pricing` |
+| P1 | brand identity for startups, graphic design for startups | `/services/graphic-design` |
+| P1 | SaaS UI UX design | `/services/ui-ux-design` |
+| P1 | technical SEO agency | `/services/seo` |
+| P2 | AI automation for SaaS | `/services/ai-automation` |
+| P2 | website maintenance retainer | `/services/maintenance-support` |
+
+**Authority still required for competitive service SERPs:** GBP reviews, Clutch/DesignRush,
+client footer credits, and weekly outbound. On-page alone will not outrank aged agencies
+for generic “web developer” nationwide.
+
 ## Brand note
 
-Other companies use “LaunchNest” / “Launch Nest” on different domains (e.g. `.com.au`).
+Other companies use “LaunchNest” / “Launch Nest” on different domains (e.g. `.com.au`, `.net`, `.io`).
 Differentiate with **launch-nest.com** + engineering-first + SaaS/AI messaging + live portfolio proof.
 
 ## Indexing hygiene (code verified)
