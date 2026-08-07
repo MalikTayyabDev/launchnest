@@ -3,9 +3,10 @@ import Link from "next/link";
 import { Section, Eyebrow } from "@/components/Section";
 import { CTASection } from "@/components/CTASection";
 import { Reveal } from "@/components/Reveal";
+import { JsonLd } from "@/components/JsonLd";
 import { PostCoverImage } from "@/components/PostBody";
 import { getAllPosts } from "@/lib/content";
-import { selfCanonical } from "@/lib/seo";
+import { breadcrumbSchema, selfCanonical } from "@/lib/seo";
 
 const seo = selfCanonical("/blog");
 
@@ -36,6 +37,12 @@ export default async function BlogPage() {
   const posts = await getAllPosts();
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Blog", path: "/blog" },
+        ])}
+      />
       <Section tone="offwhite">
         <div className="max-w-3xl">
           <Eyebrow>Blog</Eyebrow>

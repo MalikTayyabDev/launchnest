@@ -4,9 +4,10 @@ import { PricingTier } from "@/components/PricingTier";
 import { CTASection } from "@/components/CTASection";
 import { Reveal } from "@/components/Reveal";
 import { CustomOfferForm } from "@/components/CustomOfferForm";
+import { JsonLd } from "@/components/JsonLd";
 import { packages, maintenancePlans } from "@/lib/pricing";
 import { primaryCta, whatsappLink } from "@/lib/site";
-import { selfCanonical } from "@/lib/seo";
+import { breadcrumbSchema, selfCanonical } from "@/lib/seo";
 
 const seo = selfCanonical("/pricing");
 
@@ -33,6 +34,12 @@ export const metadata: Metadata = {
 export default function PricingPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Pricing", path: "/pricing" },
+        ])}
+      />
       <Section tone="offwhite">
         <div className="max-w-3xl">
           <Eyebrow>Pricing</Eyebrow>

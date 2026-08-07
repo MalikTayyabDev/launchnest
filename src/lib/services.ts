@@ -31,27 +31,28 @@ export const services: Service[] = [
   {
     slug: "website-design-dev",
     label: "Website & Product Engineering",
-    primaryKeyword: "SaaS website development",
-    metaTitle: "SaaS Website Developer & Startup Web Agency",
+    primaryKeyword: "SaaS website design & development",
+    metaTitle: "SaaS Website Design & Development Agency",
     shortDescription:
-      "Website developer and SaaS website development partner for startups — landing pages, MVP sites, and conversion redesigns engineered for trials and pipeline (LaunchNest · launch-nest.com).",
+      "SaaS website design and development for startups — landing pages, MVP sites, and conversion redesigns engineered for trials and pipeline (LaunchNest · launch-nest.com).",
     tagline: "Built to launch. Engineered to scale.",
     overview: [
       "LaunchNest at launch-nest.com is an engineering-first digital solutions partner for SaaS companies, AI startups, agencies, and growth-stage businesses. We do not sell templates — we ship digital products that generate leads, convert trials, and support revenue.",
       "Whether you need a high-converting landing page, a SaaS marketing site, a startup MVP, an ecommerce storefront, or a full conversion redesign, we choose the stack that fits your roadmap: Next.js, WordPress, Shopify, Webflow, Wix, or GoHighLevel — then we build it properly and hand it over clean.",
+      "Buyers searching for a website developer or SaaS website agency usually need three things at once: clear messaging, measurable conversion paths, and a stack their team can own after launch. That is the brief we run every engagement against — from first discovery call through handoff and optional maintenance.",
     ],
     seoSections: [
       {
-        heading: "SaaS website development that converts",
-        body: "A SaaS marketing site has one job: turn visitors into trials, demos, or sales conversations. We structure messaging, page speed, and conversion paths around that outcome — not decoration. Typical scopes include homepage, product pages, pricing, docs entry points, and instrumentation so you can see where pipeline drops.",
+        heading: "SaaS website design & development that converts",
+        body: "A SaaS marketing site has one job: turn visitors into trials, demos, or sales conversations. We structure messaging, page speed, and conversion paths around that outcome — not decoration. Typical scopes include homepage, product pages, pricing, docs entry points, and instrumentation so you can see where pipeline drops. If you are comparing SaaS website design agencies, ask who owns Core Web Vitals and tracking after go-live — we do.",
       },
       {
-        heading: "Website developer for startups and MVPs",
-        body: "Early-stage teams need a credible web presence fast without locking into the wrong stack. As a startup web development partner, we build MVP shells and launch sites that look investment-ready, load under our Core Web Vitals standard, and stay editable as your product story changes.",
+        heading: "Startup MVP website development",
+        body: "Early-stage teams need a credible web presence fast without locking into the wrong stack. As a startup web development partner, we build MVP shells and launch sites that look investment-ready, load under our Core Web Vitals standard, and stay editable as your product story changes. Scopes stay tight: enough surface for waitlist, demo, or early access — without a six-month agency theater cycle.",
       },
       {
-        heading: "Conversion website redesign",
-        body: "If your current site looks fine but does not generate qualified demand, we audit friction, rebuild the critical journeys, and ship a redesign focused on lead generation and activation — with technical SEO and performance baked in before go-live.",
+        heading: "Website redesign for SaaS companies",
+        body: "If your current site looks fine but does not generate qualified demand, we audit friction, rebuild the critical journeys, and ship a redesign focused on lead generation and activation — with technical SEO and performance baked in before go-live. Redesign work starts from your live analytics and sales feedback, not a blank mood board.",
       },
     ],
     whoFor: [
@@ -241,19 +242,20 @@ export const services: Service[] = [
   {
     slug: "seo",
     label: "Technical SEO & Content",
-    primaryKeyword: "technical SEO agency",
-    metaTitle: "Technical SEO Agency for SaaS & Startups",
+    primaryKeyword: "Technical SEO for SaaS & startup websites",
+    metaTitle: "Technical SEO for SaaS & Startup Websites",
     shortDescription:
-      "Technical SEO agency for SaaS and startups — Core Web Vitals, indexing fixes, and content that drives qualified demand (LaunchNest · launch-nest.com).",
+      "Technical SEO for SaaS and startup websites — Core Web Vitals, indexing fixes, and content that drives qualified demand (LaunchNest · launch-nest.com).",
     tagline: "Visibility with a commercial point.",
     overview: [
       "We fix what blocks indexing and speed first — then we write and structure content around the keywords that attract SaaS buyers, startup founders, agencies, and growth-stage businesses.",
       "You get a prioritized technical backlog plus content that supports lead generation, not vanity traffic.",
+      "Technical SEO for startups is different from generic local SEO: money pages (pricing, product, integrations) need crawlable structure, fast LCP, and supporting articles that answer buyer questions before a sales call.",
     ],
     seoSections: [
       {
         heading: "Technical SEO and Core Web Vitals",
-        body: "As a technical SEO partner, we prioritize crawlability, canonicals, sitemap hygiene, schema, and Core Web Vitals — especially LCP on acquisition pages. Speed and structure are prerequisites before content scale.",
+        body: "As a technical SEO partner, we prioritize crawlability, canonicals, sitemap hygiene, schema, and Core Web Vitals — especially LCP on acquisition pages. Speed and structure are prerequisites before content scale. We also align robots, redirects, and indexation so Google sees the same site your buyers do.",
       },
       {
         heading: "SEO content writing for SaaS and startups",

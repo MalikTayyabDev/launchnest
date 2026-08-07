@@ -39,7 +39,7 @@ export function PortfolioCard({
         {item.image ? (
           <Image
             src={item.image}
-            alt={`Preview of ${item.name}`}
+            alt={`${item.name} ${item.stack} website preview — LaunchNest portfolio`}
             fill
             priority={priority}
             draggable={false}

@@ -3,8 +3,9 @@ import { Section, Eyebrow } from "@/components/Section";
 import { StatCallout } from "@/components/StatCallout";
 import { CTASection } from "@/components/CTASection";
 import { Reveal } from "@/components/Reveal";
+import { JsonLd } from "@/components/JsonLd";
 import { siteConfig } from "@/lib/site";
-import { selfCanonical } from "@/lib/seo";
+import { breadcrumbSchema, selfCanonical } from "@/lib/seo";
 
 const seo = selfCanonical("/about");
 
@@ -68,6 +69,12 @@ const team = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ])}
+      />
       <Section tone="offwhite">
         <div className="max-w-3xl">
           <Eyebrow>About LaunchNest</Eyebrow>

@@ -99,6 +99,29 @@ Do **not** expect overnight page-1 for bare “web developer” / “graphic des
 client footer credits, and weekly outbound. On-page alone will not outrank aged agencies
 for generic “web developer” nationwide.
 
+## External audit reconciliation (code-verified)
+
+Status against the organic SEO audit checklist (homepage crawl + playbook):
+
+| Audit item | Status | Notes |
+| --- | --- | --- |
+| Homepage single H1 | Done | One `h1` in `Hero.tsx` |
+| FAQPage schema | Done | Homepage + service + `/for/*` via `FAQ` `withSchema` |
+| Organization + sameAs | Done | `ProfessionalService`/`Organization` in `seo.ts` (IG, FB, Clutch, GBP) |
+| Sitemap + robots | Done | `/sitemap.xml`, `/robots.txt`; apex→www includes both |
+| Service H1 = search terms | Done | e.g. “SaaS website design & development”, “Technical SEO for SaaS & startup websites” |
+| Service ↔ case study links | Done | Related outcomes on each `/services/[slug]` |
+| Service ↔ blog links | Done | Related reading block on service pages |
+| Full case study pages | Done | `/work/[slug]` (not `/portfolio/[slug]`) |
+| Portfolio live links | Intentional | 3 public-proof live; rest contact-gated (client confidentiality) |
+| BreadcrumbList on indexes | Done | Services, blog, pricing, about, contact + detail pages |
+| Blog author Person schema | Open | Posts use org author; Person bio not shipped yet |
+| Geo pages `/for/us|uk|australia` | Open | Tier 3 — after Tier 1 pages are stable |
+| Dedicated MVP / redesign URLs | Partial | Covered as H2 sections on `/services/website-design-dev` + `/for/saas` + `/for/ai-startups` |
+| Review / AggregateRating | Open | Only emit with approved quotes; GBP stars stay on GBP until we wire verified counts |
+
+**Do not un-gate the full portfolio for SEO** unless clients approve public URLs — trust beats thin link spam.
+
 ## Brand note
 
 Other companies use “LaunchNest” / “Launch Nest” on different domains (e.g. `.com.au`, `.net`, `.io`).

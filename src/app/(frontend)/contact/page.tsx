@@ -4,8 +4,9 @@ import { ContactForm } from "@/components/ContactForm";
 import { BookCallForm } from "@/components/BookCallForm";
 import { StatCallout } from "@/components/StatCallout";
 import { GrowthAuditAgenda } from "@/components/GrowthAuditAgenda";
+import { JsonLd } from "@/components/JsonLd";
 import { siteConfig, whatsappLink } from "@/lib/site";
-import { selfCanonical } from "@/lib/seo";
+import { breadcrumbSchema, selfCanonical } from "@/lib/seo";
 
 const seo = selfCanonical("/contact");
 
@@ -37,6 +38,12 @@ const callExpect = [
 export default function ContactPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ])}
+      />
       <Section tone="offwhite">
         <div className="mx-auto max-w-3xl text-center">
           <Eyebrow>Contact</Eyebrow>

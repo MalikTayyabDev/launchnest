@@ -7,8 +7,11 @@ import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
 import { JsonLd } from "@/components/JsonLd";
 import { FAQ } from "@/components/FAQ";
+import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { serviceSchema, breadcrumbSchema, selfCanonical } from "@/lib/seo";
 import { getService, serviceMetaTitle, services } from "@/lib/services";
+import { getAllCaseStudies, getAllPosts } from "@/lib/content";
+import { posts as seedPosts } from "@/lib/blog";
 import { primaryCta } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -46,6 +49,23 @@ export default async function ServicePage({
   const { slug } = await params;
   const service = getService(slug);
   if (!service) notFound();
+
+  const [allStudies, allPosts] = await Promise.all([
+    getAllCaseStudies(),
+    getAllPosts(),
+  ]);
+  const matchedStudies = allStudies.filter(
+    (s) => s.relatedService === service.slug,
+  );
+  const relatedStudies = (
+    matchedStudies.length > 0 ? matchedStudies : allStudies
+  ).slice(0, 3);
+  const relatedServiceBySlug = new Map(
+    seedPosts.map((p) => [p.slug, p.relatedService]),
+  );
+  const relatedPosts = allPosts
+    .filter((p) => relatedServiceBySlug.get(p.slug) === service.slug)
+    .slice(0, 3);
 
   return (
     <>
@@ -206,6 +226,59 @@ export default async function ServicePage({
           </div>
         </div>
       </Section>
+
+      {relatedStudies.length > 0 && (
+        <Section tone="offwhite">
+          <div className="max-w-2xl">
+            <Eyebrow>Proof</Eyebrow>
+            <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
+              Related outcomes
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-slate">
+              Live, checkable builds — not mockups. Full write-ups on each case
+              study page.
+            </p>
+          </div>
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {relatedStudies.map((study, i) => (
+              <Reveal key={study.slug} delay={i * 0.06}>
+                <CaseStudyCard study={study} />
+              </Reveal>
+            ))}
+          </div>
+        </Section>
+      )}
+
+      {relatedPosts.length > 0 && (
+        <Section tone="white">
+          <div className="max-w-2xl">
+            <Eyebrow>Guides</Eyebrow>
+            <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
+              Related reading
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-slate">
+              Buyer-intent articles that connect to this service.
+            </p>
+          </div>
+          <ul className="mt-10 flex flex-col gap-4">
+            {relatedPosts.map((post) => (
+              <li key={post.slug}>
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="group flex flex-col gap-1 rounded-lg border border-navy/10 bg-offwhite px-5 py-4 transition-colors hover:border-gold/50 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+                >
+                  <span className="font-heading text-base font-semibold text-navy group-hover:text-gold">
+                    {post.title}
+                  </span>
+                  <span className="shrink-0 font-mono text-xs uppercase tracking-[0.14em] text-slate">
+                    {post.category}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Section>
+      )}
 
       {service.faqs && service.faqs.length > 0 && (
         <Section tone="offwhite">
