@@ -46,3 +46,15 @@ export function revalidateAllContent(): void {
     // ignore
   }
 }
+
+/** Bust intro-offer banner + page after slot / open changes. */
+export function revalidateIntroOffer(): void {
+  try {
+    revalidatePath("/");
+    revalidatePath("/intro-offer");
+    revalidatePath("/intro-offer", "page");
+    revalidatePath("/pricing");
+  } catch {
+    // ignore
+  }
+}

@@ -218,9 +218,9 @@ export default async function HomePage() {
               Proof before pretty screenshots.
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-slate">
-              Live, private-verified projects — contact us for live URLs, then
-              read the story. Proof for SaaS and tech buyers in the US, UK, and
-              Australia.
+              Featured case studies link to live production sites — verify in one
+              click, then read the story. Proof for SaaS and tech buyers in the US,
+              UK, and Australia.
             </p>
           </div>
           <div className="hidden shrink-0 sm:block">
@@ -251,8 +251,8 @@ export default async function HomePage() {
               Sites in production across stacks.
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-slate">
-              Preview the work here. Live website links are shared privately —
-              contact us when you want the full portfolio with URLs.
+              Featured builds link live so you can verify the work. The full
+              portfolio includes more gated client sites — contact us for those URLs.
             </p>
           </div>
           <div className="hidden shrink-0 sm:block">

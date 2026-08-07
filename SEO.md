@@ -91,22 +91,52 @@ Fallback: the sitemap route also revalidates at most once per hour.
 New **code-only** pages (new route files) still need a one-line entry in `src/app/sitemap.ts` `staticRoutes` — blogs and `/work/*` do not.
 - [x] Absolute self-canonicals via `selfCanonical()` / www host
 - [x] Featured case studies are live, linkable portfolio projects
+- [x] Public-proof live URLs (WIZ.AI, Clearmatrix, Algorithmicsoftware) are click-through; rest gated
+- [x] Intro-offer slot counter auto-increments on claim (Admin → Intro Offer)
 
-## Google Search Console — Week 1 (you run)
+## Re-audit Update 2 — P0: diagnose zero brand search (you run)
 
-1. Open [Google Search Console](https://search.google.com/search-console) for both `https://www.launch-nest.com` and apex `https://launch-nest.com` (or domain property covering both).
+On-page SEO is ready. Google still not showing `launch-nest.com` for its own name is an **indexing / GSC / authority** problem, not a content rewrite.
+
+### Step A — Confirm Search Console is actually verified
+
+1. Open [Google Search Console](https://search.google.com/search-console).
+2. Prefer a **Domain** property for `launch-nest.com` (covers www + apex), **or** verify both URL-prefix properties:
+   - `https://www.launch-nest.com`
+   - `https://launch-nest.com`
+3. Confirm ownership shows **Verified** (DNS / HTML — not “pending”).
+4. Confirm live redirects: `http://` and apex → `https://www.launch-nest.com` (308).
+
+### Step B — Read Coverage / Pages (Indexing)
+
+For the homepage and money URLs, note which state applies:
+
+| GSC state | What it means | What to do |
+| --- | --- | --- |
+| Submitted and indexed | Crawl OK; brand ranking is authority | Directories, GBP, footer credits, outbound |
+| Discovered — currently not indexed | Known but not chosen yet | Request indexing; improve internal links; wait |
+| Crawled — currently not indexed | Seen but not kept | Check soft-404, thin/duplicate; Request indexing again |
+| URL is not on Google | Not in index | Submit sitemap + Request indexing |
+
+### Step C — Sitemap + Request indexing
+
+1. Submit / resubmit: `https://www.launch-nest.com/sitemap.xml`
+2. URL Inspection → **Request indexing** on: `/`, `/pricing`, `/about`, `/portfolio`, `/contact`, `/services`, each `/work/*`, each published `/blog/*`
+3. Bing: verify (BingSiteAuth.xml) + same sitemap
+
+### Step D — Google Business Profile (fastest brand surface)
+
+1. Claim / verify GBP; website = `https://www.launch-nest.com`
+2. Categories + services complete; hours accurate
+3. Ask for reviews (target **10+** before showing a rating strip on-site)
+
+## Google Search Console — Week 1 checklist
+
+1. Open GSC for www + apex (or Domain property) — **must be Verified**
 2. Submit sitemap: `https://www.launch-nest.com/sitemap.xml`
-3. **Request indexing** (URL Inspection → Request indexing) for:
-   - `/` (home)
-   - `/pricing`
-   - `/about`
-   - `/portfolio`
-   - `/contact`
-   - `/services` (+ each service slug)
-   - each `/work/*` case study
-   - each published `/blog/*` post
-4. Spot-check live HTML for `<link rel="canonical" href="https://www.launch-nest.com/...">` on those URLs after deploy.
-5. Optionally add Bing Webmaster Tools with the same sitemap.
+3. **Request indexing** (URL Inspection) for money pages + blog (list in Step C)
+4. Spot-check live HTML for `<link rel="canonical" href="https://www.launch-nest.com/...">`
+5. Bing Webmaster Tools with the same sitemap
 
 ## Pre-launch / growth checklist
 
@@ -114,14 +144,19 @@ New **code-only** pages (new route files) still need a one-line entry in `src/ap
 - [x] Absolute self-canonicals + page OG URLs
 - [x] Expanded robots.txt (admin/api disallow)
 - [x] Keyword-deeper service + audience page copy
-- [x] Real live case studies with Visit live site CTAs (no $79 / $9 public floor)
-- [ ] Verify Google Search Console + Bing Webmaster Tools
-- [ ] Submit `https://www.launch-nest.com/sitemap.xml` in GSC + Bing
+- [x] Real live case studies; 3 public Visit live site CTAs; rest gated
+- [x] Pricing floor raised (no $79 / $9); typical anchors
+- [x] Intro-offer counter CMS-driven + auto-increment on claim
+- [ ] Verify Google Search Console + Bing Webmaster Tools (P0)
+- [ ] Diagnose GSC indexing state for homepage (table above)
+- [ ] Submit / resubmit sitemap + Request indexing
+- [ ] Claim / complete Google Business Profile (P0)
 - [ ] Confirm money-page titles against live SERP competitors
-- [ ] Request indexing on money pages + blog (list above)
 - [ ] Track Core Web Vitals in GSC after launch
 - [ ] Add permissioned client testimonials to CMS when approved
 - [ ] Surface GBP rating on site once you have 10+ Google reviews
+- [ ] Directory profiles: Clutch and/or DesignRush + 1–2 startup directories (P2)
+- [ ] Footer credits on new client builds: `Site by LaunchNest — launch-nest.com` (P2)
 
 ---
 
@@ -129,11 +164,12 @@ New **code-only** pages (new route files) still need a one-line entry in `src/ap
 
 Ops you run in parallel with the live site — not automatable from this repo.
 
-### Week 1
+### Week 1 (do before more on-page work)
 
-- [ ] Complete GSC steps above
-- [ ] Claim / complete **Google Business Profile**; confirm categories, services, website = `https://www.launch-nest.com`
+- [ ] Complete **Re-audit Update 2 — P0** GSC diagnose steps (A–D) above
+- [ ] Claim / complete **Google Business Profile**; website = `https://www.launch-nest.com`
 - [ ] Ask recent clients for Google reviews (target 10+ before showing a rating strip)
+- [ ] In Admin → **Intro Offer**: set `slotsUsed` to the real booked count if the public counter looks wrong
 
 ### Weeks 2–4
 
@@ -156,3 +192,4 @@ Ops you run in parallel with the live site — not automatable from this repo.
 - Ask permission; add `Site by LaunchNest — launch-nest.com` on new client builds
 - Ask a few past clients for footer credit where appropriate
 - Never invent case-study metrics or quotes — live URL is the proof until testimonials are approved
+- Public-proof allowlist lives in `src/lib/public-proof.ts` (add domains only with client OK)

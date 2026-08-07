@@ -69,8 +69,9 @@ export default async function PortfolioPage() {
             Outcomes first. Live builds second.
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-slate">
-            Featured case studies and production builds — previews on this page,
-            live URLs shared after you contact us so client projects stay private.
+            Featured case studies include clickable live sites you can verify in
+            seconds. The wider grid stays contact-gated to protect client
+            confidentiality — ask us for any URL you need.
           </p>
         </div>
 
@@ -99,8 +100,8 @@ export default async function PortfolioPage() {
               Situation. Work. Results.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-slate">
-              Outcome stories you can read here. Contact us to receive the matching
-              live URLs under NDA-friendly sharing.
+              Featured studies link to live production URLs. Remaining portfolio
+              work is available on request.
             </p>
           </div>
           <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -120,8 +121,8 @@ export default async function PortfolioPage() {
             In production across platforms
           </h2>
           <p className="mt-4 text-base leading-relaxed text-slate">
-            Filter by platform and browse previews. Live website links are shared
-            privately — use the contact button on any card.
+            Filter by platform and browse previews. Featured public-proof sites
+            link live; remaining URLs are shared privately after you contact us.
           </p>
         </div>
         <div className="mt-10">
@@ -163,9 +164,9 @@ export default async function PortfolioPage() {
       )}
 
       <CTASection
-        heading="Want the full portfolio with live links?"
-        body="Book a free growth audit or send a short note — we'll share relevant live sites for your review."
-        cta={{ label: "Contact to view full portfolio", href: "/contact" }}
+        heading="Want more live URLs from the full portfolio?"
+        body="Featured projects are clickable above. Book a free growth audit or send a short note for any other production URL you want to review."
+        cta={{ label: "Contact for more live sites", href: "/contact" }}
       />
     </>
   );

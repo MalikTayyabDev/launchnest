@@ -5,48 +5,63 @@ import {
   portfolioOffline,
   type PortfolioItem,
 } from "./portfolio";
+import { isPublicProofDomain } from "./public-proof";
 
 /**
  * Projects data access layer. Reads portfolio projects from Payload (CMS) when
  * the database is reachable, and transparently falls back to the bundled static
  * portfolio data otherwise.
  *
- * Public pages receive PublicPortfolioItem (no live URLs) so client HTML/RSC
- * payloads cannot be scraped for the project link list.
+ * Most public cards omit live URLs (contact-gated). Allowlisted public-proof
+ * domains keep a clickable liveUrl (re-audit Update 2 — P1).
  */
 
 export type { PortfolioItem };
 
-/** Safe public shape — never includes url or domain. */
+/** Public card shape — liveUrl only when on the public-proof allowlist. */
 export type PublicPortfolioItem = {
   id: string;
   name: string;
   stack: string;
   category: string;
   image: string;
+  liveUrl?: string | null;
+  liveDomain?: string | null;
 };
 
 export function toPublicPortfolioItem(item: PortfolioItem): PublicPortfolioItem {
   const id =
     item.image?.replace(/^\/portfolio\//, "").replace(/\.jpg$/, "") ||
     item.name.toLowerCase().replace(/\s+/g, "-");
+  const publicProof = isPublicProofDomain(item.domain || item.url);
   return {
     id,
     name: item.name,
     stack: item.stack,
     category: item.category,
     image: item.image || "",
+    liveUrl: publicProof ? item.url : null,
+    liveDomain: publicProof ? item.domain : null,
   };
 }
 
-/** The six projects promoted to the home page when no CMS data is available. */
+/** Prefer public-proof projects first so buyers can verify without contacting. */
+function sortPublicProofFirst(items: PublicPortfolioItem[]): PublicPortfolioItem[] {
+  return [...items].sort((a, b) => {
+    const aPublic = a.liveUrl ? 0 : 1;
+    const bPublic = b.liveUrl ? 0 : 1;
+    return aPublic - bPublic;
+  });
+}
+
+/** Home + portfolio featured: public-proof first, then other strong builds. */
 const FEATURED_FALLBACK_SLUGS = [
+  "wiz-ai",
+  "clearmatrix-io",
+  "algorithmicsoftware-co-uk",
   "zbiroh-com",
   "store-madmowers-uk",
   "ecofab-ca",
-  "heartbreakhotel-no",
-  "mastercutnaturalstone-com",
-  "specialized-med-com",
 ];
 
 const slugFromImage = (image: string) =>
@@ -100,22 +115,22 @@ async function fetchProjects(where: Record<string, unknown>) {
   }
 }
 
-/** Live projects shown in the visual, filterable grid (URLs stripped). */
+/** Live projects shown in the visual, filterable grid. */
 export async function getGridProjects(): Promise<PublicPortfolioItem[]> {
   const docs = await fetchProjects({ showInGrid: { equals: true } });
   const items =
     docs && docs.length > 0 ? docs.map(mapProject) : portfolioLive;
-  return items.map(toPublicPortfolioItem);
+  return sortPublicProofFirst(items.map(toPublicPortfolioItem));
 }
 
-/** Projects listed under "Also delivered" (no live preview / no URLs). */
+/** Projects listed under "Also delivered" (no live preview; URLs gated). */
 export async function getOfflineProjects(): Promise<PublicPortfolioItem[]> {
   const docs = await fetchProjects({ showInGrid: { equals: false } });
   const items = docs ? docs.map(mapProject) : portfolioOffline;
   return items.map(toPublicPortfolioItem);
 }
 
-/** Featured projects promoted on the home page (URLs stripped). */
+/** Featured projects promoted on the home page. */
 export async function getFeaturedProjects(
   limit = 6,
 ): Promise<PublicPortfolioItem[]> {
@@ -124,7 +139,9 @@ export async function getFeaturedProjects(
     showInGrid: { equals: true },
   });
   if (docs && docs.length > 0) {
-    return docs.slice(0, limit).map(mapProject).map(toPublicPortfolioItem);
+    return sortPublicProofFirst(
+      docs.map(mapProject).map(toPublicPortfolioItem),
+    ).slice(0, limit);
   }
 
   const featured = FEATURED_FALLBACK_SLUGS.map((slug) =>

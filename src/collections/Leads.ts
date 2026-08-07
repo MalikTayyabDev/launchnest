@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload";
 import { isAdmin } from "../access";
+import { revalidateIntroOffer } from "../lib/revalidate";
 
 const esc = (v: unknown) =>
   String(v ?? "—")
@@ -27,6 +28,34 @@ export const Leads: CollectionConfig = {
     afterChange: [
       async ({ doc, operation, req }) => {
         if (operation !== "create") return;
+
+        // Keep the public intro-offer counter truthful when a slot is claimed.
+        if (doc.source === "intro-offer") {
+          try {
+            const current = await req.payload.findGlobal({
+              slug: "intro-offer",
+              overrideAccess: true,
+            });
+            const max = Math.max(1, Number(current.maxSlots ?? 10));
+            const used = Math.min(
+              max,
+              Math.max(0, Number(current.slotsUsed ?? 0)) + 1,
+            );
+            await req.payload.updateGlobal({
+              slug: "intro-offer",
+              data: { slotsUsed: used },
+              overrideAccess: true,
+            });
+            revalidateIntroOffer();
+          } catch (err) {
+            req.payload.logger.error(
+              `Intro offer slot increment failed: ${
+                err instanceof Error ? err.message : String(err)
+              }`,
+            );
+          }
+        }
+
         const to = process.env.LEAD_NOTIFICATION_EMAIL;
         if (!to) return;
 

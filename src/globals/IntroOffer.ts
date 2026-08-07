@@ -1,5 +1,6 @@
 import type { GlobalConfig } from "payload";
 import { isAdmin } from "../access";
+import { revalidateIntroOffer } from "../lib/revalidate";
 
 /** Admin-controlled settings for the Phase 0 $20 intro landing page offer. */
 export const IntroOffer: GlobalConfig = {
@@ -8,7 +9,7 @@ export const IntroOffer: GlobalConfig = {
   admin: {
     group: "Leads",
     description:
-      "Control the $20 intro landing page offer — open/close it and track booked slots. Changes show on the site within about a minute.",
+      "Control the $20 intro landing page. Slots Used auto-increments when someone submits the intro form — keep it accurate (or close the offer) so the public counter never looks fake.",
   },
   access: {
     // Public read so the marketing site can load live slot counts.
@@ -39,7 +40,7 @@ export const IntroOffer: GlobalConfig = {
           required: true,
           admin: {
             width: "50%",
-            description: "Hard cap (10–15 recommended).",
+            description: "Hard cap for this intro cohort (10–15 recommended).",
           },
         },
         {
@@ -50,10 +51,18 @@ export const IntroOffer: GlobalConfig = {
           required: true,
           admin: {
             width: "50%",
-            description: "Increment by 1 each time you confirm/book an intro client.",
+            description:
+              "Auto-increments on each intro-offer lead. Correct manually if you booked someone offline.",
           },
         },
       ],
     },
   ],
+  hooks: {
+    afterChange: [
+      () => {
+        revalidateIntroOffer();
+      },
+    ],
+  },
 };

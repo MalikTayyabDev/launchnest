@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { getIntroOfferSettings, INTRO_OFFER_PATH } from "@/lib/intro-offer";
 
-/** Site-wide strip promoting the Phase 0 intro offer when slots are open. */
+/**
+ * Site-wide strip for the intro offer when slots are open.
+ * Counter is CMS-driven (and auto-increments on claim) so it stays truthful.
+ */
 export async function IntroOfferBanner() {
   const settings = await getIntroOfferSettings();
   if (!settings.accepting) return null;
@@ -18,10 +21,10 @@ export async function IntroOfferBanner() {
           </span>
           <span className="mt-1 block sm:mt-0 sm:inline">
             Landing page for{" "}
-            <strong className="font-semibold text-offwhite">$20</strong> — limited
-            first-client rate ·{" "}
+            <strong className="font-semibold text-offwhite">$20</strong> —
+            limited introductory rate ·{" "}
             <strong className="text-gold">{settings.slotsRemaining}</strong> of{" "}
-            {settings.maxSlots} slots left
+            {settings.maxSlots} slots still open this cohort
           </span>
         </p>
         <Link

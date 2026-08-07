@@ -39,7 +39,8 @@ export default async function IntroOfferPage() {
             <Eyebrow>Limited intro rate</Eyebrow>
             {settings.accepting ? (
               <span className="mb-4 inline-flex items-center rounded-full border border-gold/40 bg-gold/10 px-3 py-1 font-mono text-xs font-bold uppercase tracking-wider text-navy">
-                {settings.slotsRemaining} of {settings.maxSlots} slots open
+                {settings.slotsRemaining} of {settings.maxSlots} slots still open
+                this cohort
               </span>
             ) : (
               <span className="mb-4 inline-flex items-center rounded-full border border-navy/15 bg-white px-3 py-1 font-mono text-xs font-bold uppercase tracking-wider text-slate">

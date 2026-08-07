@@ -3,6 +3,7 @@ import configPromise from "@payload-config";
 import { posts as seedPosts } from "./blog";
 import { caseStudies as seedCaseStudies, type Industry } from "./work";
 import { mapUploadCover } from "./media";
+import { isPublicProofCaseSlug } from "./public-proof";
 
 /** Lexical rich-text document shape (kept loose to avoid deep type coupling). */
 export type LexicalContent = { root: unknown } & Record<string, unknown>;
@@ -249,11 +250,15 @@ function mapPostSummary(doc: Record<string, any>): PostSummary {
 
 // ---------- Case studies ----------
 
-/** Strip live URLs from public responses — share privately after contact. */
+/** Strip live URLs from public responses — except allowlisted public proof. */
 function redactPublicCaseStudy(study: CaseStudyItem): CaseStudyItem {
+  const hasLive = Boolean(study.liveUrl);
+  if (hasLive && isPublicProofCaseSlug(study.slug)) {
+    return { ...study, hasLiveSite: true };
+  }
   return {
     ...study,
-    hasLiveSite: Boolean(study.liveUrl),
+    hasLiveSite: hasLive,
     liveUrl: null,
     liveDomain: null,
   };

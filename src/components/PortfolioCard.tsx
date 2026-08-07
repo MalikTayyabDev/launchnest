@@ -19,8 +19,9 @@ export function dotColor(category: string) {
 }
 
 /**
- * Portfolio preview card — no live URLs in the DOM.
- * Contact is required to receive full project links.
+ * Portfolio preview card.
+ * Allowlisted public-proof projects link straight to the live site;
+ * all others require contact (client confidentiality).
  */
 export function PortfolioCard({
   item,
@@ -57,6 +58,11 @@ export function PortfolioCard({
         <h3 className="font-heading text-base font-semibold text-navy">
           {item.name}
         </h3>
+        {item.liveDomain ? (
+          <p className="mt-1 truncate font-mono text-xs text-gold">
+            {item.liveDomain}
+          </p>
+        ) : null}
         <span className="mt-4 inline-flex w-fit items-center gap-2 rounded-full bg-offwhite px-3 py-1 font-mono text-[11px] font-medium text-slate">
           <span
             className="h-2 w-2 rounded-full"
@@ -65,12 +71,23 @@ export function PortfolioCard({
           />
           {item.stack}
         </span>
-        <Link
-          href="/contact"
-          className="mt-5 inline-flex w-fit items-center gap-1.5 font-heading text-sm font-semibold text-navy underline decoration-gold underline-offset-4 transition-colors hover:text-gold"
-        >
-          Contact to view live site
-        </Link>
+        {item.liveUrl ? (
+          <a
+            href={item.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 inline-flex w-fit items-center gap-1.5 font-heading text-sm font-semibold text-navy underline decoration-gold underline-offset-4 transition-colors hover:text-gold"
+          >
+            Visit live site
+          </a>
+        ) : (
+          <Link
+            href="/contact"
+            className="mt-5 inline-flex w-fit items-center gap-1.5 font-heading text-sm font-semibold text-navy underline decoration-gold underline-offset-4 transition-colors hover:text-gold"
+          >
+            Contact to view live site
+          </Link>
+        )}
       </div>
     </article>
   );
