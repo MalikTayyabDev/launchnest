@@ -95,6 +95,33 @@ const nextConfig = {
         destination: "/services/ai-automation",
         permanent: true,
       },
+      // Retired fictional case studies (GSC: Discovered — currently not indexed).
+      // Permanent redirects clear discovery debt and point crawlers at real portfolio.
+      {
+        source: "/work/brightpath-saas-onboarding",
+        destination: "/portfolio",
+        permanent: true,
+      },
+      {
+        source: "/work/meridian-legal-site",
+        destination: "/portfolio",
+        permanent: true,
+      },
+      {
+        source: "/work/northform-checkout-rebuild",
+        destination: "/portfolio",
+        permanent: true,
+      },
+      {
+        source: "/work/cadence-saas-performance",
+        destination: "/portfolio",
+        permanent: true,
+      },
+      {
+        source: "/work/harbour-goods-replatform",
+        destination: "/portfolio",
+        permanent: true,
+      },
     ];
   },
 };

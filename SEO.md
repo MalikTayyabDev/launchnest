@@ -116,7 +116,17 @@ For the homepage and money URLs, note which state applies:
 | Submitted and indexed | Crawl OK; brand ranking is authority | Directories, GBP, footer credits, outbound |
 | Discovered — currently not indexed | Known but not chosen yet | Request indexing; improve internal links; wait |
 | Crawled — currently not indexed | Seen but not kept | Check soft-404, thin/duplicate; Request indexing again |
+| **Page with redirect** | URL is a redirect, not a destination | **Expected** for `http://` and apex → `https://www…`. Do not “fix” those; validate and leave them. Only the www HTTPS URL should be indexed. |
 | URL is not on Google | Not in index | Submit sitemap + Request indexing |
+
+**Retired /work URLs:** Fictional case studies (`brightpath`, `meridian`, `northform`, `cadence`, `harbour`) permanently redirect to `/portfolio` so GSC stops treating them as indexable pages. In Admin, unpublish any leftover CMS docs with those slugs.
+
+### After a “Page with redirect” or “Discovered” fix
+
+1. Deploy redirects (done in repo).
+2. In GSC → Pages → open the issue → **Validate fix**.
+3. URL Inspection on `https://www.launch-nest.com/` → **Request indexing** (the only homepage that should rank).
+4. Do **not** request indexing on `http://www…` or `https://launch-nest.com/` — those should keep redirecting.
 
 ### Step C — Sitemap + Request indexing
 
