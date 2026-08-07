@@ -49,7 +49,11 @@ export function organizationSchema(): Record<string, unknown> {
       "Website performance optimization",
       "Website maintenance and QA",
     ],
-    sameAs: [siteConfig.social.instagram, siteConfig.social.facebook],
+    sameAs: [
+      siteConfig.social.instagram,
+      siteConfig.social.facebook,
+      siteConfig.googleBusiness,
+    ],
     audience: [
       ...siteConfig.positioning.primaryClients,
       ...siteConfig.positioning.secondaryClients,

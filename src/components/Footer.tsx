@@ -53,7 +53,7 @@ export function Footer() {
               <SocialLink href={siteConfig.social.facebook} label="LaunchNest on Facebook">
                 <FacebookIcon />
               </SocialLink>
-              <SocialLink href={siteConfig.googleReview} label="Leave a Google review for LaunchNest">
+              <SocialLink href={siteConfig.googleBusiness} label="LaunchNest on Google Business Profile">
                 <GoogleIcon />
               </SocialLink>
             </div>

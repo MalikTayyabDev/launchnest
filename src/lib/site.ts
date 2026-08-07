@@ -15,7 +15,9 @@ export const siteConfig = {
     instagram: "https://www.instagram.com/launchnest.tech",
     facebook: "https://www.facebook.com/profile.php?id=61592234365519",
   },
-  /** Google Business Profile — direct review link. */
+  /** Google Business Profile — public listing (share / Maps). */
+  googleBusiness: "https://share.google/EWYjKD1MeRhaSHdZy",
+  /** Direct “Write a review” deep link for the same GBP. */
   googleReview: "https://g.page/r/CaBoV6foQh89EBI/review",
   positioning: {
     label: "Engineering-First Digital Solutions Agency",

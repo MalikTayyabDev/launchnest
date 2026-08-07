@@ -150,7 +150,9 @@ For the homepage and money URLs, note which state applies:
 - [ ] Verify Google Search Console + Bing Webmaster Tools (P0)
 - [ ] Diagnose GSC indexing state for homepage (table above)
 - [ ] Submit / resubmit sitemap + Request indexing
-- [ ] Claim / complete Google Business Profile (P0)
+- [x] Google Business Profile URL wired (footer + JSON-LD)
+- [ ] Confirm GBP verified/complete in Google Business Manager
+- [ ] Claim / complete Google Business Profile (P0) — listing linked; finish verification if pending
 - [ ] Confirm money-page titles against live SERP competitors
 - [ ] Track Core Web Vitals in GSC after launch
 - [ ] Add permissioned client testimonials to CMS when approved
@@ -167,7 +169,8 @@ Ops you run in parallel with the live site — not automatable from this repo.
 ### Week 1 (do before more on-page work)
 
 - [ ] Complete **Re-audit Update 2 — P0** GSC diagnose steps (A–D) above
-- [ ] Claim / complete **Google Business Profile**; website = `https://www.launch-nest.com`
+- [x] Google Business Profile linked on site (`siteConfig.googleBusiness` + schema `sameAs`)
+- [ ] Confirm GBP is **claimed, verified, complete** (categories, services, website = `https://www.launch-nest.com`)
 - [ ] Ask recent clients for Google reviews (target 10+ before showing a rating strip)
 - [ ] In Admin → **Intro Offer**: set `slotsUsed` to the real booked count if the public counter looks wrong
 
