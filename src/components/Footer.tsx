@@ -20,6 +20,21 @@ export function Footer() {
             <p className="mt-4 font-mono text-xs uppercase tracking-[0.16em] text-gold">
               {siteConfig.founded}
             </p>
+            <a
+              href={siteConfig.noonlaunch.url}
+              target="_blank"
+              rel="dofollow noopener noreferrer"
+              className="mt-6 inline-block opacity-90 transition-opacity hover:opacity-100"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element -- third-party directory badge SVG */}
+              <img
+                src={siteConfig.noonlaunch.badge}
+                alt="Featured on Noonlaunch"
+                width={220}
+                height={60}
+                className="h-auto w-[180px] max-w-full sm:w-[220px]"
+              />
+            </a>
           </div>
 
           <FooterCol title="Company">

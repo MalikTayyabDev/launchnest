@@ -70,6 +70,7 @@ export function organizationSchema(): Record<string, unknown> {
       siteConfig.social.instagram,
       siteConfig.social.facebook,
       siteConfig.social.clutch,
+      siteConfig.noonlaunch.url,
       siteConfig.googleBusiness,
       siteConfig.googleBusinessShare,
     ],

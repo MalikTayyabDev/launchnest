@@ -22,6 +22,11 @@ export const siteConfig = {
     facebook: "https://www.facebook.com/profile.php?id=61592234365519",
     clutch: "https://clutch.co/profile/launchnest",
   },
+  /** Noonlaunch directory listing + embed badge. */
+  noonlaunch: {
+    url: "https://noonlaunch.com/product/launch-nest-1",
+    badge: "https://noonlaunch.com/badges/launch-nest-1.svg",
+  },
   /** Stable Google Business Profile shortlink (Maps / listing). */
   googleBusiness: "https://g.page/r/CaBoV6foQh89EBI",
   /** Shareable GBP link (same listing). */
