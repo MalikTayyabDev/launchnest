@@ -71,6 +71,9 @@ let cached: Payload | null = null;
 let unavailable = false;
 
 async function tryPayload(): Promise<Payload | null> {
+  // Avoid hanging the build if the DB/Payload runtime isn't reachable during
+  // `next build` (routes render at runtime with ISR on Vercel).
+  if (process.env.NEXT_PHASE === "phase-production-build") return null;
   if (unavailable) return null;
   if (cached) return cached;
   try {
@@ -98,7 +101,10 @@ function mapProject(doc: Record<string, any>): PortfolioItem {
   };
 }
 
-async function fetchProjects(where: Record<string, unknown>) {
+async function fetchProjects(
+  where: Record<string, unknown>,
+  limit = 200,
+) {
   const payload = await tryPayload();
   if (!payload) return null;
   try {
@@ -106,7 +112,7 @@ async function fetchProjects(where: Record<string, unknown>) {
       collection: "projects",
       where: { status: { equals: "published" }, ...where },
       sort: ["order", "createdAt"],
-      limit: 500,
+      limit,
       depth: 1,
     });
     return res.docs;
@@ -117,7 +123,7 @@ async function fetchProjects(where: Record<string, unknown>) {
 
 /** Live projects shown in the visual, filterable grid. */
 export async function getGridProjects(): Promise<PublicPortfolioItem[]> {
-  const docs = await fetchProjects({ showInGrid: { equals: true } });
+  const docs = await fetchProjects({ showInGrid: { equals: true } }, 200);
   const items =
     docs && docs.length > 0 ? docs.map(mapProject) : portfolioLive;
   return sortPublicProofFirst(items.map(toPublicPortfolioItem));
@@ -125,7 +131,7 @@ export async function getGridProjects(): Promise<PublicPortfolioItem[]> {
 
 /** Projects listed under "Also delivered" (no live preview; URLs gated). */
 export async function getOfflineProjects(): Promise<PublicPortfolioItem[]> {
-  const docs = await fetchProjects({ showInGrid: { equals: false } });
+  const docs = await fetchProjects({ showInGrid: { equals: false } }, 200);
   const items = docs ? docs.map(mapProject) : portfolioOffline;
   return items.map(toPublicPortfolioItem);
 }
@@ -137,7 +143,7 @@ export async function getFeaturedProjects(
   const docs = await fetchProjects({
     featured: { equals: true },
     showInGrid: { equals: true },
-  });
+  }, Math.max(limit * 3, 12));
   if (docs && docs.length > 0) {
     return sortPublicProofFirst(
       docs.map(mapProject).map(toPublicPortfolioItem),

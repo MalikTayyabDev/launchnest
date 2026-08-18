@@ -66,6 +66,9 @@ let cached: Payload | null = null;
 let unavailable = false;
 
 async function tryPayload(): Promise<Payload | null> {
+  // Avoid hanging the build if the DB/Payload runtime isn't reachable during
+  // `next build` (Vercel will render these routes at runtime with ISR).
+  if (process.env.NEXT_PHASE === "phase-production-build") return null;
   if (unavailable) return null;
   if (cached) return cached;
   try {
@@ -123,7 +126,9 @@ export async function getAllPosts(): Promise<PostSummary[]> {
         where: { status: { equals: "published" } },
         sort: "-publishedAt",
         limit: 500,
-        depth: 1,
+        // Populate upload relations so we can map cover images without
+        // per-post payload.findByID calls (big TTFB win on serverless).
+        depth: 2,
       });
       if (res.docs.length > 0) {
         return Promise.all(
@@ -160,7 +165,7 @@ export async function getPost(slug: string): Promise<PostDetail | null> {
         collection: "posts",
         where: { slug: { equals: slug }, status: { equals: "published" } },
         limit: 1,
-        depth: 1,
+        depth: 2,
       });
       const doc = res.docs[0];
       if (doc) {
@@ -273,8 +278,10 @@ export async function getAllCaseStudies(): Promise<CaseStudyItem[]> {
         collection: "case-studies",
         where: { status: { equals: "published" } },
         sort: "-createdAt",
-        limit: 100,
-        depth: 1,
+        // Home + portfolio only need a small catalog; keeping this shallow
+        // reduces server-side render time (TTFB).
+        limit: 25,
+        depth: 0,
       });
       for (const doc of res.docs) {
         cmsBySlug.set(doc.slug, mapCaseStudy(doc));
@@ -321,7 +328,7 @@ export async function getCaseStudy(slug: string): Promise<CaseStudyItem | null> 
         collection: "case-studies",
         where: { slug: { equals: slug }, status: { equals: "published" } },
         limit: 1,
-        depth: 1,
+        depth: 2,
       });
       const doc = res.docs[0];
       if (doc) {
