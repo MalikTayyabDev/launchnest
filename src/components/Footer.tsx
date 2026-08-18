@@ -44,6 +44,7 @@ export function Footer() {
               </FooterLink>
             ))}
             <FooterLink href="/contact">Contact</FooterLink>
+            <FooterLink href="/for/website-audit">Free website audit</FooterLink>
             <FooterLink href="/for/saas">For SaaS</FooterLink>
             <FooterLink href="/for/ai-startups">For AI startups</FooterLink>
           </FooterCol>

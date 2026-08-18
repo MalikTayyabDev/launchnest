@@ -11,11 +11,14 @@ import { breadcrumbSchema, selfCanonical } from "@/lib/seo";
 const seo = selfCanonical("/contact");
 
 export const metadata: Metadata = {
-  title: "Free Website Growth Audit | Contact LaunchNest",
+  title: {
+    absolute: "Free Website Growth Audit for SaaS & Startups",
+  },
   description:
-    "Contact LaunchNest (launch-nest.com) for a free website growth audit or 30-minute call — speed, messaging, SEO, stack fit, and next steps for SaaS and startups.",
+    "Book a free website growth audit for your SaaS or startup — speed, messaging, SEO, stack fit, and prioritized next steps. Reply in one business day. LaunchNest at launch-nest.com.",
   keywords: [
     "free website growth audit",
+    "website audit for startups",
     "contact LaunchNest",
     "launch-nest.com",
     "SaaS website agency",
@@ -23,9 +26,9 @@ export const metadata: Metadata = {
   alternates: { canonical: seo.canonical },
   openGraph: {
     ...seo.openGraph,
-    title: "Free Website Growth Audit | Contact LaunchNest",
+    title: "Free Website Growth Audit for SaaS & Startups",
     description:
-      "Book a free growth audit with LaunchNest at launch-nest.com.",
+      "Book a free growth audit with LaunchNest at launch-nest.com — speed, SEO, and stack fit.",
   },
 };
 

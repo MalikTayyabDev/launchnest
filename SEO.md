@@ -13,7 +13,7 @@ Priorities: (P1) commercial-intent money pages, (P2) supporting/service pages,
 ## Global on-page setup
 
 - `metadataBase` + **absolute self-canonical** on every public page (`selfCanonical()`).
-- Canonical host: `https://www.launch-nest.com` (`site-origins.ts` + middleware force www).
+- Canonical host: `https://www.launch-nest.com` (`site-origins.ts` + middleware **301** www + HTTPS; `vercel.json` apex host redirect).
 - Per-page Open Graph `url` matches the canonical (not forced to homepage).
 - Structured data (JSON-LD): `ProfessionalService` + `WebSite` site-wide, `Service`
   on service pages, `Article` on posts, `BreadcrumbList` on nested pages. `areaServed`
@@ -36,12 +36,13 @@ Priorities: (P1) commercial-intent money pages, (P2) supporting/service pages,
 | `/services/seo` | P1 | technical SEO agency | SEO content writing for SaaS, Core Web Vitals |
 | `/services/maintenance-support` | P1 | website maintenance retainer | QA testing, hosting and deployment support |
 | `/pricing` | P1 | SaaS website development cost | digital agency pricing, growth retainer |
-| `/portfolio` | P2 | SaaS and startup portfolio | live website case proof, US UK Australia |
+| `/portfolio` | P2 | live SaaS case studies | wiz.ai, Clearmatrix, startup website portfolio |
 | `/work/wiz-ai-product-site` | P2 | AI startup website | live AI product marketing site |
 | `/work/clearmatrix-custom-platform` | P2 | custom SaaS website development | engineering-first live case study |
 | `/work/algorithmicsoftware-uk-commerce` | P2 | UK WooCommerce website | UK tech commerce case study |
-| `/for/saas` | P1 | SaaS marketing site agency | SaaS website development, trial conversion |
-| `/for/ai-startups` | P1 | AI startup website | MVP launch partner, Next.js for AI startups |
+| `/for/saas` | P1 | SaaS website development agency | SaaS marketing site, trial conversion |
+| `/for/ai-startups` | P1 | AI startup website | AI startup website design, MVP launch |
+| `/for/website-audit` | P1 | website audit for startups | free website growth audit |
 | `/about` | P3 | engineering-first digital agency | launch partner for modern businesses |
 | `/contact` | P2 | free website growth audit | book discovery call digital agency |
 
@@ -64,11 +65,33 @@ On-page for posts: unique `metaTitle` / `metaDescription`, H2 sections, internal
 
 ## Ranking data (important)
 
-**Exact ranking keywords require Google Search Console → Performance → Queries.**
-Without a GSC export, we cannot truthfully list ranked terms. Early US analytics
-(pageviews) only show which URLs are being hit — not which queries ranked.
+**Source:** Google Search Console, web search, **20 Jul 2026 – 15 Aug 2026** (27-day window in the internal growth audit).
 
-When you export GSC (last 28 days), share: Query, Clicks, Impressions, CTR, Position.
+| Metric | Value |
+| --- | --- |
+| Clicks | 14 |
+| Impressions | 331 |
+| Avg. CTR | 4.2% |
+| Brand share | 10 of 14 clicks (`launch nest` / `launchnest`) |
+| Non-brand page-1 | None — commercial queries sit ~pos 74+ |
+
+**Queries converting:** `launch nest` (pos 1.57), `launchnest` (pos 4.62). Near-zero path for buyers who do not already know the brand.
+
+**Money pages (0 clicks):** `/pricing` (28 impr, pos 23.4), `/portfolio` (23 / 16.0), `/for/ai-startups` (20 / 15.2), `/intro-offer`, `/contact`, `/services`.
+
+**Canonical split (GSC still crediting two homepages):** `https://www.launch-nest.com/` (10 clicks) vs `http://launch-nest.com/` (3 clicks). Code now 301s apex + HTTP → www HTTPS. **Do not request indexing on HTTP/apex URLs.**
+
+**Geo:** Pakistan 10 clicks (brand); US 3 clicks / pos 13; UK 0 clicks / pos 17. ICP (UK/US/AU) is not where visibility is yet — outreach covers the 30-day client goal.
+
+When you export a newer GSC window, share: Query, Clicks, Impressions, CTR, Position.
+
+### After this deploy — GSC (you run)
+
+1. Confirm `http://launch-nest.com/` **301s** to `https://www.launch-nest.com/` (and HTTP www → HTTPS www).
+2. GSC → Pages → **Validate** the “Page with redirect” / split-homepage issue. Do **not** “Request indexing” on `http://` or apex.
+3. URL Inspection → **Request indexing** on: `/`, `/pricing`, `/portfolio`, `/contact`, `/services`, `/for/saas`, `/for/ai-startups`, `/for/website-audit`.
+4. Resubmit sitemap: `https://www.launch-nest.com/sitemap.xml`.
+5. Watch weekly: impressions and CTR on Pricing / Portfolio / Services / Contact (goal: CTR off 0%, not page-1 overnight).
 
 ## Brand / entity clarity (organic + AI Overviews)
 
@@ -89,6 +112,7 @@ Do **not** expect overnight page-1 for bare “web developer” / “graphic des
 | P0 brand | LaunchNest, launch-nest, launch-nest.com | `/` |
 | P1 | SaaS website development, startup web development | `/services/website-design-dev` |
 | P1 | SaaS website cost / agency pricing | `/pricing` |
+| P1 | website audit for startups, free website growth audit | `/for/website-audit` |
 | P1 | brand identity for startups, graphic design for startups | `/services/graphic-design` |
 | P1 | SaaS UI UX design | `/services/ui-ux-design` |
 | P1 | technical SEO agency | `/services/seo` |
@@ -118,6 +142,7 @@ Status against the organic SEO audit checklist (homepage crawl + playbook):
 | Blog author Person schema | Open | Posts use org author; Person bio not shipped yet |
 | Geo pages `/for/us|uk|australia` | Open | Tier 3 — after Tier 1 pages are stable |
 | Dedicated MVP / redesign URLs | Partial | Covered as H2 sections on `/services/website-design-dev` + `/for/saas` + `/for/ai-startups` |
+| Website audit landing | Done | `/for/website-audit` — unique audit agenda, not a geo clone |
 | Review / AggregateRating | Open | Only emit with approved quotes; GBP stars stay on GBP until we wire verified counts |
 
 **Do not un-gate the full portfolio for SEO** unless clients approve public URLs — trust beats thin link spam.
@@ -157,7 +182,7 @@ On-page SEO is ready. Google still not showing `launch-nest.com` for its own nam
    - `https://www.launch-nest.com`
    - `https://launch-nest.com`
 3. Confirm ownership shows **Verified** (DNS / HTML — not “pending”).
-4. Confirm live redirects: `http://` and apex → `https://www.launch-nest.com` (308).
+4. Confirm live redirects: `http://` and apex → `https://www.launch-nest.com` (**301**, one hop).
 
 ### Step B — Read Coverage / Pages (Indexing)
 
@@ -168,17 +193,33 @@ For the homepage and money URLs, note which state applies:
 | Submitted and indexed | Crawl OK; brand ranking is authority | Directories, GBP, footer credits, outbound |
 | Discovered — currently not indexed | Known but not chosen yet | Request indexing; improve internal links; wait |
 | Crawled — currently not indexed | Seen but not kept | Check soft-404, thin/duplicate; Request indexing again |
-| **Page with redirect** | URL is a redirect, not a destination | **Expected** for `http://` and apex → `https://www…`. Do not “fix” those; validate and leave them. Only the www HTTPS URL should be indexed. |
+| **Page with redirect** | URL is a redirect, not a destination | **Expected** for `http://`, apex, and retired `/work/*`. Do **not** click Validate fix expecting those URLs to become 200 — they must keep redirecting. Request indexing only on `https://www.launch-nest.com/…`. |
+| Alternate page with proper canonical | Duplicate URL with canonical to www | Apex/HTTP should **301**, not 200+canonical. Check live hop. |
 | URL is not on Google | Not in index | Submit sitemap + Request indexing |
 
-**Retired /work URLs:** Fictional case studies (`brightpath`, `meridian`, `northform`, `cadence`, `harbour`) permanently redirect to `/portfolio` so GSC stops treating them as indexable pages. In Admin, unpublish any leftover CMS docs with those slugs.
+**GSC Coverage export 18 Aug 2026** (`launch-nest.com-Coverage-2026-08-18`):
 
-### After a “Page with redirect” or “Discovered” fix
+| Reason | Pages | Validation | Action |
+| --- | --- | --- | --- |
+| Page with redirect | 4 | **Failed** | Expected for apex/HTTP + retired case studies. Code now 301s with absolute Location and trailing-slash one-hops. Do not re-validate until after deploy; then inspect remaining URLs — leave true redirects. |
+| Crawled — currently not indexed | 1 | Not started | Open the URL in GSC Pages. Request indexing if it is a money page; ignore if it is a redirect/thin URL. |
+| Alternate page with proper canonical | 1 | Started | Usually HTTPS apex. Must 301 to www (middleware + `vercel.json` + next.config host redirect). |
+| Discovered — currently not indexed | 0 | Passed | Fictional `/work` discovery debt cleared. |
 
-1. Deploy redirects (done in repo).
-2. In GSC → Pages → open the issue → **Validate fix**.
-3. URL Inspection on `https://www.launch-nest.com/` → **Request indexing** (the only homepage that should rank).
-4. Do **not** request indexing on `http://www…` or `https://launch-nest.com/` — those should keep redirecting.
+Live (pre-this-fix) hop chain that caused Failed + `http://launch-nest.com/` still earning clicks:
+
+`http://launch-nest.com/` **308** → `https://launch-nest.com/` **308** → `https://www.launch-nest.com/`
+
+**Vercel dashboard (required for a single hop from HTTP apex):** Project → Settings → Domains → `launch-nest.com` → **Redirect to www.launch-nest.com**. Platform TLS otherwise always does HTTP→HTTPS on the same host first.
+
+**Retired /work URLs:** Fictional case studies (`brightpath`, `meridian`, `northform`, `cadence`, `harbour`) **301** to `https://www.launch-nest.com/portfolio` (including trailing-slash variants). In Admin, unpublish any leftover CMS docs with those slugs. Brightpath still had 10 GSC impressions — Google is showing a redirect URL; 301 + request indexing on `/portfolio` is the consolidation path.
+
+### After a “Page with redirect” report
+
+1. Deploy 301s (repo). Confirm with `curl -sI`: `http://launch-nest.com/` should land on www in as few hops as the platform allows.
+2. Do **not** Validate fix on URLs that should remain redirects — GSC will fail again.
+3. URL Inspection on `https://www.launch-nest.com/` and `/portfolio` → **Request indexing**.
+4. Do **not** request indexing on `http://…` or `https://launch-nest.com/` — those should keep redirecting.
 
 ### Step C — Sitemap + Request indexing
 

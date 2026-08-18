@@ -13,9 +13,11 @@ import { getAllCaseStudies } from "@/lib/content";
 const seo = selfCanonical("/portfolio");
 
 export const metadata: Metadata = {
-  title: "SaaS & Startup Website Portfolio & Case Studies",
+  title: {
+    absolute: "Live SaaS Case Studies — wiz.ai & Clearmatrix",
+  },
   description:
-    "LaunchNest (launch-nest.com) portfolio — SaaS and startup website case studies and live builds across WordPress, Shopify, Webflow, Wix, and custom stacks (US, UK, AU).",
+    "Click through live SaaS and startup websites we shipped — wiz.ai, Clearmatrix, and more. Verify the work in the browser, then read the case study. LaunchNest at launch-nest.com.",
   keywords: [
     "SaaS portfolio",
     "startup website portfolio",
@@ -26,17 +28,17 @@ export const metadata: Metadata = {
   alternates: { canonical: seo.canonical },
   openGraph: {
     ...seo.openGraph,
-    title: "SaaS & Startup Website Portfolio & Case Studies | LaunchNest",
+    title: "Live SaaS Case Studies — wiz.ai & Clearmatrix",
     description:
-      "Live website case studies and portfolio from LaunchNest at launch-nest.com.",
+      "Live, checkable website case studies from LaunchNest at launch-nest.com.",
     locale: "en_US",
     alternateLocale: ["en_GB", "en_AU"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "SaaS & Startup Website Portfolio & Case Studies | LaunchNest",
+    title: "Live SaaS Case Studies — wiz.ai & Clearmatrix",
     description:
-      "Live website case studies and portfolio from LaunchNest at launch-nest.com.",
+      "Live, checkable website case studies from LaunchNest at launch-nest.com.",
   },
 };
 

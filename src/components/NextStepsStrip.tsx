@@ -1,27 +1,25 @@
 import Link from "next/link";
-import { whatsappLink } from "@/lib/site";
 
 const paths = [
   {
-    href: "/portfolio",
-    label: "See outcomes",
-    hint: "Case studies + live sites",
-  },
-  {
-    href: "/for/saas",
-    label: "Built for SaaS",
-    hint: "Trial & pipeline focus",
+    href: "/for/website-audit",
+    label: "Free website growth audit",
+    hint: "Speed, SEO, stack fit",
   },
   {
     href: "/pricing",
-    label: "View pricing",
-    hint: "Growth-first ranges",
+    label: "SaaS website pricing",
+    hint: "From $199 + retainers",
   },
   {
-    href: whatsappLink,
-    label: "Chat on WhatsApp",
-    hint: "Usually fastest",
-    external: true,
+    href: "/services/website-design-dev",
+    label: "Website & product engineering",
+    hint: "SaaS sites, MVPs, redesigns",
+  },
+  {
+    href: "/portfolio",
+    label: "Live case studies",
+    hint: "wiz.ai, Clearmatrix, more",
   },
 ];
 
@@ -34,33 +32,18 @@ export function NextStepsStrip() {
           Not ready to book? Start here
         </p>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {paths.map((p) => {
-            const className =
-              "group flex flex-col rounded-lg border border-navy/10 bg-offwhite/60 px-5 py-4 transition-colors hover:border-gold/50 hover:bg-offwhite";
-            const inner = (
-              <>
-                <span className="font-heading text-base font-semibold text-navy group-hover:text-navy">
-                  {p.label}
-                </span>
-                <span className="mt-1 text-sm text-slate">{p.hint}</span>
-              </>
-            );
-            return p.external ? (
-              <a
-                key={p.href}
-                href={p.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={className}
-              >
-                {inner}
-              </a>
-            ) : (
-              <Link key={p.href} href={p.href} className={className}>
-                {inner}
-              </Link>
-            );
-          })}
+          {paths.map((p) => (
+            <Link
+              key={p.href}
+              href={p.href}
+              className="group flex flex-col rounded-lg border border-navy/10 bg-offwhite/60 px-5 py-4 transition-colors hover:border-gold/50 hover:bg-offwhite"
+            >
+              <span className="font-heading text-base font-semibold text-navy group-hover:text-navy">
+                {p.label}
+              </span>
+              <span className="mt-1 text-sm text-slate">{p.hint}</span>
+            </Link>
+          ))}
         </div>
       </div>
     </div>

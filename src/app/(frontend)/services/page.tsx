@@ -11,9 +11,11 @@ import { breadcrumbSchema, selfCanonical } from "@/lib/seo";
 const seo = selfCanonical("/services");
 
 export const metadata: Metadata = {
-  title: "Web Development, UI UX & Brand Design Services",
+  title: {
+    absolute: "SaaS Website, UI/UX & Technical SEO Services",
+  },
   description:
-    "LaunchNest (launch-nest.com) services: SaaS website development, UI/UX design, graphic design & brand identity, AI automation, technical SEO, and website maintenance.",
+    "SaaS website design and development, UI/UX, brand identity, technical SEO, and AI automation from LaunchNest at launch-nest.com — one partner from launch through scale.",
   keywords: [
     "website development services",
     "graphic design for startups",
@@ -25,7 +27,7 @@ export const metadata: Metadata = {
   alternates: { canonical: seo.canonical },
   openGraph: {
     ...seo.openGraph,
-    title: "Web Development, UI UX & Brand Design Services — LaunchNest",
+    title: "SaaS Website, UI/UX & Technical SEO Services",
     description:
       "Engineering-first digital services for SaaS and startups from LaunchNest at launch-nest.com.",
   },

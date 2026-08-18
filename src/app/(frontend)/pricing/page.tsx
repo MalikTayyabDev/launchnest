@@ -12,9 +12,11 @@ import { breadcrumbSchema, selfCanonical } from "@/lib/seo";
 const seo = selfCanonical("/pricing");
 
 export const metadata: Metadata = {
-  title: "SaaS Website Cost & Digital Agency Pricing",
+  title: {
+    absolute: "SaaS Website Cost from $199 — Free Growth Audit",
+  },
   description:
-    "LaunchNest (launch-nest.com) pricing: SaaS website development cost, Growth Engine and Custom Product ranges, plus website maintenance retainers — UK, US, AU.",
+    "SaaS website development from $199 (most land near $350). See Growth Engine and Custom Product ranges, then book a free website growth audit — LaunchNest at launch-nest.com.",
   keywords: [
     "SaaS website development cost",
     "digital agency pricing",
@@ -25,9 +27,9 @@ export const metadata: Metadata = {
   alternates: { canonical: seo.canonical },
   openGraph: {
     ...seo.openGraph,
-    title: "SaaS Website Cost & Digital Agency Pricing — LaunchNest",
+    title: "SaaS Website Cost from $199 — Free Growth Audit",
     description:
-      "Transparent SaaS website and retainer pricing from LaunchNest at launch-nest.com.",
+      "Transparent SaaS website and retainer pricing from LaunchNest at launch-nest.com. Book a free growth audit.",
   },
 };
 

@@ -53,7 +53,7 @@ FREE OFFERS:
 - Free 30-minute discovery call (book via chat or contact page)
 
 PORTFOLIO: live sites at /portfolio
-CONTACT: /contact | /pricing | /intro-offer | Google Business: ${siteConfig.googleBusiness} | Google review: ${siteConfig.googleReview}
+CONTACT: /contact | /for/website-audit | /pricing | /intro-offer | Google Business: ${siteConfig.googleBusiness} | Google review: ${siteConfig.googleReview}
 `.trim();
 }
 

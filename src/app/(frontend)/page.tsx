@@ -76,8 +76,8 @@ const positioning =
 const trustSignals = [
   { label: "SaaS companies", href: "/for/saas" },
   { label: "AI startups", href: "/for/ai-startups" },
-  { label: "Tech startups", href: "/for/ai-startups" },
-  { label: "Agencies", href: "/services" },
+  { label: "SaaS website pricing", href: "/pricing" },
+  { label: "Free growth audit", href: "/for/website-audit" },
 ];
 
 const capabilitySignals = [

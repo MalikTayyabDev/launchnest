@@ -87,41 +87,43 @@ const nextConfig = {
     ];
   },
   async redirects() {
+    const canonical = "https://www.launch-nest.com";
+    /** 301 + absolute Location — GSC consolidates better than Next's default 308 + relative path. */
+    const to = (source, destPath) => {
+      const destination = `${canonical}${destPath}`;
+      const noSlash = source.endsWith("/") ? source.slice(0, -1) : source;
+      const withSlash = `${noSlash}/`;
+      return [
+        { source: noSlash, destination, statusCode: 301 },
+        { source: withSlash, destination, statusCode: 301 },
+      ];
+    };
+
     return [
+      // Collapse HTTPS apex → www in one hop (HTTP→HTTPS same-host is Vercel TLS; set
+      // Domains → launch-nest.com → Redirect to www to collapse that hop too).
+      {
+        source: "/",
+        has: [{ type: "host", value: "launch-nest.com" }],
+        destination: `${canonical}/`,
+        statusCode: 301,
+      },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "launch-nest.com" }],
+        destination: `${canonical}/:path*`,
+        statusCode: 301,
+      },
       // Case study index lives inside Portfolio; detail pages stay at /work/:slug.
-      { source: "/work", destination: "/portfolio", permanent: true },
-      {
-        source: "/services/social-media-management",
-        destination: "/services/ai-automation",
-        permanent: true,
-      },
-      // Retired fictional case studies (GSC: Discovered — currently not indexed).
-      // Permanent redirects clear discovery debt and point crawlers at real portfolio.
-      {
-        source: "/work/brightpath-saas-onboarding",
-        destination: "/portfolio",
-        permanent: true,
-      },
-      {
-        source: "/work/meridian-legal-site",
-        destination: "/portfolio",
-        permanent: true,
-      },
-      {
-        source: "/work/northform-checkout-rebuild",
-        destination: "/portfolio",
-        permanent: true,
-      },
-      {
-        source: "/work/cadence-saas-performance",
-        destination: "/portfolio",
-        permanent: true,
-      },
-      {
-        source: "/work/harbour-goods-replatform",
-        destination: "/portfolio",
-        permanent: true,
-      },
+      ...to("/work", "/portfolio"),
+      ...to("/services/social-media-management", "/services/ai-automation"),
+      // Retired fictional case studies (GSC: Page with redirect). One-hop 301s including
+      // trailing-slash variants so Google does not chain /path/ → /path → /portfolio.
+      ...to("/work/brightpath-saas-onboarding", "/portfolio"),
+      ...to("/work/meridian-legal-site", "/portfolio"),
+      ...to("/work/northform-checkout-rebuild", "/portfolio"),
+      ...to("/work/cadence-saas-performance", "/portfolio"),
+      ...to("/work/harbour-goods-replatform", "/portfolio"),
     ];
   },
 };

@@ -46,7 +46,7 @@ export default async function AudiencePage({ params }: Props) {
     await Promise.all(audience.caseStudySlugs.map((s) => getCaseStudy(s)))
   ).filter(Boolean);
 
-  const faqs = [
+  const faqs = audience.faqs ?? [
     {
       q: `Do you specialize in ${audience.label.replace(/^For /, "").toLowerCase()} clients?`,
       a: "Yes — they are among our primary partners. We also work with agencies and growing businesses, but our engineering-first process is built for product and growth teams who care about conversion and speed.",
@@ -88,7 +88,8 @@ export default async function AudiencePage({ params }: Props) {
         <div className="mx-auto max-w-3xl">
           <Eyebrow>Why this page exists</Eyebrow>
           <h2 className="font-heading text-3xl font-bold tracking-tight text-navy">
-            Built for how {audience.label.replace(/^For /, "")} teams buy
+            {audience.whyHeading ??
+              `Built for how ${audience.label.replace(/^For /, "")} teams buy`}
           </h2>
           <div className="mt-6 flex flex-col gap-5">
             {audience.body.map((p) => (
