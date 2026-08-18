@@ -12,6 +12,8 @@ import { CTASection } from "@/components/CTASection";
 import { FAQ } from "@/components/FAQ";
 import { Reveal } from "@/components/Reveal";
 import { GrowthAuditAgenda } from "@/components/GrowthAuditAgenda";
+import { TechStacksSection } from "@/components/TechStacksSection";
+import { ClientEntryPoints } from "@/components/ClientEntryPoints";
 import { getAllCaseStudies } from "@/lib/content";
 import { getFeaturedProjects } from "@/lib/projects";
 import { primaryCta, siteConfig } from "@/lib/site";
@@ -24,12 +26,14 @@ const homeCanonical = selfCanonical("/");
 export const metadata: Metadata = {
   title: {
     absolute:
-      "LaunchNest (launch-nest.com) — SaaS Website Development Agency",
+      "LaunchNest (launch-nest.com) — Software Development & Engineering Partner",
   },
   description: siteConfig.description,
   keywords: [
     "LaunchNest",
     "launch-nest.com",
+    "software development agency",
+    "software engineering partner",
     "SaaS website development",
     "website developer for startups",
     "startup web development",
@@ -41,7 +45,7 @@ export const metadata: Metadata = {
   openGraph: {
     ...homeCanonical.openGraph,
     title:
-      "LaunchNest (launch-nest.com) — SaaS Website Development Agency",
+      "LaunchNest (launch-nest.com) — Software Development & Engineering Partner",
     description: siteConfig.description,
   },
 };
@@ -71,7 +75,7 @@ const pillars = [
 ];
 
 const positioning =
-  "LaunchNest is an engineering-first growth partner for SaaS companies, AI startups, and agencies. We don't sell websites. We sell lead generation, conversion, SEO visibility, and long-term partnership — through modern design, engineering, and systems that scale.";
+  "LaunchNest is an engineering-first software development & engineering partner for SaaS companies, AI startups, and teams building custom product surfaces and automation. We don't sell websites. We sell software development outcomes — lead generation, conversion, SEO visibility, and long-term partnership — through modern design, engineering, and systems that scale.";
 
 const trustSignals = [
   { label: "SaaS companies", href: "/for/saas" },
@@ -81,13 +85,13 @@ const trustSignals = [
 ];
 
 const capabilitySignals = [
-  "Next.js",
+  "Next.js / React",
   "WordPress",
   "Shopify",
   "Webflow",
   "Wix",
   "GoHighLevel",
-  "AI & Automation",
+  "AI & automation",
 ];
 
 const process = [
@@ -116,7 +120,7 @@ const process = [
 const homeFaqs = [
   {
     q: "Are you a WordPress or Shopify agency?",
-    a: "No. We are an engineering-first digital solutions agency. WordPress, Shopify, Webflow, Wix, GoHighLevel, and Next.js are capabilities we use when they fit — we never position ourselves as a single-platform shop.",
+    a: "No. We are an engineering-first digital solutions agency for SaaS and AI startups. WordPress, Shopify, Webflow, Wix, GoHighLevel, and Next.js are stacks we ship in production when they fit — we recommend based on your product and editors, not a platform we are trying to sell.",
   },
   {
     q: "Who do you work with?",
@@ -160,13 +164,14 @@ export default async function HomePage() {
     <>
       <Hero
         eyebrow={siteConfig.positioning.label}
-        headline="The growth partner for SaaS and AI startups."
-        subhead="Engineering-first design, development, SEO, and AI — so your product presence converts trials, demos, and pipeline. One accountable partner from launch through scale."
+        headline="Software development & engineering partner for SaaS and AI startups."
+        subhead="Engineering-first design, development, SEO, and AI — on Next.js, WordPress, Shopify, Webflow, and custom stacks when your product needs it. One accountable partner from launch through scale."
         trustChips={[
+          "Software dev",
           "SaaS · AI · Agencies",
+          "Next.js · WordPress · Shopify",
           "100+ projects shipped",
           "UK · US · AU",
-          "Reply in 1 business day",
         ]}
         secondaryCta={{ label: "See outcomes", href: "/portfolio" }}
         cta={primaryCta}
@@ -204,7 +209,7 @@ export default async function HomePage() {
             ))}
           </div>
           <p className="mb-3 mt-8 text-center font-mono text-xs uppercase tracking-[0.16em] text-slate">
-            Capabilities we engineer with
+            Stacks we ship in production
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             {capabilitySignals.map((item) => (
@@ -218,6 +223,8 @@ export default async function HomePage() {
           </div>
         </div>
       </div>
+
+      <TechStacksSection tone="white" />
 
       {/* Proof first — case studies + live builds before the service pitch */}
       <Section tone="offwhite">
@@ -311,6 +318,8 @@ export default async function HomePage() {
           </div>
         </Section>
       )}
+
+      <ClientEntryPoints />
 
       <Section tone="white">
         <div className="max-w-2xl">

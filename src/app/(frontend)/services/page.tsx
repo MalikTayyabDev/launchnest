@@ -3,6 +3,7 @@ import { Section, Eyebrow } from "@/components/Section";
 import { ServiceCard } from "@/components/ServiceCard";
 import { CTASection } from "@/components/CTASection";
 import { Reveal } from "@/components/Reveal";
+import { TechStacksSection } from "@/components/TechStacksSection";
 import { JsonLd } from "@/components/JsonLd";
 import { services } from "@/lib/services";
 import { siteConfig } from "@/lib/site";
@@ -12,14 +13,17 @@ const seo = selfCanonical("/services");
 
 export const metadata: Metadata = {
   title: {
-    absolute: "SaaS Website, UI/UX & Technical SEO Services",
+    absolute:
+      "Software Development & Engineering Services for SaaS & AI Startups",
   },
   description:
-    "SaaS website design and development, UI/UX, brand identity, technical SEO, and AI automation from LaunchNest at launch-nest.com — one partner from launch through scale.",
+    "Software development & engineering for SaaS and AI startups from LaunchNest at launch-nest.com — with SaaS site engineering, UI/UX, technical SEO, and AI automation. One partner from launch through scale.",
   keywords: [
     "website development services",
     "graphic design for startups",
     "UI UX design agency",
+    "software development agency",
+    "engineering partner",
     "SaaS website development",
     "technical SEO agency",
     "launch-nest.com",
@@ -27,9 +31,10 @@ export const metadata: Metadata = {
   alternates: { canonical: seo.canonical },
   openGraph: {
     ...seo.openGraph,
-    title: "SaaS Website, UI/UX & Technical SEO Services",
+    title:
+      "Software Development & Engineering Services for SaaS & AI Startups",
     description:
-      "Engineering-first digital services for SaaS and startups from LaunchNest at launch-nest.com.",
+      "Engineering-first digital services for SaaS and AI startups from LaunchNest at launch-nest.com.",
   },
 };
 
@@ -46,17 +51,21 @@ export default function ServicesPage() {
         <div className="max-w-3xl">
           <Eyebrow>Services</Eyebrow>
           <h1 className="font-heading text-4xl font-bold tracking-tight text-navy sm:text-5xl">
-            Complete launch solutions — digital product engineering for SaaS and startups.
+            Software development & engineering services — for SaaS, AI, and custom product builds.
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-slate">
             {siteConfig.positioning.sell} Capabilities span branding, UI/UX,
-            SaaS website development, content, technical SEO, QA, deployment, AI
-            integrations, automation, and ongoing website maintenance retainers.
+            SaaS website development, custom software surfaces, content, technical SEO,
+            QA, deployment, AI integrations, automation, and ongoing maintenance —
+            on Next.js, WordPress, Shopify, Webflow, Wix, GoHighLevel, and custom
+            stacks when your roadmap needs it.
           </p>
         </div>
       </Section>
 
-      <Section tone="white">
+      <TechStacksSection tone="white" showCta={false} />
+
+      <Section tone="offwhite">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {services.map((s, i) => (
             <Reveal key={s.slug} delay={(i % 3) * 0.08}>

@@ -15,7 +15,8 @@ export function Footer() {
             <Logo variant="white" />
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-offwhite/60">
               Engineering-first digital solutions for SaaS companies, AI startups,
-              agencies, and growing businesses — launch, scale, and optimize.
+              and agencies — shipped on Next.js, WordPress, Shopify, Webflow, and
+              custom stacks when that is what the product needs.
             </p>
             <p className="mt-4 font-mono text-xs uppercase tracking-[0.16em] text-gold">
               {siteConfig.founded}

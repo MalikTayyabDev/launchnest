@@ -24,16 +24,16 @@ export const audiences: AudiencePage[] = [
   {
     slug: "saas",
     label: "For SaaS",
-    title: "SaaS Website Development Agency",
+    title: "Software Development & Engineering for SaaS Companies",
     description:
-      "SaaS website development agency for trial conversion, Core Web Vitals, technical SEO, and product launch sites — LaunchNest at launch-nest.com.",
-    headline: "SaaS marketing sites that convert trials — not just look sharp.",
+      "Software development & engineering partner for SaaS companies — product sites, conversion engineering, technical SEO, and AI automation. LaunchNest at launch-nest.com.",
+    headline: "Software development for SaaS — sites, products, and engineering that convert.",
     subhead:
-      "We partner with SaaS teams who need a marketing site and launch surfaces that load fast, explain value clearly, and turn traffic into pipeline. Engineering-first. Outcome-obsessed.",
+      "We partner with SaaS teams who need software engineering for marketing sites, product surfaces, and launch infrastructure that loads fast, explains value clearly, and turns traffic into pipeline.",
     body: [
-      "SaaS website development is not the same job as a brochure site. Your homepage, pricing page, and product narrative have to create enough clarity for a trial, demo, or sales conversation — while Core Web Vitals stay fast enough that buyers trust the product you sell.",
-      "LaunchNest works as a SaaS marketing site agency and product launch partner: branding and UI/UX when needed, engineering on the right stack, technical SEO for commercial keywords, and optional AI or CRM automation so leads do not die in inboxes.",
-      "If you are comparing agencies, look for ownership after launch. We stay for website maintenance retainers, SEO content, and conversion iteration — so growth compounds instead of resetting every vendor change.",
+      "SaaS software development is not the same job as a brochure site. Your homepage, pricing page, and product narrative have to create enough clarity for a trial, demo, or sales conversation — while Core Web Vitals stay fast enough that buyers trust the product you sell.",
+      "LaunchNest works as a SaaS software development partner: branding and UI/UX when needed, engineering on the right stack (Next.js, WordPress, Shopify, or custom), technical SEO for commercial keywords, and AI or CRM automation so leads do not die in inboxes.",
+      "If you are comparing software development agencies, look for ownership after launch. We stay for maintenance retainers, SEO content, and conversion iteration — so growth compounds instead of resetting every vendor change.",
     ],
     pains: [
       "Marketing site is slower than the product you sell",
@@ -48,10 +48,10 @@ export const audiences: AudiencePage[] = [
       "A partner who can ship product marketing and keep iterating",
     ],
     services: [
-      { label: "SaaS website development", href: "/services/website-design-dev" },
+      { label: "Software development for SaaS", href: "/services/website-design-dev" },
       { label: "SaaS UI/UX design", href: "/services/ui-ux-design" },
-      { label: "Technical SEO agency", href: "/services/seo" },
-      { label: "AI integrations for SaaS", href: "/services/ai-automation" },
+      { label: "Technical SEO for software companies", href: "/services/seo" },
+      { label: "AI & automation integrations", href: "/services/ai-automation" },
     ],
     caseStudySlugs: [
       "wiz-ai-product-site",
@@ -62,16 +62,16 @@ export const audiences: AudiencePage[] = [
   {
     slug: "ai-startups",
     label: "For AI startups",
-    title: "AI Startup Website Design & Launch",
+    title: "Software Development & Engineering for AI Startups",
     description:
-      "AI startup website design and MVP launch partner — a credible marketing site, clear conversion paths, and Next.js builds founders can ship in weeks. LaunchNest at launch-nest.com.",
-    headline: "Ship a credible AI startup website — fast.",
+      "Software development & MVP engineering for AI startups — credible product surfaces, clear conversion paths, and builds founders can ship in weeks. LaunchNest at launch-nest.com.",
+    headline: "Software development for AI startups — ship fast, look serious.",
     subhead:
-      "Investors and early users judge your product by the site first. We help AI startups launch marketing sites and MVP surfaces that feel engineered, convert interest, and stay easy to iterate.",
+      "Investors and early users judge your product by the site first. We help AI startups launch with engineering-first software — product surfaces, MVP shells, and marketing sites that convert interest and stay easy to iterate.",
     body: [
-      "An AI startup website has to communicate a complex product simply: problem, capability, proof, and a clear next step (waitlist, demo, or early access). Generic agency templates usually fail that test.",
-      "We help AI startups launch with engineering-first builds — often Next.js — plus brand and UI when needed, technical SEO foundations, and AI integrations that match real workflows instead of novelty chat widgets.",
-      "Speed matters twice: page performance (Core Web Vitals) and delivery timeline. Focused marketing sites ship in weeks with a clear scope, then scale into SEO content and automation as you grow.",
+      "An AI startup needs software that communicates a complex product simply: problem, capability, proof, and a clear next step (waitlist, demo, or early access). Generic agency templates usually fail that test.",
+      "We help AI startups launch with engineering-first software development — often Next.js — plus brand and UI when needed, technical SEO foundations, and integrations that match real workflows instead of novelty chat widgets.",
+      "Speed matters twice: page performance (Core Web Vitals) and delivery timeline. Focused builds ship in weeks with a clear scope, then scale into SEO content and automation as you grow.",
     ],
     pains: [
       "Site looks template-y next to a serious AI product",
@@ -86,10 +86,10 @@ export const audiences: AudiencePage[] = [
       "Room to add SEO, content, and automation as you scale",
     ],
     services: [
-      { label: "Startup MVP websites", href: "/services/website-design-dev" },
-      { label: "Brand identity for startups", href: "/services/graphic-design" },
-      { label: "AI integrations", href: "/services/ai-automation" },
-      { label: "Technical SEO & content", href: "/services/seo" },
+      { label: "Startup MVP software development", href: "/services/website-design-dev" },
+      { label: "Brand identity for software companies", href: "/services/graphic-design" },
+      { label: "AI & automation integrations", href: "/services/ai-automation" },
+      { label: "Technical SEO for software", href: "/services/seo" },
     ],
     caseStudySlugs: [
       "wiz-ai-product-site",
@@ -100,12 +100,12 @@ export const audiences: AudiencePage[] = [
   {
     slug: "website-audit",
     label: "Website audit",
-    title: "Free Website Audit for Startups",
+    title: "Free Website & Software Audit for Startups",
     description:
-      "Free website audit for startups and SaaS — speed, messaging, technical SEO, and stack fit, with prioritized next steps. Book a growth audit at launch-nest.com.",
-    headline: "A website audit that tells you what to fix first.",
+      "Free website & software audit for startups and SaaS — speed, messaging, technical SEO, and stack fit, with prioritized next steps. Book a growth audit at launch-nest.com.",
+    headline: "A website & software audit that tells you what to fix first.",
     subhead:
-      "Free website growth audit for SaaS and startup founders: Core Web Vitals, offer clarity, indexing gaps, and whether to keep or rebuild — then a scoped path, not a pitch deck.",
+      "Free growth audit for SaaS, AI, and software founders: Core Web Vitals, offer clarity, indexing gaps, and whether to keep, rebuild, or extend — then a scoped engineering path, not a pitch deck.",
     whyHeading: "What the free website audit actually covers",
     body: [
       "A website audit for startups is not a 40-page PDF of Lighthouse scores. Founders need to know what is blocking trials, demos, or sales calls this month — speed, unclear messaging, weak CTAs, or a stack nobody on the team can own.",
@@ -126,9 +126,9 @@ export const audiences: AudiencePage[] = [
     ],
     services: [
       { label: "Book the free audit", href: "/contact" },
-      { label: "SaaS website pricing", href: "/pricing" },
+      { label: "Software development pricing", href: "/pricing" },
       { label: "Live case studies", href: "/portfolio" },
-      { label: "SaaS website design & development", href: "/services/website-design-dev" },
+      { label: "Software development & engineering", href: "/services/website-design-dev" },
     ],
     caseStudySlugs: [
       "wiz-ai-product-site",

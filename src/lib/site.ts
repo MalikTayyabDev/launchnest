@@ -10,7 +10,7 @@ export const siteConfig = {
   ],
   tagline: "BUILD · OPTIMIZE · LAUNCH",
   description:
-    "LaunchNest (launch-nest.com) is an engineering-first digital agency for SaaS and AI startups — website development, UI/UX, brand identity, technical SEO, and AI automation across the UK, US, and Australia.",
+    "LaunchNest (launch-nest.com) is an engineering-first digital agency for SaaS and AI startups — custom software surfaces, website development on Next.js, WordPress, Shopify, Webflow, UI/UX, technical SEO, and AI automation across the UK, US, and Australia.",
   url:
     process.env.NEXT_PUBLIC_SERVER_URL?.replace(/\/$/, "") || CANONICAL_URL,
   email: "solutions@launch-nest.com",
@@ -34,8 +34,8 @@ export const siteConfig = {
   /** Direct “Write a review” deep link for the same GBP. */
   googleReview: "https://g.page/r/CaBoV6foQh89EBI/review",
   positioning: {
-    label: "Engineering-First Digital Solutions Agency",
-    sell: "Growth, lead generation, conversion, speed, SEO visibility, and long-term partnership — not just websites.",
+    label: "Engineering-First Software Development Agency",
+    sell: "Software development, lead generation, conversion, speed, SEO visibility, and long-term engineering partnership — not just websites.",
     primaryClients: [
       "SaaS Companies",
       "AI Startups",

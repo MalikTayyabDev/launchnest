@@ -31,10 +31,10 @@ export const services: Service[] = [
   {
     slug: "website-design-dev",
     label: "Website & Product Engineering",
-    primaryKeyword: "SaaS website design & development",
-    metaTitle: "SaaS Website Design & Development Agency",
+    primaryKeyword: "Software development & product engineering for SaaS & startups",
+    metaTitle: "Software Development & Product Engineering for SaaS",
     shortDescription:
-      "SaaS website design and development for startups — landing pages, MVP sites, and conversion redesigns engineered for trials and pipeline (LaunchNest · launch-nest.com).",
+      "Software development & product engineering for SaaS and startups — landing pages, MVP sites, and conversion redesigns engineered for trials, pipeline, and long-term ownership (LaunchNest · launch-nest.com).",
     tagline: "Built to launch. Engineered to scale.",
     overview: [
       "LaunchNest at launch-nest.com is an engineering-first digital solutions partner for SaaS companies, AI startups, agencies, and growth-stage businesses. We do not sell templates — we ship digital products that generate leads, convert trials, and support revenue.",
@@ -43,16 +43,16 @@ export const services: Service[] = [
     ],
     seoSections: [
       {
-        heading: "SaaS website design & development that converts",
-        body: "A SaaS marketing site has one job: turn visitors into trials, demos, or sales conversations. We structure messaging, page speed, and conversion paths around that outcome — not decoration. Typical scopes include homepage, product pages, pricing, docs entry points, and instrumentation so you can see where pipeline drops. If you are comparing SaaS website design agencies, ask who owns Core Web Vitals and tracking after go-live — we do.",
+        heading: "Software & product engineering that converts",
+        body: "Your software presence has one job: turn visitors into trials, demos, or sales conversations. We structure messaging, page speed, and conversion paths around that outcome — not decoration. Typical scopes include homepage, product pages, pricing, docs entry points, and instrumentation so you can see where pipeline drops. If you are comparing software engineering partners, ask who owns Core Web Vitals and tracking after go-live — we do.",
       },
       {
-        heading: "Startup MVP website development",
-        body: "Early-stage teams need a credible web presence fast without locking into the wrong stack. As a startup web development partner, we build MVP shells and launch sites that look investment-ready, load under our Core Web Vitals standard, and stay editable as your product story changes. Scopes stay tight: enough surface for waitlist, demo, or early access — without a six-month agency theater cycle.",
+        heading: "Startup MVP software development",
+        body: "Early-stage teams need a credible product surface fast without locking into the wrong stack. As an MVP software development partner, we build MVP shells and launch sites that look investment-ready, load under our Core Web Vitals standard, and stay editable as your product story changes. Scopes stay tight: enough surface for waitlist, demo, or early access — without a six-month agency theater cycle.",
       },
       {
-        heading: "Website redesign for SaaS companies",
-        body: "If your current site looks fine but does not generate qualified demand, we audit friction, rebuild the critical journeys, and ship a redesign focused on lead generation and activation — with technical SEO and performance baked in before go-live. Redesign work starts from your live analytics and sales feedback, not a blank mood board.",
+        heading: "Conversion redesign for SaaS & software",
+        body: "If your current site looks fine but does not generate qualified demand, we audit friction, rebuild the critical journeys, and ship a conversion redesign focused on lead generation and activation — with technical SEO and performance baked in before go-live. Redesign work starts from your live analytics and sales feedback, not a blank mood board.",
       },
     ],
     whoFor: [
@@ -93,10 +93,10 @@ export const services: Service[] = [
   {
     slug: "ui-ux-design",
     label: "UI/UX Design",
-    primaryKeyword: "SaaS UI UX design",
-    metaTitle: "SaaS UI UX Design & Product Design",
+    primaryKeyword: "Software UI/UX design for SaaS & product teams",
+    metaTitle: "Software UI/UX Design for SaaS & Product Teams",
     shortDescription:
-      "UI UX design for SaaS and startups — marketing sites, onboarding, and product flows built for activation and conversion (LaunchNest · launch-nest.com).",
+      "Software UI/UX design for SaaS and product teams — marketing sites, onboarding, and product flows built for activation, conversion, and developer-ready handoff (LaunchNest · launch-nest.com).",
     tagline: "Design that drives decisions.",
     overview: [
       "We design for startups, SaaS teams, and growing businesses that need users to understand value fast and take the next step — signup, book a call, buy, or activate.",
@@ -104,11 +104,11 @@ export const services: Service[] = [
     ],
     seoSections: [
       {
-        heading: "Conversion-focused UX for SaaS",
-        body: "SaaS UI/UX design should reduce time-to-value. We map the activation moment, simplify first-run flows, and align marketing promises with what users actually experience in product — so trial-to-paid does not leak at onboarding.",
+        heading: "Conversion-focused software UX",
+        body: "Software UI/UX design should reduce time-to-value. We map the activation moment, simplify first-run flows, and align marketing promises with what users actually experience in product — so trial-to-paid does not leak at onboarding.",
       },
       {
-        heading: "Startup product and marketing design systems",
+        heading: "Product and marketing design systems",
         body: "Founders need speed without chaos. We deliver reusable components, tokens, and prototypes so your engineering team can ship consistently across landing pages and product surfaces.",
       },
     ],
@@ -144,10 +144,10 @@ export const services: Service[] = [
   {
     slug: "graphic-design",
     label: "Brand Identity",
-    primaryKeyword: "brand identity for startups",
-    metaTitle: "Brand Identity & Graphic Design for Startups",
+    primaryKeyword: "Brand identity & graphic design for software companies",
+    metaTitle: "Brand Identity & Graphic Design for Software Companies",
     shortDescription:
-      "Graphic design and brand identity for startups — logos, visual systems, and marketing assets that look investment-ready (LaunchNest · launch-nest.com).",
+      "Brand identity & graphic design for software companies — logos, visual systems, and marketing assets that look investment-ready and stay consistent across product and sales (LaunchNest · launch-nest.com).",
     tagline: "Identity that travels with you.",
     overview: [
       "Brand identity and graphic design for modern businesses — logos, systems, and collateral that stay consistent from your landing page to your pitch deck to your product UI.",
@@ -155,8 +155,8 @@ export const services: Service[] = [
     ],
     seoSections: [
       {
-        heading: "Brand identity and graphic design for early-stage companies",
-        body: "Investors and customers judge credibility in seconds. We build brand identity for startups that holds up on a SaaS marketing site, pitch deck, and product UI — with guidelines your team can actually use. Looking for a graphic designer who ships systems, not one-off logos — that is the work.",
+        heading: "Brand identity that supports product + pipeline",
+        body: "Investors and customers judge credibility in seconds. We build brand identity for software companies that holds up across marketing, pitch decks, and product UI — with guidelines your team can actually use. Looking for a graphic designer who ships systems, not one-off logos — that is the work.",
       },
     ],
     whoFor: [
@@ -191,23 +191,23 @@ export const services: Service[] = [
   {
     slug: "ai-automation",
     label: "AI, Automation & Integrations",
-    primaryKeyword: "AI integrations for SaaS",
-    metaTitle: "AI Automation & Integrations for SaaS",
+    primaryKeyword: "AI & automation integrations for software products",
+    metaTitle: "AI Automation & Integrations for Software Products",
     shortDescription:
-      "AI automation and CRM integrations for SaaS — assistants, workflows, and ops systems that remove manual work (LaunchNest · launch-nest.com).",
+      "AI automation and CRM/integration engineering for software products — assistants, workflows, and ops systems that remove manual work (LaunchNest · launch-nest.com).",
     tagline: "Systems that compound.",
     overview: [
-      "Built for SaaS companies, AI startups, agencies, and operators who need more than a brochure site — chat agents, automations, CRM sync, and AI-assisted workflows wired into the product or marketing stack.",
+      "Built for software companies, AI teams, agencies, and operators who need more than a brochure site — chat agents, automations, CRM sync, and AI-assisted workflows wired into the product or ops stack.",
       "We integrate what you already use and build what is missing, with engineering standards you can maintain.",
     ],
     seoSections: [
       {
         heading: "AI integrations that support real workflows",
-        body: "AI integrations for SaaS should reduce support load, qualify leads, or speed product features — not add a gimmick widget. We scope assistants, content helpers, and product AI against a clear business outcome and wire them into your existing stack.",
+        body: "AI integrations should reduce support load, qualify leads, or speed product features — not add a gimmick widget. We scope assistants, content helpers, and AI features against a clear business outcome and wire them into your existing stack.",
       },
       {
-        heading: "CRM automation and marketing ops",
-        body: "Lead routing, booking flows, notifications, and CRM sync stop pipeline from dying in inboxes. We design marketing automation that your team can operate after handoff — with logging and failure paths, not fragile zap-only glue.",
+        heading: "CRM automation and software ops",
+        body: "Lead routing, booking flows, notifications, and CRM sync stop pipeline from dying in inboxes. We design automation your team can operate after handoff — with logging and failure paths, not fragile zap-only glue.",
       },
     ],
     whoFor: [
@@ -242,15 +242,15 @@ export const services: Service[] = [
   {
     slug: "seo",
     label: "Technical SEO & Content",
-    primaryKeyword: "Technical SEO for SaaS & startup websites",
-    metaTitle: "Technical SEO for SaaS & Startup Websites",
+    primaryKeyword: "Technical SEO & content for software companies",
+    metaTitle: "Technical SEO & Content for Software Companies",
     shortDescription:
-      "Technical SEO for SaaS and startup websites — Core Web Vitals, indexing fixes, and content that drives qualified demand (LaunchNest · launch-nest.com).",
+      "Technical SEO & content for software companies — Core Web Vitals, indexing fixes, and commercial content that drives qualified demand (LaunchNest · launch-nest.com).",
     tagline: "Visibility with a commercial point.",
     overview: [
-      "We fix what blocks indexing and speed first — then we write and structure content around the keywords that attract SaaS buyers, startup founders, agencies, and growth-stage businesses.",
+      "We fix what blocks indexing and speed first — then we write and structure content around the keywords that attract software buyers, founders, agencies, and growth-stage teams.",
       "You get a prioritized technical backlog plus content that supports lead generation, not vanity traffic.",
-      "Technical SEO for startups is different from generic local SEO: money pages (pricing, product, integrations) need crawlable structure, fast LCP, and supporting articles that answer buyer questions before a sales call.",
+      "Technical SEO for software is different from generic local SEO: money pages (pricing, product, integrations) need crawlable structure, fast LCP, and supporting articles that answer buyer questions before a sales call.",
     ],
     seoSections: [
       {
@@ -295,10 +295,10 @@ export const services: Service[] = [
   {
     slug: "maintenance-support",
     label: "Maintenance, QA & Growth Care",
-    primaryKeyword: "website maintenance retainer",
-    metaTitle: "Website Maintenance Retainer & QA Care",
+    primaryKeyword: "Software maintenance, QA & growth care",
+    metaTitle: "Software Maintenance, QA & Growth Care",
     shortDescription:
-      "Website maintenance retainer with QA, hosting support, updates, monitoring, and growth care after launch (LaunchNest · launch-nest.com).",
+      "Software maintenance, QA, and growth care — hosting support, updates, monitoring, and ongoing engineering standards after launch (LaunchNest · launch-nest.com).",
     tagline: "Launch is day one. Partnership is the product.",
     overview: [
       "We stay after launch — QA before release, hosting and deployment support when needed, then ongoing updates, backups, monitoring, and performance checks.",
@@ -306,8 +306,8 @@ export const services: Service[] = [
     ],
     seoSections: [
       {
-        heading: "Website maintenance that prevents emergencies",
-        body: "A real website maintenance retainer covers dependency updates, backups you can restore, uptime monitoring, and security patching — plus someone who already knows your stack when something breaks at 2am.",
+        heading: "Software maintenance that prevents emergencies",
+        body: "A real maintenance retainer covers dependency updates, backups you can restore, uptime monitoring, and security patching — plus someone who already knows your stack when something breaks at 2am.",
       },
       {
         heading: "QA, hosting, and deployment support",
