@@ -3,6 +3,7 @@ import { siteConfig } from "@/lib/site";
 import { services } from "@/lib/services";
 import { getAllPosts, getCaseStudySlugs } from "@/lib/content";
 import { audiences } from "@/lib/audiences";
+import { notifyIndexNow } from "@/lib/indexnow";
 
 /**
  * Dynamic sitemap — rebuilt from CMS on publish (see revalidate.ts hooks) and
@@ -102,11 +103,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [
+  const entries = [
     ...staticRoutes,
     ...serviceRoutes,
     ...audienceRoutes,
     ...caseStudyRoutes,
     ...blogRoutes,
   ];
+
+  notifyIndexNow(entries.map((entry) => entry.url));
+
+  return entries;
 }

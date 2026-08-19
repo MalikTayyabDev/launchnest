@@ -1,4 +1,12 @@
 import { revalidatePath } from "next/cache";
+import { CANONICAL_URL } from "./site-origins";
+import { coreIndexNowUrls, notifyIndexNow } from "./indexnow";
+
+function origin(): string {
+  const fromEnv = process.env.NEXT_PUBLIC_SERVER_URL?.replace(/\/$/, "") || "";
+  if (fromEnv && !/localhost|127\.0\.0\.1/i.test(fromEnv)) return fromEnv;
+  return CANONICAL_URL.replace(/\/$/, "");
+}
 
 /** Bust the rendered sitemap route (cached separately from CMS data). */
 export function revalidateSitemap(): void {
@@ -19,6 +27,8 @@ export function revalidateBlogPost(slug: string): void {
     revalidatePath(`/blog/${slug}`);
     revalidatePath(`/blog/${slug}`, "page");
     revalidateSitemap();
+    const base = origin();
+    notifyIndexNow([`${base}/blog`, `${base}/blog/${slug}`]);
   } catch {
     // Outside Next request context (e.g. CLI seed) — ignore.
   }
@@ -31,6 +41,8 @@ export function revalidateCaseStudy(slug: string): void {
     revalidatePath(`/work/${slug}`, "page");
     revalidatePath("/");
     revalidateSitemap();
+    const base = origin();
+    notifyIndexNow([`${base}/`, `${base}/portfolio`, `${base}/work/${slug}`]);
   } catch {
     // ignore
   }
@@ -42,6 +54,7 @@ export function revalidateAllContent(): void {
     revalidatePath("/portfolio");
     revalidatePath("/");
     revalidateSitemap();
+    notifyIndexNow(coreIndexNowUrls());
   } catch {
     // ignore
   }
@@ -54,6 +67,8 @@ export function revalidateIntroOffer(): void {
     revalidatePath("/intro-offer");
     revalidatePath("/intro-offer", "page");
     revalidatePath("/pricing");
+    const base = origin();
+    notifyIndexNow([`${base}/`, `${base}/intro-offer`, `${base}/pricing`]);
   } catch {
     // ignore
   }
