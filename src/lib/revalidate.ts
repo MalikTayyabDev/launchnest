@@ -48,6 +48,18 @@ export function revalidateCaseStudy(slug: string): void {
   }
 }
 
+/** Bust portfolio + home after Projects CMS edits (grid / featured work). */
+export function revalidateProjects(): void {
+  try {
+    revalidatePath("/portfolio");
+    revalidatePath("/");
+    const base = origin();
+    notifyIndexNow([`${base}/`, `${base}/portfolio`]);
+  } catch {
+    // ignore
+  }
+}
+
 export function revalidateAllContent(): void {
   try {
     revalidatePath("/blog");

@@ -65,23 +65,31 @@ On-page for posts: unique `metaTitle` / `metaDescription`, H2 sections, internal
 
 ## Ranking data (important)
 
-**Source:** Google Search Console, web search, **20 Jul 2026 – 15 Aug 2026** (27-day window in the internal growth audit).
+**Source:** Google Search Console export `launch-nest.com-Performance-on-Search-2026-09-22.xlsx` — **Web · Last 3 months** (≈20 Jul – 19 Sep 2026).
 
 | Metric | Value |
 | --- | --- |
-| Clicks | 14 |
-| Impressions | 331 |
-| Avg. CTR | 4.2% |
-| Brand share | 10 of 14 clicks (`launch nest` / `launchnest`) |
-| Non-brand page-1 | None — commercial queries sit ~pos 74+ |
+| Clicks | **103** |
+| Impressions | **1,392** |
+| Avg. CTR | **7.4%** |
+| Brand share | ~80 of 103 clicks (`launch nest` 47 / `launchnest` 33) |
+| Non-brand page-1 | None — commercial queries sit ~pos 39–90 |
 
-**Queries converting:** `launch nest` (pos 1.57), `launchnest` (pos 4.62). Near-zero path for buyers who do not already know the brand.
+**Queries converting:** `launch nest` (pos **2.51**), `launchnest` (pos **3.48**). Near-zero path for buyers who do not already know the brand.
 
-**Money pages (0 clicks):** `/pricing` (28 impr, pos 23.4), `/portfolio` (23 / 16.0), `/for/ai-startups` (20 / 15.2), `/intro-offer`, `/contact`, `/services`.
+**Commercial impressions (0 clicks) — priority cluster:** `software company branding` (39 / pos 48.8), `software branding agency` (19 / 52.9), `software branding` (13 / 39.3) → primary URL `/services/graphic-design` (108 impr, pos 52). Also: `conversion focused saas design`, `startup brand identity`, `ai startup website` (deep page).
 
-**Canonical split (GSC still crediting two homepages):** `https://www.launch-nest.com/` (10 clicks) vs `http://launch-nest.com/` (3 clicks). Code now 301s apex + HTTP → www HTTPS. **Do not request indexing on HTTP/apex URLs.**
+**Noise / confusion:** `seo nest` (52 impr), `launchnest.io` (17 impr at pos 3.5 — entity mix-up), `talentnest` / `runnest`.
 
-**Geo:** Pakistan 10 clicks (brand); US 3 clicks / pos 13; UK 0 clicks / pos 17. ICP (UK/US/AU) is not where visibility is yet — outreach covers the 30-day client goal.
+**Money pages:** `/` 94 clicks / 953 impr; `/about` 1 / 180 (**0.6% CTR**); `/contact` 2 / 105; `/intro-offer` 0 / 82; `/pricing` 2 / 77; `/portfolio` 1 / 55; `/services/website-design-dev` 1 / 61.
+
+**Canonical remnant:** `http://launch-nest.com/` still 3 clicks / 24 impr — redirects in place; do **not** request indexing on HTTP/apex.
+
+**Retired URLs still impressing:** `/work/brightpath-saas-onboarding` (12), meridian/northform/harbour — middleware + next.config **301 → /portfolio**.
+
+**Geo:** Pakistan 19 clicks; India 17; **US 11 clicks / 403 impr (pos 18)**; UK 6 / 61; Australia 1 / 16. ICP markets have impressions but weak position/CTR — outreach + GBP required.
+
+**Devices:** Desktop 72 clicks / 945 impr; Mobile 30 / 438 (better avg position 7.8).
 
 When you export a newer GSC window, share: Query, Clicks, Impressions, CTR, Position.
 
@@ -139,7 +147,7 @@ Status against the organic SEO audit checklist (homepage crawl + playbook):
 | Full case study pages | Done | `/work/[slug]` (not `/portfolio/[slug]`) |
 | Portfolio live links | Intentional | 3 public-proof live; rest contact-gated (client confidentiality) |
 | BreadcrumbList on indexes | Done | Services, blog, pricing, about, contact + detail pages |
-| Blog author Person schema | Open | Posts use org author; Person bio not shipped yet |
+| Blog author Person schema | Done | `articleSchema` emits Person + `worksFor` org + `/about` |
 | Geo pages `/for/us|uk|australia` | Open | Tier 3 — after Tier 1 pages are stable |
 | Dedicated MVP / redesign URLs | Partial | Covered as H2 sections on `/services/website-design-dev` + `/for/saas` + `/for/ai-startups` |
 | Website audit landing | Done | `/for/website-audit` — unique audit agenda, not a geo clone |
@@ -210,7 +218,11 @@ Live (pre-this-fix) hop chain that caused Failed + `http://launch-nest.com/` sti
 
 `http://launch-nest.com/` **308** → `https://launch-nest.com/` **308** → `https://www.launch-nest.com/`
 
+**Re-checked 22 Sep 2026:** same two-hop HTTP apex chain is still live. HTTPS apex alone is a clean 308 → www. Repo middleware + `vercel.json` + `next.config` host redirects are in place; the remaining HTTP→HTTPS-on-apex hop is **Vercel platform TLS** and only collapses when Domains is set correctly (below).
+
 **Vercel dashboard (required for a single hop from HTTP apex):** Project → Settings → Domains → `launch-nest.com` → **Redirect to www.launch-nest.com**. Platform TLS otherwise always does HTTP→HTTPS on the same host first.
+
+**Code follow-ups shipped 22 Sep 2026:** middleware one-hop 301 for retired `/work/*` (slash + no-slash) and `/work` index → `/portfolio`; Projects CMS edits revalidate `/portfolio` + home; blog Article author is Person schema.
 
 **Retired /work URLs:** Fictional case studies (`brightpath`, `meridian`, `northform`, `cadence`, `harbour`) **301** to `https://www.launch-nest.com/portfolio` (including trailing-slash variants). In Admin, unpublish any leftover CMS docs with those slugs. Brightpath still had 10 GSC impressions — Google is showing a redirect URL; 301 + request indexing on `/portfolio` is the consolidation path.
 

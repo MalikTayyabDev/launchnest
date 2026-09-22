@@ -21,11 +21,24 @@ export const dynamic = "force-dynamic";
 const seo = selfCanonical("/intro-offer");
 
 export const metadata: Metadata = {
-  title: "Intro offer — $20 landing page",
+  title: {
+    absolute: "$20 Landing Page Intro Offer — LaunchNest (limited slots)",
+  },
   description:
-    "Limited first-client rate: a template-based landing page delivered in 3 business days for $20. Fixed scope, limited slots — building LaunchNest's review portfolio.",
+    "Limited intro offer: a template-based landing page in 3 business days for $20. Fixed scope, limited slots — for startups building proof fast. LaunchNest at launch-nest.com.",
+  keywords: [
+    "cheap landing page",
+    "startup landing page offer",
+    "LaunchNest intro offer",
+    "launch-nest.com",
+  ],
   alternates: { canonical: seo.canonical },
-  openGraph: { ...seo.openGraph },
+  openGraph: {
+    ...seo.openGraph,
+    title: "$20 Landing Page Intro Offer — LaunchNest (limited slots)",
+    description:
+      "Limited first-client rate: template landing page in 3 business days for $20. LaunchNest · launch-nest.com.",
+  },
 };
 
 export default async function IntroOfferPage() {

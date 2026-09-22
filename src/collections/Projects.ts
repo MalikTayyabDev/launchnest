@@ -2,6 +2,7 @@ import type { CollectionConfig } from "payload";
 import { APIError } from "payload";
 import { isAdmin, isAdminOrEditor, publishedOrLoggedIn } from "../access";
 import { captureScreenshot } from "../lib/screenshot";
+import { revalidateProjects } from "../lib/revalidate";
 
 /** Derive a clean domain (no protocol / www / path) from a URL. */
 function domainFromUrl(url: string): string {
@@ -88,6 +89,8 @@ export const Projects: CollectionConfig = {
         return data;
       },
     ],
+    afterChange: [() => revalidateProjects()],
+    afterDelete: [() => revalidateProjects()],
   },
   fields: [
     {

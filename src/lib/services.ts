@@ -144,28 +144,37 @@ export const services: Service[] = [
   {
     slug: "graphic-design",
     label: "Brand Identity",
-    primaryKeyword: "Brand identity & graphic design for software companies",
-    metaTitle: "Brand Identity & Graphic Design for Software Companies",
+    primaryKeyword: "Software branding agency for startups & SaaS",
+    metaTitle: "Software Branding Agency for Startups & SaaS",
     shortDescription:
-      "Brand identity & graphic design for software companies — logos, visual systems, and marketing assets that look investment-ready and stay consistent across product and sales (LaunchNest · launch-nest.com).",
+      "Software branding agency for startups and SaaS — brand identity, logos, and visual systems that look investment-ready and stay consistent across product and sales (LaunchNest · launch-nest.com).",
     tagline: "Identity that travels with you.",
     overview: [
-      "Brand identity and graphic design for modern businesses — logos, systems, and collateral that stay consistent from your landing page to your pitch deck to your product UI.",
-      "We deliver source files and usage guidelines so your team can move fast without going off-brand.",
+      "Software company branding is how buyers decide you are credible in seconds — before they read a feature list. LaunchNest builds brand identity and graphic design systems for SaaS, AI startups, and software teams that need logos, visual language, and marketing assets that hold up from pitch deck to product UI.",
+      "If you are comparing a software branding agency versus a one-off logo freelancer, the difference is systems: guidelines, source files, and assets your marketing and engineering teams can reuse without going off-brand.",
+      "We deliver editable files and clear usage rules so brand work compounds into website, ads, and sales materials — not a folder of one-off JPEGs.",
     ],
     seoSections: [
       {
-        heading: "Brand identity that supports product + pipeline",
-        body: "Investors and customers judge credibility in seconds. We build brand identity for software companies that holds up across marketing, pitch decks, and product UI — with guidelines your team can actually use. Looking for a graphic designer who ships systems, not one-off logos — that is the work.",
+        heading: "Software company branding that supports pipeline",
+        body: "Investors and customers judge credibility fast. Our software company branding work covers logo, color, type, and marketing kits that stay consistent across landing pages, decks, and product chrome. Looking for branding services for software teams that ship systems — not mood boards — that is the brief.",
+      },
+      {
+        heading: "Brand identity for startups (fundraising-ready)",
+        body: "Early-stage teams need a brand identity for startups that looks investment-ready without a six-month agency cycle. We scope logo + core system first, then extend into website and UI/UX when you are ready — one partner so the story stays coherent.",
+      },
+      {
+        heading: "From brand system to live site",
+        body: "Most clients roll brand identity into a SaaS marketing site or conversion redesign. That path is usually cheaper and cleaner than hiring separate branding and web vendors. See website & product engineering if you want both under one roof.",
       },
     ],
     whoFor: [
-      "Startups preparing to launch or fundraise",
-      "Agencies refreshing their own brand",
+      "SaaS and software companies refreshing brand before a launch",
+      "Startups preparing to fundraise or go to market",
       "Teams that need brand + website from one partner",
     ],
     deliverables: [
-      "Logo and brand identity systems",
+      "Logo and brand identity systems for software companies",
       "Visual language for web, product, and sales materials",
       "Pitch decks and one-pagers",
       "Marketing and ad creative kits",
@@ -176,8 +185,12 @@ export const services: Service[] = [
       note: "Per-asset or brand system. Full identity packages are scoped individually.",
     },
     outcome:
-      "A coherent brand presence that supports premium positioning and trust with buyers.",
+      "A coherent software brand presence that supports premium positioning and trust with buyers.",
     faqs: [
+      {
+        q: "Are you a software branding agency or a web agency?",
+        a: "Both — brand identity, UI/UX, and engineering under one partner at launch-nest.com. Most branding clients also need a site that converts; we scope that together when it helps.",
+      },
       {
         q: "Can brand identity roll into a full website build?",
         a: "Yes — and that is usually the better path. One partner for branding, UI/UX, and engineering keeps the launch consistent end-to-end.",

@@ -11,22 +11,25 @@ const seo = selfCanonical("/about");
 
 export const metadata: Metadata = {
   title: {
-    absolute: "About LaunchNest (launch-nest.com) — Digital Agency",
+    absolute:
+      "About LaunchNest (launch-nest.com) — Engineering-First SaaS Agency",
   },
   description:
-    "About LaunchNest (launch-nest.com) — engineering-first digital agency and startup growth partner for SaaS, AI startups, and agencies in the UK, US, and Australia. Not other Launch Nest brands.",
+    "Meet LaunchNest at launch-nest.com — engineering-first SaaS & startup agency for software branding, websites, UI/UX, and technical SEO across the UK, US, and Australia. Not other Launch Nest brands.",
   keywords: [
     "LaunchNest",
     "launch-nest.com",
     "engineering-first digital agency",
     "SaaS digital agency",
+    "software branding agency",
   ],
   alternates: { canonical: seo.canonical },
   openGraph: {
     ...seo.openGraph,
-    title: "About LaunchNest (launch-nest.com) — Digital Agency",
+    title:
+      "About LaunchNest (launch-nest.com) — Engineering-First SaaS Agency",
     description:
-      "Engineering-first digital agency for SaaS and AI startups — LaunchNest, launch-nest.com.",
+      "Engineering-first SaaS & startup agency — software branding, websites, UI/UX. LaunchNest at launch-nest.com.",
   },
 };
 

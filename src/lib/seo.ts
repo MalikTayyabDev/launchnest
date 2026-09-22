@@ -138,6 +138,7 @@ export function articleSchema(post: {
   primaryKeyword?: string;
 }): Record<string, unknown> {
   const url = `${siteConfig.url}/blog/${post.slug}`;
+  const authorName = post.author?.trim() || siteConfig.name;
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -145,7 +146,14 @@ export function articleSchema(post: {
     description: post.excerpt,
     datePublished: post.date,
     dateModified: post.date,
-    author: { "@type": "Organization", name: post.author },
+    // Person (not bare Organization) — entity fingerprint + author bio via /about.
+    author: {
+      "@type": "Person",
+      "@id": `${siteConfig.url}/about#author`,
+      name: authorName,
+      url: `${siteConfig.url}/about`,
+      worksFor: { "@id": `${siteConfig.url}/#organization` },
+    },
     publisher: {
       "@id": `${siteConfig.url}/#organization`,
       name: siteConfig.name,
