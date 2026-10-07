@@ -14,10 +14,15 @@ export function Footer() {
           <div>
             <Logo variant="white" />
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-offwhite/60">
-              Engineering-first digital solutions for SaaS companies, AI startups,
-              and agencies — shipped on Next.js, WordPress, Shopify, Webflow, and
-              custom stacks when that is what the product needs.
+              Website engineering for SaaS and AI teams — clear messaging, fast
+              pages, and stacks your editors can own.
             </p>
+            <a
+              href={`mailto:${siteConfig.email}`}
+              className="mt-4 block text-sm font-medium text-offwhite underline decoration-gold/60 underline-offset-2 transition-colors hover:text-gold"
+            >
+              {siteConfig.email}
+            </a>
             <p className="mt-4 font-mono text-xs uppercase tracking-[0.16em] text-gold">
               {siteConfig.founded}
             </p>

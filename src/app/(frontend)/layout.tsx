@@ -7,37 +7,22 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ChatAgent } from "@/components/chat/ChatAgent";
-import { IntroOfferBanner } from "@/components/IntroOfferBanner";
 import { JsonLd } from "@/components/JsonLd";
 import { siteConfig, brandAssets } from "@/lib/site";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
 
+const defaultTitle = "LaunchNest — SaaS & AI Website Engineering Partner";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default:
-      "LaunchNest (launch-nest.com) — SaaS Website & Digital Agency",
+    default: defaultTitle,
     template: `%s — ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  keywords: [
-    "LaunchNest launch-nest.com",
-    "SaaS website development",
-    "website developer for startups",
-    "startup web development agency",
-    "graphic design for startups",
-    "brand identity for startups",
-    "UI UX design SaaS",
-    "technical SEO agency",
-    "AI automation for SaaS",
-    "website maintenance retainer",
-    "engineering-first digital agency",
-    "Next.js development agency",
-  ],
   openGraph: {
     type: "website",
-    title:
-      "LaunchNest (launch-nest.com) — SaaS Website & Digital Agency",
+    title: defaultTitle,
     description: siteConfig.description,
     siteName: siteConfig.name,
     url: siteConfig.url,
@@ -52,8 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title:
-      "LaunchNest (launch-nest.com) — SaaS Website & Digital Agency",
+    title: defaultTitle,
     description: siteConfig.description,
     images: [brandAssets.horizontalWhite.path],
   },
@@ -92,7 +76,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
         <Header />
-        <IntroOfferBanner />
         <main id="main" className="flex-1">
           {children}
         </main>

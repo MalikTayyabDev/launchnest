@@ -9,6 +9,8 @@ export function CaseStudyCard({
   /** Kept for call-site compatibility; unused (no image to prioritize). */
   priority?: boolean;
 }) {
+  const results = (study.results ?? []).slice(0, 3);
+
   return (
     <article className="group flex h-full flex-col rounded-lg border border-navy/10 bg-white p-6 transition-colors hover:border-gold/50">
       <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-slate">
@@ -28,8 +30,18 @@ export function CaseStudyCard({
       <p className="mt-3 font-heading text-sm font-semibold text-navy/70">
         {study.client}
       </p>
-      <p className="mt-2 flex-1 text-sm leading-relaxed text-slate">{study.summary}</p>
-      <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+      <p className="mt-2 text-sm leading-relaxed text-slate">{study.summary}</p>
+      {results.length > 0 && (
+        <dl className="mt-5 grid grid-cols-3 gap-2 border-t border-navy/10 pt-4">
+          {results.map((r) => (
+            <div key={`${r.metric}-${r.label}`}>
+              <dt className="font-heading text-sm font-bold text-navy">{r.metric}</dt>
+              <dd className="mt-0.5 text-[11px] leading-snug text-slate">{r.label}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+      <div className="mt-5 flex flex-1 flex-col justify-end gap-2 sm:flex-row sm:items-center sm:gap-4">
         {study.liveUrl ? (
           <a
             href={study.liveUrl}

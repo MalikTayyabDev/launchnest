@@ -9,27 +9,24 @@ import { breadcrumbSchema, selfCanonical } from "@/lib/seo";
 
 const seo = selfCanonical("/about");
 
+const aboutTitle = "About LaunchNest — SaaS & AI Website Engineering";
+
 export const metadata: Metadata = {
-  title: {
-    absolute:
-      "About LaunchNest (launch-nest.com) — Engineering-First SaaS Agency",
-  },
+  title: { absolute: aboutTitle },
   description:
-    "Meet LaunchNest at launch-nest.com — engineering-first SaaS & startup agency for software branding, websites, UI/UX, and technical SEO across the UK, US, and Australia. Not other Launch Nest brands.",
-  keywords: [
-    "LaunchNest",
-    "launch-nest.com",
-    "engineering-first digital agency",
-    "SaaS digital agency",
-    "software branding agency",
-  ],
+    "About LaunchNest — we build and speed up SaaS and AI websites for teams in the UK, US, and Australia. Email solutions@launch-nest.com.",
   alternates: { canonical: seo.canonical },
   openGraph: {
     ...seo.openGraph,
-    title:
-      "About LaunchNest (launch-nest.com) — Engineering-First SaaS Agency",
+    title: aboutTitle,
     description:
-      "Engineering-first SaaS & startup agency — software branding, websites, UI/UX. LaunchNest at launch-nest.com.",
+      "About LaunchNest — SaaS and AI website engineering for UK, US, and Australia.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: aboutTitle,
+    description:
+      "About LaunchNest — SaaS and AI website engineering for UK, US, and Australia.",
   },
 };
 
@@ -85,26 +82,30 @@ export default function AboutPage() {
             {siteConfig.positioning.label}.
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-slate">
-            We help startups, SaaS companies, agencies, and growing businesses launch,
-            scale, and optimize their digital presence through modern design,
-            engineering, SEO, AI, and growth-focused solutions.
+            We help SaaS companies and AI startups launch and improve the websites that
+            drive demos and trials — through design, engineering, and SEO.
           </p>
           <p className="mt-4 text-lg leading-relaxed text-slate">
-            We are LaunchNest at{" "}
+            Find us at{" "}
             <a
               href="https://www.launch-nest.com"
               className="font-heading font-semibold text-navy underline decoration-gold underline-offset-2"
             >
               launch-nest.com
             </a>{" "}
-            — an engineering-first partner for SaaS and AI teams. Other companies use
-            similar names on different domains; our proof is the live portfolio and the
-            work you can click through.
+            — email{" "}
+            <a
+              href={`mailto:${siteConfig.email}`}
+              className="font-heading font-semibold text-navy underline decoration-gold underline-offset-2"
+            >
+              {siteConfig.email}
+            </a>
+            .
           </p>
           <p className="mt-4 text-lg leading-relaxed text-slate">
-            We are not just another web development agency — and we are not a
-            WordPress, Shopify, or &ldquo;web design&rdquo; shop. We are a launch
-            partner for modern businesses.
+            We build and improve SaaS and AI websites that need to convert —
+            demos, trials, and sales conversations — then stay for speed, SEO, and
+            iteration.
           </p>
         </div>
       </Section>
@@ -130,10 +131,10 @@ export default function AboutPage() {
           </div>
 
           <div className="flex flex-col justify-center gap-8 rounded-xl bg-navy p-8">
-            <StatCallout value="100+" label="projects delivered" onNavy />
-            <StatCallout value="82+" label="sites in portfolio" onNavy />
-            <StatCallout value="< 2.5s" label="LCP standard" onNavy />
-            <StatCallout value="0" label="disappearing acts" onNavy />
+            <StatCallout value="3" label="live case studies you can open" onNavy />
+            <StatCallout value="< 2.5s" label="LCP standard we ship to" onNavy />
+            <StatCallout value="UK · US · AU" label="markets we build for" onNavy />
+            <StatCallout value="1 day" label="typical reply time" onNavy />
           </div>
         </div>
       </Section>

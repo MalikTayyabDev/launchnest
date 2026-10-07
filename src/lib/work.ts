@@ -34,9 +34,9 @@ export const caseStudies: CaseStudy[] = [
     slug: "wiz-ai-product-site",
     client: "WIZ.AI",
     industry: "SaaS",
-    headlineResult: "Live AI product marketing site in production",
+    headlineResult: "AI product site that matches the product’s seriousness",
     summary:
-      "Custom-built marketing presence for an AI product — fast, credible, and checkable at wiz.ai.",
+      "WIZ.AI needed a marketing site investors and early users would trust. We shipped a custom production site — open wiz.ai and judge it yourself.",
     liveUrl: "https://www.wiz.ai/",
     liveDomain: "wiz.ai",
     primaryKeyword: "AI startup website",
@@ -47,17 +47,17 @@ export const caseStudies: CaseStudy[] = [
         "Live case study: WIZ.AI product marketing site (wiz.ai). Custom engineering-first build for an AI company — visit the live site.",
     },
     situation:
-      "WIZ.AI needed a public marketing site that matched the seriousness of an AI product — not a template that undercut trust with investors and early users.",
+      "WIZ.AI needed a public marketing site that matched an AI product — not a template that undercut trust with investors and early users.",
     problem:
-      "AI startups often launch with generic agency themes. Buyers and investors judge the product by the site first; unclear messaging and slow pages kill credibility before a demo.",
+      "Generic agency themes and unclear CTAs make serious AI products look unfinished. Buyers decide in seconds whether to book a demo.",
     whatWeDid: [
       "Shipped a custom production marketing site aligned to the product story.",
-      "Prioritized clarity of offer, CTA paths, and a stack the team can iterate on.",
-      "Tuned for performance and mobile so the site feels as engineered as the product.",
+      "Clarified the offer and primary CTA paths for early users and investors.",
+      "Tuned performance and mobile so the site feels as engineered as the product.",
     ],
     results: [
       { metric: "Live", label: "Production at wiz.ai" },
-      { metric: "Custom", label: "Engineered stack" },
+      { metric: "Custom", label: "Not a template theme" },
       { metric: "AI", label: "Product-category fit" },
     ],
     quote: { text: "", name: "", role: "" },
@@ -67,9 +67,9 @@ export const caseStudies: CaseStudy[] = [
     slug: "clearmatrix-custom-platform",
     client: "Clearmatrix",
     industry: "SaaS",
-    headlineResult: "Custom tech platform site — live and linkable",
+    headlineResult: "Custom SaaS platform site buyers can open today",
     summary:
-      "Custom web presence for Clearmatrix — a live, checkable build at clearmatrix.io.",
+      "Clearmatrix needed a bespoke site for a technical product. We delivered a live, maintainable build at clearmatrix.io.",
     liveUrl: "https://clearmatrix.io/",
     liveDomain: "clearmatrix.io",
     primaryKeyword: "custom SaaS website development",
@@ -82,16 +82,16 @@ export const caseStudies: CaseStudy[] = [
     situation:
       "Clearmatrix needed a custom web presence that reflected a technical product — something buyers could open and trust immediately.",
     problem:
-      "Off-the-shelf builders struggle when the brand and product need a bespoke information architecture and a stack that won’t fight future features.",
+      "Off-the-shelf builders fight bespoke information architecture. The site had to explain a technical offer without looking generic.",
     whatWeDid: [
-      "Delivered a custom production site suited to a tech/SaaS audience.",
-      "Structured pages for clarity: what it is, who it’s for, and how to engage.",
-      "Left the team with a maintainable build path for ongoing iteration.",
+      "Delivered a custom production site for a tech/SaaS audience.",
+      "Structured pages around what it is, who it is for, and how to engage.",
+      "Left a maintainable path for ongoing product and marketing updates.",
     ],
     results: [
       { metric: "Live", label: "Production at clearmatrix.io" },
-      { metric: "Custom", label: "Bespoke delivery" },
-      { metric: "SaaS", label: "Primary audience fit" },
+      { metric: "Custom", label: "Bespoke IA & build" },
+      { metric: "SaaS", label: "Buyer-facing clarity" },
     ],
     quote: { text: "", name: "", role: "" },
     accent: "#1E8E5A",
@@ -100,9 +100,9 @@ export const caseStudies: CaseStudy[] = [
     slug: "algorithmicsoftware-uk-commerce",
     client: "Algorithmicsoftware",
     industry: "E-commerce",
-    headlineResult: "UK WooCommerce site live in production",
+    headlineResult: "UK WooCommerce storefront live in production",
     summary:
-      "WordPress + WooCommerce build for a UK tech commerce brand — live at algorithmicsoftware.co.uk.",
+      "A UK tech commerce brand needed a store their team could run. We shipped WordPress + WooCommerce — live at algorithmicsoftware.co.uk.",
     liveUrl: "https://algorithmicsoftware.co.uk/",
     liveDomain: "algorithmicsoftware.co.uk",
     primaryKeyword: "WooCommerce website UK",
@@ -113,18 +113,18 @@ export const caseStudies: CaseStudy[] = [
         "Live case study: Algorithmicsoftware WooCommerce site (algorithmicsoftware.co.uk). Verifiable LaunchNest portfolio work for UK buyers.",
     },
     situation:
-      "Algorithmicsoftware needed a UK-facing commerce/marketing site on a stack their team could operate — WordPress with WooCommerce.",
+      "Algorithmicsoftware needed a UK-facing commerce and marketing site on a stack their team could operate — WordPress with WooCommerce.",
     problem:
-      "Commerce sites fail when catalog, conversion paths, and mobile checkout feel bolted on. UK buyers also expect fast, trustworthy storefronts.",
+      "Commerce sites fail when catalog, conversion paths, and mobile checkout feel bolted on. UK buyers expect a fast, trustworthy storefront.",
     whatWeDid: [
       "Built and shipped a live WordPress + WooCommerce production site.",
       "Focused on usable commerce flows and a storefront that matches the brand.",
-      "Aligned with our multi-stack capability — the right tool for the job, not a one-platform pitch.",
+      "Chose the stack for editor ownership — not a one-platform sales pitch.",
     ],
     results: [
       { metric: "Live", label: "algorithmicsoftware.co.uk" },
       { metric: "UK", label: "English-market storefront" },
-      { metric: "Woo", label: "WordPress commerce stack" },
+      { metric: "Woo", label: "Team-operable CMS" },
     ],
     quote: { text: "", name: "", role: "" },
     accent: "#C9A227",

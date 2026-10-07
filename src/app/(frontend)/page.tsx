@@ -1,21 +1,15 @@
 import { Hero } from "@/components/Hero";
 import { HeroLeadForm } from "@/components/HeroLeadForm";
-import { NextStepsStrip } from "@/components/NextStepsStrip";
 import { Section, Eyebrow } from "@/components/Section";
 import { StatCallout } from "@/components/StatCallout";
 import { ServiceCard } from "@/components/ServiceCard";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
-import { PortfolioCard } from "@/components/PortfolioCard";
 import { Button } from "@/components/Button";
-import { TestimonialQuote } from "@/components/TestimonialQuote";
 import { CTASection } from "@/components/CTASection";
 import { FAQ } from "@/components/FAQ";
 import { Reveal } from "@/components/Reveal";
 import { GrowthAuditAgenda } from "@/components/GrowthAuditAgenda";
-import { TechStacksSection } from "@/components/TechStacksSection";
-import { ClientEntryPoints } from "@/components/ClientEntryPoints";
 import { getAllCaseStudies } from "@/lib/content";
-import { getFeaturedProjects } from "@/lib/projects";
 import { primaryCta, siteConfig } from "@/lib/site";
 import { selfCanonical } from "@/lib/seo";
 import Link from "next/link";
@@ -23,137 +17,115 @@ import type { Metadata } from "next";
 
 const homeCanonical = selfCanonical("/");
 
+const homeTitle = "LaunchNest — SaaS & AI Website Engineering Partner";
+const homeDescription = siteConfig.description;
+
 export const metadata: Metadata = {
-  title: {
-    absolute:
-      "LaunchNest (launch-nest.com) — Software Development & Engineering Partner",
-  },
-  description: siteConfig.description,
-  keywords: [
-    "LaunchNest",
-    "launch-nest.com",
-    "software development agency",
-    "software engineering partner",
-    "SaaS website development",
-    "website developer for startups",
-    "startup web development",
-    "graphic design agency for startups",
-    "UI UX design",
-    "technical SEO agency",
-  ],
+  title: { absolute: homeTitle },
+  description: homeDescription,
   alternates: { canonical: homeCanonical.canonical },
   openGraph: {
     ...homeCanonical.openGraph,
-    title:
-      "LaunchNest (launch-nest.com) — Software Development & Engineering Partner",
-    description: siteConfig.description,
+    title: homeTitle,
+    description: homeDescription,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: homeTitle,
+    description: homeDescription,
   },
 };
 
 const pillars = [
   {
-    label: "Launch",
+    label: "Build",
     icon: "build" as const,
     description:
-      "Brand, UI/UX, and engineering for SaaS marketing sites, startup MVPs, and conversion-focused launches — end-to-end, one partner.",
+      "SaaS marketing sites, product pages, and MVP shells engineered for demos and trials — not slide-deck mockups.",
     href: "/services/website-design-dev",
   },
   {
-    label: "Grow",
+    label: "Improve",
     icon: "optimize" as const,
     description:
-      "Technical SEO, content, speed, AI integrations, and conversion work that turns traffic into pipeline — not vanity metrics.",
+      "Speed, technical SEO, messaging, and conversion fixes on the pages that already get traffic.",
     href: "/services/seo",
   },
   {
-    label: "Scale",
+    label: "Partner",
     icon: "launch" as const,
     description:
-      "QA, hosting & deployment, automation, CRM, and retainers so your digital presence keeps compounding after launch.",
+      "Ongoing care, QA, and iteration so the site keeps matching the product after launch day.",
     href: "/services/maintenance-support",
   },
 ];
 
 const positioning =
-  "LaunchNest is an engineering-first software development & engineering partner for SaaS companies, AI startups, and teams building custom product surfaces and automation. We don't sell websites. We sell software development outcomes — lead generation, conversion, SEO visibility, and long-term partnership — through modern design, engineering, and systems that scale.";
+  "We build and speed up SaaS and AI websites that turn visitors into demos. Clear offer, fast pages, honest stack choices — and a partner who stays after go-live.";
 
 const trustSignals = [
-  { label: "SaaS companies", href: "/for/saas" },
-  { label: "AI startups", href: "/for/ai-startups" },
-  { label: "SaaS website pricing", href: "/pricing" },
+  { label: "For SaaS", href: "/for/saas" },
+  { label: "For AI startups", href: "/for/ai-startups" },
   { label: "Free growth audit", href: "/for/website-audit" },
-];
-
-const capabilitySignals = [
-  "Next.js / React",
-  "WordPress",
-  "Shopify",
-  "Webflow",
-  "Wix",
-  "GoHighLevel",
-  "AI & automation",
 ];
 
 const process = [
   {
     step: "01",
-    title: "Discover",
-    body: "Free growth audit — we map goals, bottlenecks, and the fastest path to leads and conversion.",
+    title: "Audit",
+    body: "We review your live URL: speed, messaging, SEO basics, and what is blocking demos or trials.",
   },
   {
     step: "02",
     title: "Plan",
-    body: "A clear scope: branding, UI/UX, engineering, content, SEO, QA, and deployment — prioritized by business impact.",
+    body: "A short scope ranked by impact — what to fix first, what can wait, and a clear budget range.",
   },
   {
     step: "03",
-    title: "Build",
-    body: "We execute end-to-end: design systems, engineering, integrations, and launch-ready performance standards.",
+    title: "Ship",
+    body: "Design and engineering on the stack that fits your team — Next.js when you need it, CMS when editors need ownership.",
   },
   {
     step: "04",
-    title: "Partner",
-    body: "Retainers for SEO, maintenance, AI/automation, and growth work — so results compound after day one.",
+    title: "Stay",
+    body: "Optional care and growth retainers for updates, performance, and SEO after launch.",
   },
 ];
 
 const homeFaqs = [
   {
-    q: "Are you a WordPress or Shopify agency?",
-    a: "No. We are an engineering-first digital solutions agency for SaaS and AI startups. WordPress, Shopify, Webflow, Wix, GoHighLevel, and Next.js are stacks we ship in production when they fit — we recommend based on your product and editors, not a platform we are trying to sell.",
+    q: "What do you actually build?",
+    a: "SaaS and AI marketing sites, product pages, and conversion redesigns — plus the SEO and speed work that makes them useful. We also ship on WordPress, Shopify, or Webflow when that is the right tool for your editors and roadmap.",
   },
   {
-    q: "Who do you work with?",
-    a: "Primary clients are SaaS companies, AI and tech startups, and agencies. We also partner with growing businesses when the fit is right — but product and growth teams are our core.",
+    q: "Who is this for?",
+    a: "Primarily SaaS companies, AI startups, and tech teams in the UK, US, and Australia. Agencies and ecommerce brands are a fit when the problem is the same: a site that needs to convert.",
   },
   {
-    q: "What do you actually sell?",
-    a: "Growth outcomes — lead generation, better UX, faster sites, higher conversion, premium branding, SEO visibility, and long-term partnership. The website or product is the vehicle, not the pitch.",
+    q: "Are you a cheap website shop?",
+    a: "No. Homepage work is scoped for product and growth teams who care about demos, trials, and long-term ownership. Starter packages exist for focused scopes — we will tell you honestly if a $20 template page is or is not the right path.",
   },
   {
     q: "Do you only build new sites?",
-    a: "No. We launch new products, redesign underperforming sites, optimize speed and SEO, add AI/automation, and run ongoing care retainers.",
+    a: "No. Many engagements start with a growth audit on a live URL, then redesign, speed work, SEO, or ongoing care.",
   },
   {
-    q: "Do you work with clients in the UK, US, and Australia?",
-    a: "Yes. We work across English-speaking markets and structure sites, SEO, and messaging for those regions.",
+    q: "How do I contact you?",
+    a: `Email ${siteConfig.email}, book a free growth audit on the contact page, or WhatsApp for a quick question. We typically reply within one business day.`,
   },
 ];
 
 const socialProof = [
-  { value: "100+", label: "Projects shipped" },
-  { value: "82+", label: "Sites in portfolio" },
-  { value: "< 2.5s", label: "LCP standard" },
+  { value: "3", label: "Live case studies you can open" },
+  { value: "< 2.5s", label: "LCP standard we ship to" },
+  { value: "UK · US · AU", label: "Markets we write and build for" },
   { value: "1 day", label: "Typical reply time" },
 ];
 
 export const revalidate = 60;
 
 export default async function HomePage() {
-  const [caseStudies, featuredProjects] = await Promise.all([
-    getAllCaseStudies(),
-    getFeaturedProjects(3),
-  ]);
+  const caseStudies = await getAllCaseStudies();
 
   const featuredStudies = [
     ...caseStudies.filter((c) => c.industry === "SaaS"),
@@ -164,21 +136,12 @@ export default async function HomePage() {
     <>
       <Hero
         eyebrow={siteConfig.positioning.label}
-        headline="Software development & engineering partner for SaaS and AI startups."
-        subhead="Engineering-first design, development, SEO, and AI — on Next.js, WordPress, Shopify, Webflow, and custom stacks when your product needs it. One accountable partner from launch through scale."
-        trustChips={[
-          "Software dev",
-          "SaaS · AI · Agencies",
-          "Next.js · WordPress · Shopify",
-          "100+ projects shipped",
-          "UK · US · AU",
-        ]}
-        secondaryCta={{ label: "See outcomes", href: "/portfolio" }}
+        headline="We build and speed up SaaS websites that turn visitors into demos."
+        subhead="LaunchNest is the website engineering partner for SaaS and AI teams. Clear messaging, fast pages, and stacks your team can own — for buyers in the UK, US, and Australia."
+        trustChips={["SaaS & AI focus", "UK · US · AU", "Next.js when it fits", "Reply in 1 business day"]}
         cta={primaryCta}
         aside={<HeroLeadForm />}
       />
-
-      <NextStepsStrip />
 
       <div className="border-y border-navy/10 bg-offwhite">
         <div className="mx-auto grid w-full max-w-content grid-cols-2 gap-6 px-6 py-10 sm:grid-cols-4 lg:px-8">
@@ -190,10 +153,6 @@ export default async function HomePage() {
 
       <div className="border-b border-navy/10 bg-white">
         <div className="mx-auto w-full max-w-content px-6 py-6 lg:px-8">
-          <p className="mb-4 text-center font-mono text-xs uppercase tracking-[0.16em] text-slate">
-            LaunchNest · launch-nest.com · engineering-first — not other &ldquo;Launch
-            Nest&rdquo; brands
-          </p>
           <p className="mb-4 text-center font-mono text-xs uppercase tracking-[0.16em] text-slate">
             Built for the clients we partner with
           </p>
@@ -208,41 +167,24 @@ export default async function HomePage() {
               </Link>
             ))}
           </div>
-          <p className="mb-3 mt-8 text-center font-mono text-xs uppercase tracking-[0.16em] text-slate">
-            Stacks we ship in production
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-            {capabilitySignals.map((item) => (
-              <span
-                key={item}
-                className="font-mono text-xs font-medium tracking-wide text-slate"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
 
-      <TechStacksSection tone="white" />
-
-      {/* Proof first — case studies + live builds before the service pitch */}
       <Section tone="offwhite">
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div className="max-w-2xl">
-            <Eyebrow>Outcomes</Eyebrow>
+            <Eyebrow>Live proof</Eyebrow>
             <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
-              Proof before pretty screenshots.
+              Open the sites. Then read the story.
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-slate">
-              Featured case studies link to live production sites — verify in one
-              click, then read the story. Proof for SaaS and tech buyers in the US,
-              UK, and Australia.
+              Three production builds you can verify in one click — problem, what we
+              shipped, and checkable outcomes. More work lives on the portfolio page.
             </p>
           </div>
           <div className="hidden shrink-0 sm:block">
             <Button href="/portfolio" variant="ghost">
-              View all work
+              Full portfolio
             </Button>
           </div>
         </div>
@@ -255,82 +197,79 @@ export default async function HomePage() {
         </div>
         <div className="mt-10 sm:hidden">
           <Button href="/portfolio" variant="primary" className="w-full">
-            View all work
+            Full portfolio
           </Button>
         </div>
       </Section>
 
       <Section tone="white">
-        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div className="max-w-2xl">
-            <Eyebrow>Portfolio</Eyebrow>
+            <Eyebrow>Who&apos;s behind this</Eyebrow>
             <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
-              Sites in production across stacks.
+              A small engineering partner — not a faceless bid farm.
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-slate">
-              Featured builds link live so you can verify the work. The full
-              portfolio includes more gated client sites — contact us for those URLs.
+              {siteConfig.positioning.sell} Talk to a human who will review your live
+              URL before pitching a package.
             </p>
+            <ul className="mt-6 flex flex-col gap-3 text-sm text-slate">
+              <li>
+                <span className="font-heading font-semibold text-navy">Email: </span>
+                <a
+                  href={`mailto:${siteConfig.email}`}
+                  className="underline decoration-gold underline-offset-2 hover:text-navy"
+                >
+                  {siteConfig.email}
+                </a>
+              </li>
+              <li>
+                <span className="font-heading font-semibold text-navy">Reviews: </span>
+                <a
+                  href={siteConfig.googleBusiness}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-gold underline-offset-2 hover:text-navy"
+                >
+                  Google Business Profile
+                </a>
+              </li>
+              <li>
+                <Link
+                  href="/about"
+                  className="font-heading font-semibold text-navy underline decoration-gold underline-offset-2"
+                >
+                  About LaunchNest
+                </Link>
+              </li>
+            </ul>
           </div>
-          <div className="hidden shrink-0 sm:block">
-            <Button href="/portfolio" variant="ghost">
-              View full portfolio
-            </Button>
+          <div className="rounded-xl border border-navy/10 bg-offwhite p-8">
+            <p className="font-heading text-lg font-bold text-navy">
+              Prefer a short call first?
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-slate">
+              Book the free growth audit — same agenda every time, no pitch deck
+              theater.
+            </p>
+            <div className="mt-6">
+              <Button href={primaryCta.href} variant="primary">
+                {primaryCta.label}
+              </Button>
+            </div>
           </div>
-        </div>
-
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {featuredProjects.map((item, i) => (
-            <Reveal key={item.id} delay={i * 0.06}>
-              <PortfolioCard item={item} priority={i < 2} />
-            </Reveal>
-          ))}
-        </div>
-
-        <div className="mt-10 sm:hidden">
-          <Button href="/portfolio" variant="primary" className="w-full">
-            View full portfolio
-          </Button>
         </div>
       </Section>
 
-      {caseStudies.some((c) => c.quote.text) && (
-        <Section tone="offwhite">
-          <div className="max-w-2xl">
-            <Eyebrow>In their words</Eyebrow>
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
-              The part clients actually remember.
-            </h2>
-          </div>
-          <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {caseStudies
-              .filter((c) => c.quote.text)
-              .slice(0, 3)
-              .map((c, i) => (
-                <Reveal key={c.slug} delay={i * 0.08}>
-                  <TestimonialQuote
-                    text={c.quote.text}
-                    name={c.quote.name}
-                    role={c.quote.role}
-                  />
-                </Reveal>
-              ))}
-          </div>
-        </Section>
-      )}
-
-      <ClientEntryPoints />
-
-      <Section tone="white">
+      <Section tone="offwhite">
         <div className="max-w-2xl">
           <Eyebrow>What we do</Eyebrow>
           <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
-            Launch. Grow. Scale.
+            Build. Improve. Partner.
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-slate">
-            End-to-end execution — branding, UI/UX, engineering, content, SEO, QA,
-            deployment, and maintenance — so you are not coordinating five vendors
-            to ship one digital product.
+            One team for the site work that moves pipeline — so you are not juggling a
+            designer, a freelancer, and an SEO vendor to ship one launch.
           </p>
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
@@ -348,21 +287,21 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      <Section tone="offwhite">
+      <Section tone="white">
         <div className="max-w-2xl">
           <Eyebrow>How we work</Eyebrow>
           <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
-            From first conversation to long-term growth partner.
+            From your live URL to a clear next step.
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-slate">
-            A clear path designed for founders and operators who care about results —
-            not deliverable theater.
+            Built for founders and product marketers who want specifics — not a pile of
+            unused deliverables.
           </p>
         </div>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {process.map((p, i) => (
             <Reveal key={p.step} delay={i * 0.06}>
-              <div className="flex h-full flex-col rounded-lg border border-navy/10 bg-white p-6">
+              <div className="flex h-full flex-col rounded-lg border border-navy/10 bg-offwhite p-6">
                 <span className="font-mono text-sm font-bold text-gold">{p.step}</span>
                 <h3 className="mt-3 font-heading text-lg font-semibold text-navy">
                   {p.title}
@@ -391,15 +330,15 @@ export default async function HomePage() {
           <div>
             <Eyebrow>FAQ</Eyebrow>
             <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
-              The questions serious buyers ask first.
+              Straight answers before you book.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-slate">
-              Something we didn&apos;t cover?{" "}
+              Prefer email?{" "}
               <a
-                href="/contact"
+                href={`mailto:${siteConfig.email}`}
                 className="text-navy underline decoration-gold underline-offset-2"
               >
-                Ask us directly.
+                {siteConfig.email}
               </a>
             </p>
           </div>
@@ -408,33 +347,13 @@ export default async function HomePage() {
       </Section>
 
       <Section tone="white" id="audit-form">
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
-          <GrowthAuditAgenda />
-          <div className="rounded-xl border border-navy/10 bg-offwhite p-6 sm:p-8">
-            <p className="font-heading text-lg font-bold tracking-tight text-navy">
-              Ready when you are
-            </p>
-            <p className="mt-2 text-sm leading-relaxed text-slate">
-              Book the audit or send a short brief — we reply within one business day
-              with specifics for your URL.
-            </p>
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <Button href="/contact#audit" variant="primary">
-                Book a free growth audit
-              </Button>
-              <Button href="/portfolio" variant="ghost">
-                See live portfolio
-              </Button>
-            </div>
-          </div>
-        </div>
+        <GrowthAuditAgenda />
       </Section>
 
       <CTASection
-        heading="Ready to launch or scale with an engineering-first partner?"
-        body="Book a free growth audit — we'll walk the agenda above against your live site and leave you with prioritized next steps."
+        heading="Ready for a free growth audit?"
+        body="We walk your live site against a fixed agenda and leave you with prioritized next steps — usually within one business day of booking."
         cta={primaryCta}
-        secondaryCta={{ label: "See outcomes", href: "/portfolio" }}
       />
     </>
   );
