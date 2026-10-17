@@ -32,6 +32,78 @@ export type BlogPost = {
 
 export const posts: BlogPost[] = [
   {
+    slug: "how-to-choose-a-software-development-agency",
+    title: "How to choose a software development agency for SaaS and AI",
+    excerpt:
+      "A practical checklist for founders comparing software development agencies — outcomes, ownership after launch, stacks, SEO, and red flags that waste budget.",
+    category: "Software Development",
+    date: "2026-10-17",
+    readingTime: "10 min read",
+    author: "LaunchNest",
+    primaryKeyword: "software development agency",
+    relatedService: "website-design-dev",
+    seo: {
+      metaTitle: "How to Choose a Software Development Agency (SaaS & AI)",
+      metaDescription:
+        "How to choose a software development agency for SaaS and AI: outcomes to demand, ownership after launch, stack fit, SEO, and red flags before you sign.",
+    },
+    intro: [
+      "Searching for a software development agency usually means you need more than a pretty homepage. SaaS and AI teams need a partner who can ship a site or product surface that explains value, loads fast, and turns traffic into demos or trials.",
+      "This guide is the checklist we wish every founder used before signing — whether you hire LaunchNest or someone else.",
+    ],
+    sections: [
+      {
+        heading: "Define the outcome before you shop agencies",
+        paragraphs: [
+          "A software development agency should ask what business result you need this quarter: more demos, more trials, clearer pricing, or a credible MVP for investors. If the conversation starts with mood boards and platforms, you are buying decoration.",
+          "Write one sentence: “In 90 days we need visitors to ___.” That sentence becomes the brief every vendor must answer.",
+        ],
+        bullets: [
+          "Primary conversion: demo, trial, waitlist, or sales call",
+          "Pages that matter most: home, product, pricing, docs entry",
+          "Who will edit content weekly after launch",
+        ],
+      },
+      {
+        heading: "Ask who owns the site after go-live",
+        paragraphs: [
+          "Many software development agencies disappear after handoff. For SaaS, that is expensive: Core Web Vitals drift, plugins rot, and messaging falls behind the product.",
+          "Prefer partners who offer care retainers, SEO iteration, and a clear ownership model — your team editing day-to-day, the agency owning hard engineering and performance.",
+        ],
+      },
+      {
+        heading: "Judge stacks by editors and roadmap, not fashion",
+        paragraphs: [
+          "Next.js, WordPress, Shopify, and Webflow are tools. A good software development agency recommends based on who edits weekly, how custom the product surface is, and who maintains security and updates.",
+          "Be wary of agencies that only sell one platform. Be equally wary of agencies that refuse to name a stack until a contract is signed.",
+        ],
+      },
+      {
+        heading: "Require live proof you can open",
+        paragraphs: [
+          "Case studies without live URLs are easy to invent. Ask for production sites you can click — then check mobile speed, clarity of the offer, and whether CTAs match the buyer journey.",
+          "LaunchNest publishes live case studies you can verify before a call. That should be table stakes for any software development agency claiming SaaS expertise.",
+        ],
+      },
+      {
+        heading: "Red flags when comparing software development agencies",
+        paragraphs: [
+          "Skip vendors that lead with fake scarcity, refuse to review your live URL, or quote a redesign before diagnosing conversion blockers. Also skip anyone who cannot explain technical SEO and analytics in plain language.",
+        ],
+        bullets: [
+          "No live portfolio links",
+          "No discussion of Core Web Vitals or tracking",
+          "One-size package with no discovery",
+          "Handoff with zero maintenance path",
+        ],
+      },
+    ],
+    conclusion: [
+      "Choosing a software development agency is choosing who will own the acquisition surface of your product. Optimize for outcomes, ownership, and verifiable work — not the flashiest deck.",
+      "Start with LaunchNest’s free growth audit, compare our software development agency positioning, or review live case studies before you book.",
+    ],
+  },
+  {
     slug: "saas-marketing-site-checklist",
     title: "SaaS marketing site checklist: what to ship before you scale ads",
     excerpt:

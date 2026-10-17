@@ -17,7 +17,7 @@ import type { Metadata } from "next";
 
 const homeCanonical = selfCanonical("/");
 
-const homeTitle = "LaunchNest — SaaS & AI Website Engineering Partner";
+const homeTitle = "Software Development Agency for SaaS & AI | LaunchNest";
 const homeDescription = siteConfig.description;
 
 export const metadata: Metadata = {
@@ -41,7 +41,7 @@ const pillars = [
     label: "Build",
     icon: "build" as const,
     description:
-      "SaaS marketing sites, product pages, and MVP shells engineered for demos and trials — not slide-deck mockups.",
+      "Software development for SaaS marketing sites, product pages, and MVP shells engineered for demos and trials.",
     href: "/services/website-design-dev",
   },
   {
@@ -61,9 +61,10 @@ const pillars = [
 ];
 
 const positioning =
-  "We build and speed up SaaS and AI websites that turn visitors into demos. Clear offer, fast pages, honest stack choices — and a partner who stays after go-live.";
+  "LaunchNest is a software development agency for SaaS and AI startups. We ship clear, fast sites that turn visitors into demos — and stay for SEO, speed, and iteration after go-live.";
 
 const trustSignals = [
+  { label: "Software development agency", href: "/for/software-development-agency" },
   { label: "For SaaS", href: "/for/saas" },
   { label: "For AI startups", href: "/for/ai-startups" },
   { label: "Free growth audit", href: "/for/website-audit" },
@@ -94,20 +95,20 @@ const process = [
 
 const homeFaqs = [
   {
+    q: "Are you a software development agency?",
+    a: "Yes. LaunchNest is a software development agency for SaaS and AI startups — we build and improve marketing sites, product surfaces, and conversion paths, then support speed, SEO, and ongoing engineering care.",
+  },
+  {
     q: "What do you actually build?",
-    a: "SaaS and AI marketing sites, product pages, and conversion redesigns — plus the SEO and speed work that makes them useful. We also ship on WordPress, Shopify, or Webflow when that is the right tool for your editors and roadmap.",
+    a: "SaaS and AI marketing sites, product pages, MVP shells, and conversion redesigns — plus the SEO and speed work that makes them useful. We ship on Next.js, WordPress, Shopify, or Webflow when that fits your editors and roadmap.",
   },
   {
     q: "Who is this for?",
     a: "Primarily SaaS companies, AI startups, and tech teams in the UK, US, and Australia. Agencies and ecommerce brands are a fit when the problem is the same: a site that needs to convert.",
   },
   {
-    q: "Are you a cheap website shop?",
-    a: "No. Homepage work is scoped for product and growth teams who care about demos, trials, and long-term ownership. Starter packages exist for focused scopes — we will tell you honestly if a $20 template page is or is not the right path.",
-  },
-  {
-    q: "Do you only build new sites?",
-    a: "No. Many engagements start with a growth audit on a live URL, then redesign, speed work, SEO, or ongoing care.",
+    q: "How is this different from a generic web design agency?",
+    a: "We optimize for demos, trials, and sales conversations — with engineering ownership after launch. Design is included when it serves conversion, not as decoration.",
   },
   {
     q: "How do I contact you?",
@@ -136,9 +137,14 @@ export default async function HomePage() {
     <>
       <Hero
         eyebrow={siteConfig.positioning.label}
-        headline="We build and speed up SaaS websites that turn visitors into demos."
-        subhead="LaunchNest is the website engineering partner for SaaS and AI teams. Clear messaging, fast pages, and stacks your team can own — for buyers in the UK, US, and Australia."
-        trustChips={["SaaS & AI focus", "UK · US · AU", "Next.js when it fits", "Reply in 1 business day"]}
+        headline="Software development agency for SaaS and AI startups."
+        subhead="LaunchNest builds and speeds up sites and product surfaces that turn visitors into demos. Clear messaging, fast pages, and stacks your team can own — for buyers in the UK, US, and Australia."
+        trustChips={[
+          "Software development agency",
+          "SaaS & AI focus",
+          "UK · US · AU",
+          "Reply in 1 business day",
+        ]}
         cta={primaryCta}
         aside={<HeroLeadForm />}
       />
@@ -265,11 +271,19 @@ export default async function HomePage() {
         <div className="max-w-2xl">
           <Eyebrow>What we do</Eyebrow>
           <h2 className="font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl">
-            Build. Improve. Partner.
+            Software development services that move pipeline.
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-slate">
-            One team for the site work that moves pipeline — so you are not juggling a
-            designer, a freelancer, and an SEO vendor to ship one launch.
+            One software development agency for the work that creates demos and trials —
+            so you are not juggling a designer, a freelancer, and an SEO vendor to ship
+            one launch.{" "}
+            <Link
+              href="/for/software-development-agency"
+              className="font-semibold text-navy underline decoration-gold underline-offset-2"
+            >
+              See how we work as a software development agency
+            </Link>
+            .
           </p>
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-3">

@@ -27,9 +27,11 @@ Priorities: (P1) commercial-intent money pages, (P2) supporting/service pages,
 
 | Page | Priority | Primary keyword | Secondary / long-tail |
 | --- | --- | --- | --- |
-| `/` Home | P1 | engineering-first digital solutions agency | startup growth partner, SaaS digital agency |
-| `/services` | P1 | digital product engineering services | launch partner for startups, end-to-end digital solutions |
-| `/services/website-design-dev` | P1 | SaaS website development | startup MVP website, Next.js agency, conversion website redesign |
+| `/` Home | P1 | software development agency | software development agency for SaaS, SaaS AI agency |
+| `/for/software-development-agency` | P0 | software development agency | software development agency for startups, SaaS software agency |
+| `/services` | P1 | software development agency services | SaaS software development services |
+| `/services/website-design-dev` | P1 | software development agency for SaaS | startup MVP website, Next.js agency, conversion website redesign |
+| `/blog/how-to-choose-a-software-development-agency` | P1 | how to choose a software development agency | software development agency checklist |
 | `/services/ui-ux-design` | P1 | SaaS UI UX design | startup product design, conversion-focused UX |
 | `/services/graphic-design` | P2 | brand identity for startups | premium brand system agency |
 | `/services/ai-automation` | P1 | AI integrations for SaaS | CRM automation agency, marketing automation |

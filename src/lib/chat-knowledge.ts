@@ -25,12 +25,13 @@ export function buildChatKnowledge(): string {
     .join("\n");
 
   return `
-LaunchNest is an engineering-first digital solutions agency — a launch and growth partner for startups, SaaS companies, agencies, and growing businesses.
+LaunchNest is a software development agency for SaaS and AI startups — launch and growth partner for product and tech teams.
 Tagline: ${siteConfig.tagline}. Positioning: ${siteConfig.positioning.label}.
-We do NOT position as a WordPress agency, Shopify agency, or generic web design agency. Platforms are capabilities.
-Email: ${siteConfig.email}. WhatsApp available on site. Markets: UK, US, Australia. 100+ projects delivered.
+We do NOT position as a WordPress-only shop or generic web design agency. Platforms are capabilities.
+Email: ${siteConfig.email}. WhatsApp available on site. Markets: UK, US, Australia.
+Key pages: /for/software-development-agency, /services/website-design-dev, /portfolio, /contact.
 
-We sell: growth, lead generation, better UX, faster sites, higher conversion, premium branding, SEO visibility, long-term partnerships.
+We sell: software development outcomes — demos, trials, faster sites, SEO visibility, long-term engineering care.
 
 Primary clients: ${siteConfig.positioning.primaryClients.join(", ")}.
 Secondary clients: ${siteConfig.positioning.secondaryClients.join(", ")}.

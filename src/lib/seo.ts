@@ -44,8 +44,10 @@ export function organizationSchema(): Record<string, unknown> {
       identifier: code,
     })),
     knowsAbout: [
+      "Software development agency",
       "Software development",
       "Custom software engineering",
+      "SaaS software development",
       "SaaS website development",
       "Startup web development",
       "MVP development",
@@ -59,6 +61,7 @@ export function organizationSchema(): Record<string, unknown> {
       "Shopify development",
     ],
     serviceType: [
+      "Software development agency",
       "Software development & engineering",
       "Custom software for SaaS and startups",
       "SaaS and startup website development",
@@ -71,6 +74,7 @@ export function organizationSchema(): Record<string, unknown> {
       "Software performance optimization",
       "Software maintenance and QA",
     ],
+    slogan: siteConfig.positioning.sell,
     sameAs: [
       siteConfig.social.instagram,
       siteConfig.social.facebook,
@@ -95,7 +99,7 @@ export function websiteSchema(): Record<string, unknown> {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${siteConfig.url}/#website`,
-    name: `${siteConfig.name} — launch-nest.com`,
+    name: `${siteConfig.name} — Software Development Agency`,
     alternateName: siteConfig.alternateName,
     url: siteConfig.url,
     description: siteConfig.description,

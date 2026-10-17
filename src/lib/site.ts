@@ -11,7 +11,7 @@ export const siteConfig = {
   tagline: "BUILD · OPTIMIZE · LAUNCH",
   /** ~155 chars for SERP snippets; keep plain and specific. */
   description:
-    "LaunchNest builds and speeds up SaaS and AI websites that turn visitors into demos — design, engineering, and SEO for teams in the UK, US, and Australia.",
+    "LaunchNest is a software development agency for SaaS and AI startups — sites, product engineering, and SEO that turn visitors into demos across the UK, US, and Australia.",
   url:
     process.env.NEXT_PUBLIC_SERVER_URL?.replace(/\/$/, "") || CANONICAL_URL,
   email: "solutions@launch-nest.com",
@@ -35,8 +35,8 @@ export const siteConfig = {
   /** Direct “Write a review” deep link for the same GBP. */
   googleReview: "https://g.page/r/CaBoV6foQh89EBI/review",
   positioning: {
-    label: "SaaS & AI website engineering",
-    sell: "We build and improve SaaS marketing sites and product pages so visitors book demos, start trials, or talk to sales — then we stay for speed, SEO, and iteration.",
+    label: "Software Development Agency",
+    sell: "We are a software development agency for SaaS and AI teams — marketing sites, product pages, and engineering that turn visitors into demos, trials, and sales conversations.",
     primaryClients: ["SaaS Companies", "AI Startups", "Tech Startups"],
     secondaryClients: ["Agencies", "Ecommerce Brands", "Professional services"],
   },

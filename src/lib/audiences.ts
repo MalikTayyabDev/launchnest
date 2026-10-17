@@ -22,6 +22,59 @@ export type AudiencePage = {
 
 export const audiences: AudiencePage[] = [
   {
+    slug: "software-development-agency",
+    label: "Software development agency",
+    title: "Software Development Agency for SaaS & AI Startups",
+    description:
+      "LaunchNest is a software development agency for SaaS and AI startups — custom sites, product engineering, and SEO that turn visitors into demos. UK, US, and Australia.",
+    headline: "A software development agency built for SaaS and AI teams.",
+    subhead:
+      "Looking for a software development agency that ships sites and product surfaces buyers trust? We engineer clear messaging, fast pages, and stacks your team can own — then stay for SEO and iteration.",
+    whyHeading: "Why founders compare software development agencies",
+    body: [
+      "A software development agency should do more than hand over screens. SaaS and AI teams need a partner who can ship a marketing site or product shell that explains value, loads fast, and turns traffic into demos or trials.",
+      "LaunchNest works as a software development agency for product and growth teams in the UK, US, and Australia. Scopes include SaaS websites, MVP surfaces, conversion redesigns, technical SEO, and optional AI or CRM automation — on Next.js, WordPress, Shopify, Webflow, or custom stacks when that fits.",
+      "When you evaluate software development agencies, ask three questions: Who owns Core Web Vitals after launch? Can editors update the site without a ticket? Will the same team iterate after go-live? Our answer is yes — see live case studies, then book a free growth audit.",
+    ],
+    pains: [
+      "Agencies pitch redesigns before diagnosing the live site",
+      "Sites look polished but demos and trials stay flat",
+      "Handoffs leave a stack nobody on the team can own",
+      "You need software development, SEO, and care — not five vendors",
+    ],
+    outcomes: [
+      "A scoped build aimed at demos, trials, or sales conversations",
+      "Faster acquisition pages under a clear Core Web Vitals bar",
+      "Technical SEO foundations on money pages",
+      "Optional retainer so improvements continue after launch",
+    ],
+    services: [
+      { label: "Software development & engineering", href: "/services/website-design-dev" },
+      { label: "For SaaS companies", href: "/for/saas" },
+      { label: "For AI startups", href: "/for/ai-startups" },
+      { label: "Software development pricing", href: "/pricing" },
+    ],
+    caseStudySlugs: [
+      "wiz-ai-product-site",
+      "clearmatrix-custom-platform",
+      "algorithmicsoftware-uk-commerce",
+    ],
+    faqs: [
+      {
+        q: "Is LaunchNest a software development agency?",
+        a: "Yes. We are a software development agency focused on SaaS and AI — marketing sites, product surfaces, conversion engineering, and ongoing technical care.",
+      },
+      {
+        q: "How is this different from a generic web design agency?",
+        a: "We optimize for pipeline outcomes (demos, trials, sales calls), engineering ownership after launch, and stacks chosen for your editors and roadmap — not a one-platform pitch.",
+      },
+      {
+        q: "Where do you work?",
+        a: "Primarily with English-speaking SaaS and AI teams in the UK, US, and Australia. Remote delivery is standard.",
+      },
+    ],
+  },
+  {
     slug: "saas",
     label: "For SaaS",
     title: "Software Development & Engineering for SaaS Companies",

@@ -11,7 +11,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { siteConfig, brandAssets } from "@/lib/site";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
 
-const defaultTitle = "LaunchNest — SaaS & AI Website Engineering Partner";
+const defaultTitle = "Software Development Agency for SaaS & AI | LaunchNest";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),

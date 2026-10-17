@@ -131,7 +131,7 @@ export async function getAllPosts(): Promise<PostSummary[]> {
         depth: 2,
       });
       if (res.docs.length > 0) {
-        return Promise.all(
+        const cmsPosts = await Promise.all(
           res.docs.map(async (doc) => {
             const summary = mapPostSummary(doc);
             if (!summary.coverImage && doc.coverImage != null) {
@@ -143,6 +143,14 @@ export async function getAllPosts(): Promise<PostSummary[]> {
             }
             return summary;
           }),
+        );
+        // Fill gaps from seed (e.g. new SEO pillar posts not yet seeded to CMS).
+        const cmsSlugs = new Set(cmsPosts.map((p) => p.slug));
+        const seedOnly = seedPosts
+          .filter((p) => !cmsSlugs.has(p.slug))
+          .map(mapSeedSummary);
+        return [...cmsPosts, ...seedOnly].sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
         );
       }
     } catch {

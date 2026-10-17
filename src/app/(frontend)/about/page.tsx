@@ -9,24 +9,24 @@ import { breadcrumbSchema, selfCanonical } from "@/lib/seo";
 
 const seo = selfCanonical("/about");
 
-const aboutTitle = "About LaunchNest — SaaS & AI Website Engineering";
+const aboutTitle = "About LaunchNest — Software Development Agency";
 
 export const metadata: Metadata = {
   title: { absolute: aboutTitle },
   description:
-    "About LaunchNest — we build and speed up SaaS and AI websites for teams in the UK, US, and Australia. Email solutions@launch-nest.com.",
+    "About LaunchNest — a software development agency for SaaS and AI startups in the UK, US, and Australia. Email solutions@launch-nest.com.",
   alternates: { canonical: seo.canonical },
   openGraph: {
     ...seo.openGraph,
     title: aboutTitle,
     description:
-      "About LaunchNest — SaaS and AI website engineering for UK, US, and Australia.",
+      "About LaunchNest — software development agency for SaaS and AI startups.",
   },
   twitter: {
     card: "summary_large_image",
     title: aboutTitle,
     description:
-      "About LaunchNest — SaaS and AI website engineering for UK, US, and Australia.",
+      "About LaunchNest — software development agency for SaaS and AI startups.",
   },
 };
 

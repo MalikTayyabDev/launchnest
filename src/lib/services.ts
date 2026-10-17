@@ -31,20 +31,20 @@ export const services: Service[] = [
   {
     slug: "website-design-dev",
     label: "Website & Product Engineering",
-    primaryKeyword: "Software development & product engineering for SaaS & startups",
-    metaTitle: "Software Development & Product Engineering for SaaS",
+    primaryKeyword: "Software development agency for SaaS & startups",
+    metaTitle: "Software Development Agency for SaaS & Startups",
     shortDescription:
-      "Software development & product engineering for SaaS and startups — landing pages, MVP sites, and conversion redesigns engineered for trials, pipeline, and long-term ownership (LaunchNest · launch-nest.com).",
+      "Software development agency for SaaS and startups — marketing sites, MVP product surfaces, and conversion redesigns engineered for trials, pipeline, and long-term ownership.",
     tagline: "Built to launch. Engineered to scale.",
     overview: [
-      "LaunchNest at launch-nest.com is an engineering-first digital solutions partner for SaaS companies, AI startups, agencies, and growth-stage businesses. We do not sell templates — we ship digital products that generate leads, convert trials, and support revenue.",
-      "Whether you need a high-converting landing page, a SaaS marketing site, a startup MVP, an ecommerce storefront, or a full conversion redesign, we choose the stack that fits your roadmap: Next.js, WordPress, Shopify, Webflow, Wix, or GoHighLevel — then we build it properly and hand it over clean.",
-      "Buyers searching for a website developer or SaaS website agency usually need three things at once: clear messaging, measurable conversion paths, and a stack their team can own after launch. That is the brief we run every engagement against — from first discovery call through handoff and optional maintenance.",
+      "LaunchNest is a software development agency for SaaS companies, AI startups, and tech teams. We do not sell templates — we ship sites and product surfaces that generate leads, convert trials, and support revenue.",
+      "Whether you need a high-converting landing page, a SaaS marketing site, a startup MVP shell, or a full conversion redesign, we choose the stack that fits your roadmap: Next.js, WordPress, Shopify, Webflow, or custom — then we build it properly and hand it over clean.",
+      "Buyers comparing software development agencies usually need three things at once: clear messaging, measurable conversion paths, and a stack their team can own after launch. That is the brief we run every engagement against — from first discovery call through handoff and optional maintenance.",
     ],
     seoSections: [
       {
-        heading: "Software & product engineering that converts",
-        body: "Your software presence has one job: turn visitors into trials, demos, or sales conversations. We structure messaging, page speed, and conversion paths around that outcome — not decoration. Typical scopes include homepage, product pages, pricing, docs entry points, and instrumentation so you can see where pipeline drops. If you are comparing software engineering partners, ask who owns Core Web Vitals and tracking after go-live — we do.",
+        heading: "What a software development agency should deliver",
+        body: "Your software presence has one job: turn visitors into trials, demos, or sales conversations. We structure messaging, page speed, and conversion paths around that outcome — not decoration. Typical scopes include homepage, product pages, pricing, docs entry points, and instrumentation so you can see where pipeline drops. If you are comparing software development agencies, ask who owns Core Web Vitals and tracking after go-live — we do.",
       },
       {
         heading: "Startup MVP software development",
@@ -77,12 +77,12 @@ export const services: Service[] = [
       "A digital presence that loads fast, converts better, and is documented so your team — or the next engineer — can own it.",
     faqs: [
       {
-        q: "Are you a WordPress or Shopify agency?",
-        a: "No. Those are tools we use when they fit. We position as an engineering-first digital solutions agency — we recommend Next.js, WordPress, Shopify, Webflow, Wix, or GoHighLevel based on your product, editors, and growth plan — not a platform we are trying to sell.",
+        q: "Are you a software development agency or a web design shop?",
+        a: "A software development agency focused on SaaS and AI. Design is included when it serves conversion — we are not a logo-only studio or a one-platform WordPress shop.",
       },
       {
         q: "Do you build SaaS sites and startup MVPs?",
-        a: "Yes. That is primary work for us — marketing sites for SaaS and AI startups, MVP product shells, and conversion-focused launches for agencies and growing businesses.",
+        a: "Yes. That is primary work for us — marketing sites for SaaS and AI startups, MVP product shells, and conversion-focused launches for tech teams.",
       },
       {
         q: "How long does a build take?",
