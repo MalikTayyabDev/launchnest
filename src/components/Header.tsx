@@ -101,7 +101,7 @@ export function Header() {
           role="dialog"
           aria-modal="true"
           aria-label="Navigation menu"
-          className={`absolute inset-x-0 top-0 origin-top rounded-b-2xl border-b border-navy/10 bg-white shadow-[0_24px_60px_-20px_rgba(11,31,58,0.45)] transition-all duration-300 ease-out ${
+          className={`absolute inset-x-0 top-0 origin-top border-b border-navy/10 bg-[var(--color-paper)] shadow-[0_24px_60px_-24px_rgba(11,31,58,0.4)] transition-all duration-300 ease-out ${
             open
               ? "translate-y-0 opacity-100"
               : "pointer-events-none -translate-y-3 opacity-0"
