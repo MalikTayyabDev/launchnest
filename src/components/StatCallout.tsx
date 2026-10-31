@@ -15,15 +15,15 @@ export function StatCallout({ value, label, onNavy = false, className = "" }: St
   return (
     <div className={`flex flex-col ${className}`}>
       <span
-        className={`font-mono text-3xl font-bold tracking-tight sm:text-4xl ${
+        className={`font-heading text-2xl font-semibold tracking-tight sm:text-3xl ${
           onNavy ? "text-offwhite" : "text-navy"
         }`}
       >
         {value}
       </span>
       <span
-        className={`mt-2 font-mono text-xs uppercase tracking-[0.16em] ${
-          onNavy ? "text-offwhite/60" : "text-slate"
+        className={`mt-2 font-mono text-[10px] uppercase tracking-[0.16em] ${
+          onNavy ? "text-offwhite/55" : "text-slate/75"
         }`}
       >
         {label}

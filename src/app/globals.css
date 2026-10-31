@@ -4,11 +4,14 @@
 
 :root {
   /* Brand palette — exact hex values, do not substitute. */
-  --color-navy: #0b1f3a; /* Deep Navy — primary, headers, backgrounds, authority */
-  --color-gold: #c9a227; /* Signal Gold — accent/CTAs ONLY, keep under 10% of any layout */
-  --color-slate: #4a5568; /* Slate Gray — body text, secondary UI */
-  --color-offwhite: #f4f5f7; /* Off-White — section backgrounds, breathing room */
-  --color-green: #1e8e5a; /* Confirm Green — success/status states only */
+  --color-navy: #0b1f3a;
+  --color-gold: #c9a227;
+  --color-slate: #4a5568;
+  --color-offwhite: #f4f5f7;
+  --color-green: #1e8e5a;
+  --color-paper: #fafaf8;
+  --color-ink-muted: #5c6675;
+  --shadow-panel: 0 1px 0 rgba(11, 31, 58, 0.06), 0 18px 40px -28px rgba(11, 31, 58, 0.35);
 }
 
 @layer base {
@@ -23,11 +26,23 @@
   }
 
   body {
-    background-color: #ffffff;
-    color: var(--color-slate);
-    font-family: var(--font-inter), system-ui, sans-serif;
+    background-color: var(--color-paper);
+    color: var(--color-ink-muted);
+    font-family: var(--font-inter), "Segoe UI", sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+  }
+
+  /* Soft paper grain — atmosphere without looking like a gradient template. */
+  body::before {
+    content: "";
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    opacity: 0.035;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   /* Leave room for floating chat + WhatsApp buttons on mobile. */
@@ -45,29 +60,53 @@
   h6 {
     font-family: var(--font-space-grotesk), sans-serif;
     color: var(--color-navy);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.025em;
+    font-feature-settings: "ss01" on, "kern" on;
+  }
+
+  h1 {
+    letter-spacing: -0.035em;
+    font-weight: 600;
   }
 
   ::selection {
-    background-color: var(--color-gold);
+    background-color: rgba(201, 162, 39, 0.35);
     color: var(--color-navy);
   }
 }
 
 @layer components {
+  .surface-panel {
+    background: #fff;
+    border: 1px solid rgba(11, 31, 58, 0.08);
+    box-shadow: var(--shadow-panel);
+  }
+
+  .surface-rule {
+    border-top: 1px solid rgba(11, 31, 58, 0.1);
+  }
+
+  .hero-wash {
+    background:
+      radial-gradient(ellipse 80% 55% at 100% 0%, rgba(201, 162, 39, 0.08), transparent 55%),
+      radial-gradient(ellipse 60% 45% at 0% 100%, rgba(11, 31, 58, 0.05), transparent 50%),
+      linear-gradient(180deg, #ffffff 0%, var(--color-paper) 100%);
+  }
+
   /* Styling for CMS-authored rich text (blog post bodies). */
   .richtext {
     color: var(--color-slate);
   }
   .richtext p {
     font-size: 1.125rem;
-    line-height: 1.75;
+    line-height: 1.8;
     margin-bottom: 1.25rem;
   }
   .richtext h2 {
     font-size: 1.5rem;
-    font-weight: 700;
-    margin: 2.25rem 0 0.75rem;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    margin: 2.5rem 0 0.75rem;
   }
   .richtext h3 {
     font-size: 1.25rem;
@@ -86,25 +125,24 @@
   }
   .richtext li {
     font-size: 1.125rem;
-    line-height: 1.75;
+    line-height: 1.8;
     margin-bottom: 0.5rem;
   }
   .richtext a {
     color: var(--color-navy);
     text-decoration: underline;
     text-decoration-color: var(--color-gold);
-    text-underline-offset: 2px;
+    text-underline-offset: 3px;
   }
   .richtext blockquote {
     border-left: 2px solid var(--color-gold);
-    padding-left: 1rem;
+    padding-left: 1.25rem;
     font-style: italic;
-    margin: 1.5rem 0;
+    margin: 1.75rem 0;
   }
 }
 
 @layer utilities {
-  /* Respect users who prefer reduced motion — animations become instant. */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

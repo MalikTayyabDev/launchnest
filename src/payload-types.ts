@@ -687,7 +687,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
- * Control the $20 intro landing page offer — open/close it and track booked slots. Changes show on the site within about a minute.
+ * Control the $20 intro landing page. Slots Used auto-increments when someone submits the intro form — keep it accurate (or close the offer) so the public counter never looks fake.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "intro-offer".
@@ -699,11 +699,11 @@ export interface IntroOffer {
    */
   open?: boolean | null;
   /**
-   * Hard cap (10–15 recommended).
+   * Hard cap for this intro cohort (10–15 recommended).
    */
   maxSlots: number;
   /**
-   * Increment by 1 each time you confirm/book an intro client.
+   * Auto-increments on each intro-offer lead. Correct manually if you booked someone offline.
    */
   slotsUsed: number;
   updatedAt?: string | null;

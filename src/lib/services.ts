@@ -70,8 +70,8 @@ export const services: Service[] = [
       "Hosting & deployment setup when you need a production-ready handoff",
     ],
     pricing: {
-      anchor: "from $199",
-      note: "Most SaaS and growth builds start at Growth Engine ($199+; most land near $350). Custom SaaS / MVP / ecommerce from $599.",
+      anchor: "from $299",
+      note: "Most work starts with a Speed + SEO Fix or SaaS Marketing Build. Retainers available after launch.",
     },
     outcome:
       "A digital presence that loads fast, converts better, and is documented so your team — or the next engineer — can own it.",

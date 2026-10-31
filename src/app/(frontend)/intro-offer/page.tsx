@@ -12,6 +12,7 @@ import {
   introOfferScope,
   introOfferWhatsappLink,
   INTRO_OFFER_PRICE,
+  INTRO_OFFER_EXPIRY,
 } from "@/lib/intro-offer";
 import { selfCanonical } from "@/lib/seo";
 
@@ -22,22 +23,16 @@ const seo = selfCanonical("/intro-offer");
 
 export const metadata: Metadata = {
   title: {
-    absolute: "$20 Landing Page Intro Offer — LaunchNest (limited slots)",
+    absolute: "Limited Proof-Builder Landing Page — LaunchNest",
   },
   description:
-    "Limited intro offer: a template-based landing page in 3 business days for $20. Fixed scope, limited slots — for startups building proof fast. LaunchNest at launch-nest.com.",
-  keywords: [
-    "cheap landing page",
-    "startup landing page offer",
-    "LaunchNest intro offer",
-    "launch-nest.com",
-  ],
+    "Temporary $20 template landing page while LaunchNest collects early reviews. Not our standard offer — expires after reviews/case studies. Prefer a growth audit for SaaS work.",
   alternates: { canonical: seo.canonical },
   openGraph: {
     ...seo.openGraph,
-    title: "$20 Landing Page Intro Offer — LaunchNest (limited slots)",
+    title: "Limited Proof-Builder Landing Page — LaunchNest",
     description:
-      "Limited first-client rate: template landing page in 3 business days for $20. LaunchNest · launch-nest.com.",
+      "Temporary proof-builder rate with an expiry. Standard LaunchNest work is audit-led fixes, builds, and retainers.",
   },
 };
 
@@ -49,29 +44,33 @@ export default async function IntroOfferPage() {
       <Section tone="offwhite">
         <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
           <div>
-            <Eyebrow>Limited intro rate</Eyebrow>
+            <Eyebrow>Temporary proof-builder</Eyebrow>
             {settings.accepting ? (
-              <span className="mb-4 inline-flex items-center rounded-full border border-gold/40 bg-gold/10 px-3 py-1 font-mono text-xs font-bold uppercase tracking-wider text-navy">
-                {settings.slotsRemaining} of {settings.maxSlots} slots still open
-                this cohort
-              </span>
+              <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.16em] text-slate/70">
+                {settings.slotsRemaining} of {settings.maxSlots} slots left · not our
+                headline offer
+              </p>
             ) : (
-              <span className="mb-4 inline-flex items-center rounded-full border border-navy/15 bg-white px-3 py-1 font-mono text-xs font-bold uppercase tracking-wider text-slate">
-                Intro slots full
-              </span>
+              <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.16em] text-slate/70">
+                Proof-builder slots full
+              </p>
             )}
-            <h1 className="font-heading text-4xl font-bold tracking-tight text-navy sm:text-5xl">
-              A live landing page for {INTRO_OFFER_PRICE}.
+            <h1 className="font-heading text-4xl font-semibold tracking-tight text-navy sm:text-5xl">
+              A template landing page for {INTRO_OFFER_PRICE}.
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-slate">
-              A limited first-clients rate while LaunchNest builds public reviews
-              and case studies. Fixed scope, template-based, delivered in{" "}
-              <strong className="font-semibold text-navy">3 business days</strong> — so
-              you get a fast yes and we get proof we can show the next client.
+              Short-term rate while we collect early Google reviews and case studies.
+              Fixed scope, template-based, delivered in{" "}
+              <strong className="font-semibold text-navy">3 business days</strong>.
             </p>
             <p className="mt-4 text-base leading-relaxed text-slate">
-              This is <em>not</em> our standard pricing. Standard builds start at
-              Growth Engine ($199+) once intro slots are gone.
+              <strong className="font-semibold text-navy">Expiry: </strong>
+              {INTRO_OFFER_EXPIRY} Our real offers are growth audits, speed + SEO
+              fixes, custom SaaS builds, and retainers —{" "}
+              <Link href="/pricing" className="underline decoration-gold underline-offset-2">
+                see pricing
+              </Link>
+              .
             </p>
             {settings.accepting && (
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">

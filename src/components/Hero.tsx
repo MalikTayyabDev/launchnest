@@ -13,7 +13,9 @@ type HeroProps = {
   secondaryCta?: { label: string; href: string };
   /** Optional slot rendered alongside the copy (e.g. a lead-capture form). */
   aside?: ReactNode;
-  /** Small trust chips shown under the subhead (above-the-fold credibility). */
+  /** Quiet credibility line under the subhead (not pill chips). */
+  trustLine?: string;
+  /** @deprecated Prefer trustLine — kept for call-site compatibility. */
   trustChips?: string[];
 };
 
@@ -25,6 +27,7 @@ export function Hero({
   cta,
   secondaryCta,
   aside,
+  trustLine,
   trustChips,
 }: HeroProps) {
   const reduceMotion = useReducedMotion();
@@ -32,70 +35,65 @@ export function Hero({
     reduceMotion
       ? {}
       : {
-          initial: { opacity: 0, y: 14 },
+          initial: { opacity: 0, y: 12 },
           animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.45, delay },
+          transition: { duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] },
         };
 
+  const credibility =
+    trustLine ||
+    (trustChips && trustChips.length > 0 ? trustChips.join(" · ") : undefined);
+
   return (
-    <section className="relative overflow-hidden bg-white">
+    <section className="hero-wash relative overflow-hidden">
       <TrajectoryBackdrop />
-      <div className="relative mx-auto w-full max-w-content px-6 pb-16 pt-12 sm:pb-28 sm:pt-24 lg:px-8">
+      <div className="relative mx-auto w-full max-w-content px-6 pb-20 pt-14 sm:pb-28 sm:pt-24 lg:px-8">
         <div
           className={
             aside
-              ? "grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16"
+              ? "grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20"
               : ""
           }
         >
-          {/* On mobile, show the form first so the main action is above the fold. */}
           {aside && (
             <motion.div
               id="audit-form"
               className="scroll-mt-28 order-1 lg:order-2"
-              {...anim(0.08)}
+              {...anim(0.1)}
             >
               {aside}
             </motion.div>
           )}
-          <div className={`order-2 lg:order-1 ${aside ? "max-w-2xl" : "max-w-3xl"}`}>
+          <div className={`order-2 lg:order-1 ${aside ? "max-w-xl" : "max-w-3xl"}`}>
             {eyebrow && (
               <motion.div {...anim(0)}>
                 <Eyebrow>{eyebrow}</Eyebrow>
               </motion.div>
             )}
             <motion.h1
-              className="font-heading text-4xl font-bold leading-[1.08] tracking-tight text-navy sm:text-5xl lg:text-6xl"
-              {...anim(0.04)}
+              className="font-heading text-[2.35rem] font-semibold leading-[1.05] text-navy sm:text-5xl lg:text-[3.5rem]"
+              {...anim(0.05)}
             >
               {headline}
             </motion.h1>
             <motion.p
-              className="mt-6 max-w-2xl text-lg leading-relaxed text-slate"
-              {...anim(0.08)}
+              className="mt-6 max-w-xl text-lg leading-[1.7] text-slate"
+              {...anim(0.1)}
             >
               {subhead}
             </motion.p>
-            {trustChips && trustChips.length > 0 && (
-              <motion.ul
-                className="mt-6 flex flex-wrap gap-2"
-                {...anim(0.1)}
-                aria-label="Trust signals"
+            {credibility && (
+              <motion.p
+                className="mt-5 font-mono text-[11px] uppercase tracking-[0.16em] text-slate/70"
+                {...anim(0.12)}
               >
-                {trustChips.map((chip) => (
-                  <li
-                    key={chip}
-                    className="rounded-full border border-navy/10 bg-offwhite px-3 py-1.5 font-mono text-[11px] font-medium uppercase tracking-wider text-navy/80"
-                  >
-                    {chip}
-                  </li>
-                ))}
-              </motion.ul>
+                {credibility}
+              </motion.p>
             )}
             {(cta || secondaryCta) && (
               <motion.div
-                className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
-                {...anim(0.14)}
+                className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
+                {...anim(0.16)}
               >
                 {cta && (
                   <Button href={cta.href} variant="primary">
@@ -116,22 +114,22 @@ export function Hero({
   );
 }
 
-/** Subtle geometric chevron/trajectory lines echoing the logo arrow motif. */
+/** Quiet trajectory lines — logo motif, not decorative noise. */
 function TrajectoryBackdrop() {
   return (
     <svg
-      className="pointer-events-none absolute right-0 top-0 h-full w-1/2 opacity-[0.06]"
+      className="pointer-events-none absolute -right-8 top-0 hidden h-full w-[42%] opacity-[0.045] lg:block"
       viewBox="0 0 400 400"
       fill="none"
       aria-hidden="true"
       preserveAspectRatio="xMaxYMid slice"
     >
-      {[0, 60, 120, 180, 240].map((offset) => (
+      {[40, 100, 160, 220].map((offset) => (
         <path
           key={offset}
-          d={`M${offset} 400 L${offset + 200} 200 L${offset} 0`}
+          d={`M${offset} 400 L${offset + 180} 200 L${offset} 0`}
           stroke="#0B1F3A"
-          strokeWidth="2"
+          strokeWidth="1.25"
         />
       ))}
     </svg>

@@ -20,14 +20,18 @@ export const introOfferNotIncluded = [
   "Copywriting or brand strategy (you supply text & images)",
 ];
 
+/** Soft expiry — remove or close in Admin once this threshold is hit. */
+export const INTRO_OFFER_EXPIRY =
+  "Ends after 5 Google reviews or 3 published case studies with before/after metrics — whichever comes first.";
+
 export const introOfferFaqs = [
   {
     q: "Why is it only $20?",
-    a: "This is a limited first-clients rate while LaunchNest builds its public review portfolio. It's fixed scope and template-based — not our standard custom pricing. Standard builds start at Growth Engine ($199+; most SaaS builds land near $350) once intro slots are full.",
+    a: "It is a temporary proof-builder while LaunchNest collects early reviews and case studies. Fixed scope, template-based — not our identity or standard pricing. It has an expiry: after 5 Google reviews or 3 metric case studies, the offer ends.",
   },
   {
-    q: "Who is this for?",
-    a: "Small businesses, founders, and first-time clients who need a credible landing page live fast — especially if you're hiring on Upwork/Fiverr or want a low-risk first project before a bigger build.",
+    q: "Is this what LaunchNest is known for?",
+    a: "No. Our headline offers are growth audits, speed + technical SEO fixes, custom SaaS/AI builds, automation, and retainers. This landing page rate is a short bridge to first proof only.",
   },
   {
     q: "What do you need from me?",
@@ -35,7 +39,7 @@ export const introOfferFaqs = [
   },
   {
     q: "What happens after delivery?",
-    a: "We ask for an honest review (Upwork/Fiverr/Google — wherever you hired us) and permission to show the site in our portfolio. Many intro clients later move to a full site or a maintenance plan.",
+    a: "We ask for an honest Google review and permission to show the site. Many intro clients later move to a Speed + SEO Fix, custom build, or care retainer.",
   },
 ];
 

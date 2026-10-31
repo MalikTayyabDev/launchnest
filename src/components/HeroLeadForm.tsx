@@ -7,7 +7,7 @@ import { getClientFormError } from "@/lib/form-validation";
 type Status = "idle" | "submitting" | "success" | "error";
 
 const fieldClass =
-  "w-full rounded-md border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder:text-slate/50 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold";
+  "w-full rounded-sm border border-navy/12 bg-[var(--color-paper)] px-4 py-3 text-sm text-navy placeholder:text-slate/45 focus:border-gold focus:bg-white focus:outline-none focus:ring-1 focus:ring-gold";
 const labelClass = "mb-1.5 block font-heading text-xs font-semibold text-navy";
 
 /** Compact lead-capture form shown in the home hero. */
@@ -62,38 +62,33 @@ export function HeroLeadForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-xl border border-navy/10 bg-white p-8 text-center shadow-xl">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-confirm/10">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path
-              d="m5 13 4 4L19 7"
-              stroke="#1E8E5A"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
-        <h3 className="font-heading text-xl font-semibold text-navy">
-          Request received.
+      <div className="surface-panel rounded-sm p-8 text-center">
+        <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-confirm">
+          Received
+        </p>
+        <h3 className="mt-3 font-heading text-xl font-semibold text-navy">
+          We&apos;ll review your URL next.
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-slate">
-          We&apos;ll review your site and reply within one business day with your free
-          audit — no sales script.
+          Reply within one business day — speed, messaging, SEO, and next steps. No
+          script.
         </p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-xl border border-navy/10 bg-white p-6 shadow-xl sm:p-7">
-      <h3 className="font-heading text-lg font-bold tracking-tight text-navy">
-        Get a free growth audit
-      </h3>
-      <p className="mt-1.5 text-sm leading-relaxed text-slate">
-        Name + email — we reply within one business day with a concrete audit agenda.
+    <div className="surface-panel rounded-sm p-6 sm:p-8">
+      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate/70">
+        Free growth audit
       </p>
-      <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-4">
+      <h3 className="mt-2 font-heading text-xl font-semibold tracking-tight text-navy">
+        Send your live URL.
+      </h3>
+      <p className="mt-2 text-sm leading-relaxed text-slate">
+        We reply within one business day with what is blocking demos, speed, and SEO.
+      </p>
+      <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
         <div>
           <label htmlFor="hero-name" className={labelClass}>
             Name <span className="text-gold">*</span>
@@ -125,15 +120,15 @@ export function HeroLeadForm() {
         </div>
         <div>
           <label htmlFor="hero-detail" className={labelClass}>
-            Website or WhatsApp{" "}
-            <span className="font-normal text-slate/60">(optional)</span>
+            Website{" "}
+            <span className="font-normal text-slate/55">(optional)</span>
           </label>
           <input
             id="hero-detail"
             name="detail"
             type="text"
             className={fieldClass}
-            placeholder="yoursite.com or +1 555 000 0000"
+            placeholder="yoursite.com"
           />
         </div>
 
@@ -146,12 +141,12 @@ export function HeroLeadForm() {
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="inline-flex items-center justify-center rounded-md bg-gold px-6 py-3 font-heading text-sm font-semibold text-navy transition-colors hover:bg-[#B89421] disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex items-center justify-center rounded-sm bg-gold px-6 py-3 font-heading text-sm font-semibold text-navy transition-colors hover:bg-[#B89421] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {status === "submitting" ? "Sending…" : "Book my free growth audit"}
         </button>
-        <p className="text-center font-mono text-[11px] text-slate">
-          No spam. Speed, messaging, SEO, stack fit, next steps.
+        <p className="text-center font-mono text-[10px] uppercase tracking-[0.14em] text-slate/60">
+          SaaS &amp; AI · UK · US · AU
         </p>
       </form>
     </div>

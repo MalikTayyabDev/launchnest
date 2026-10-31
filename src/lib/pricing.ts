@@ -8,34 +8,35 @@ export type PricingPackage = {
   featured?: boolean;
 };
 
+/** Fixed-scope productized offers — lead with measurable outcomes, not brochure builds. */
 export const packages: PricingPackage[] = [
   {
-    name: "Growth Engine",
-    range: "$199 – $449",
-    typical: "Most SaaS builds land near $350",
+    name: "Speed + SEO Fix",
+    range: "$299 – $699",
+    typical: "Most audits-to-fix land near $449",
     summary:
-      "Where most SaaS, agencies, and growth-stage businesses start — a site built to generate leads and convert.",
+      "Diagnose and ship Core Web Vitals, indexing, and conversion blockers on your live SaaS or AI site.",
     features: [
-      "Up to 10 pages",
-      "Custom design aligned to brand",
-      "CMS-driven content",
-      "Speed optimization (Core Web Vitals)",
-      "Analytics and conversion tracking",
+      "Live URL performance + technical SEO audit",
+      "Prioritized fix list with before/after metrics",
+      "Implementation on the pages that drive demos",
+      "Indexability, titles, and money-page hygiene",
+      "Written handoff your team can keep iterating",
     ],
     featured: true,
   },
   {
-    name: "Custom Product",
+    name: "SaaS Marketing Build",
     range: "$599 – $1,499",
     typical: "Most custom builds land near $899",
     summary:
-      "For SaaS marketing sites, startup MVPs, advanced ecommerce, and integrations.",
+      "Custom marketing site or product surface with real integrations — not a theme tweak.",
     features: [
-      "Bespoke web product or advanced ecommerce",
-      "API, CRM, and third-party integrations",
-      "Custom functionality and data models",
-      "Performance and security hardening",
-      "Documentation for your team",
+      "Bespoke SaaS / AI marketing site or MVP shell",
+      "Payments, analytics, CRM, or onboarding hooks",
+      "Performance budget before launch",
+      "Editor-friendly handoff documentation",
+      "Optional month-one care included",
     ],
   },
 ];
@@ -51,11 +52,11 @@ export type MaintenancePlan = {
 export const maintenancePlans: MaintenancePlan[] = [
   {
     name: "Care",
-    price: "from $49/mo",
-    typical: "Most Care retainers land near $59/mo",
-    summary: "Keep the lights on — updates, backups, monitoring.",
+    price: "from $79/mo",
+    typical: "Most Care retainers land near $99/mo",
+    summary: "Updates, backups, monitoring — accountability after launch.",
     features: [
-      "Software and plugin updates",
+      "Software and dependency updates",
       "Automated backups",
       "Uptime monitoring",
       "Security patching",
@@ -63,26 +64,28 @@ export const maintenancePlans: MaintenancePlan[] = [
   },
   {
     name: "Growth",
-    price: "from $99/mo",
-    typical: "Most Growth retainers land near $129/mo",
-    summary: "Maintenance plus ongoing improvements.",
+    price: "from $149/mo",
+    typical: "Most Growth retainers land near $179/mo",
+    summary: "Care plus monthly performance, SEO, and conversion iteration.",
     features: [
       "Everything in Care",
-      "Monthly performance checks",
-      "Small content and design edits",
+      "Monthly Core Web Vitals check",
+      "Technical SEO improvements",
+      "Small copy and UX edits",
       "Priority support",
     ],
   },
   {
     name: "Partner",
-    price: "from $199/mo",
-    typical: "Most Partner retainers land near $249/mo",
-    summary: "A growth retainer — roadmap, support, and included engineering time.",
+    price: "from $299/mo",
+    typical: "Most Partner retainers land near $349/mo",
+    summary: "Roadmap, automation, and included engineering hours each month.",
     features: [
       "Everything in Growth",
-      "Dedicated support response times",
+      "Lead/CRM automation support",
       "Quarterly technical roadmap",
-      "Included dev hours each month",
+      "Included development hours",
+      "Dedicated response times",
     ],
   },
 ];

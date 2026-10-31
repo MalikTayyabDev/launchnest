@@ -81,6 +81,7 @@ export async function getIntroOfferSettings(): Promise<IntroOfferSettings> {
 export {
   INTRO_OFFER_PATH,
   INTRO_OFFER_PRICE,
+  INTRO_OFFER_EXPIRY,
   introOfferFaqs,
   introOfferNotIncluded,
   introOfferScope,

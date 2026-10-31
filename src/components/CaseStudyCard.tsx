@@ -6,42 +6,39 @@ export function CaseStudyCard({
   study,
 }: {
   study: CaseStudyItem;
-  /** Kept for call-site compatibility; unused (no image to prioritize). */
   priority?: boolean;
 }) {
   const results = (study.results ?? []).slice(0, 3);
 
   return (
-    <article className="group flex h-full flex-col rounded-lg border border-navy/10 bg-white p-6 transition-colors hover:border-gold/50">
-      <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-slate">
+    <article className="group flex h-full flex-col border-t border-navy/15 pt-6">
+      <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-slate/70">
         {study.industry}
         {study.liveDomain ? (
           <>
             <span aria-hidden="true"> · </span>
-            <span className="text-gold">{study.liveDomain}</span>
+            <span className="text-navy/60">{study.liveDomain}</span>
           </>
         ) : null}
       </p>
       <Link href={`/work/${study.slug}`} className="mt-3 block">
-        <h3 className="font-heading text-xl font-bold leading-snug tracking-tight text-navy transition-colors group-hover:text-gold sm:text-2xl">
+        <h3 className="font-heading text-xl font-semibold leading-snug tracking-tight text-navy transition-colors group-hover:text-navy/70 sm:text-[1.35rem]">
           {study.headlineResult}
         </h3>
       </Link>
-      <p className="mt-3 font-heading text-sm font-semibold text-navy/70">
-        {study.client}
-      </p>
-      <p className="mt-2 text-sm leading-relaxed text-slate">{study.summary}</p>
+      <p className="mt-3 font-heading text-sm font-medium text-navy/55">{study.client}</p>
+      <p className="mt-3 text-sm leading-relaxed text-slate">{study.summary}</p>
       {results.length > 0 && (
-        <dl className="mt-5 grid grid-cols-3 gap-2 border-t border-navy/10 pt-4">
+        <dl className="mt-6 grid grid-cols-3 gap-3 border-t border-navy/8 pt-4">
           {results.map((r) => (
             <div key={`${r.metric}-${r.label}`}>
-              <dt className="font-heading text-sm font-bold text-navy">{r.metric}</dt>
+              <dt className="font-heading text-sm font-semibold text-navy">{r.metric}</dt>
               <dd className="mt-0.5 text-[11px] leading-snug text-slate">{r.label}</dd>
             </div>
           ))}
         </dl>
       )}
-      <div className="mt-5 flex flex-1 flex-col justify-end gap-2 sm:flex-row sm:items-center sm:gap-4">
+      <div className="mt-6 flex flex-1 flex-col justify-end gap-3 sm:flex-row sm:items-center sm:gap-5">
         {study.liveUrl ? (
           <a
             href={study.liveUrl}
@@ -61,9 +58,9 @@ export function CaseStudyCard({
         ) : null}
         <Link
           href={`/work/${study.slug}`}
-          className="font-heading text-sm font-semibold text-navy/70 underline decoration-navy/20 underline-offset-4 hover:text-navy"
+          className="font-heading text-sm font-medium text-navy/55 underline decoration-navy/15 underline-offset-4 hover:text-navy"
         >
-          Read the case study
+          Case study
         </Link>
       </div>
     </article>

@@ -4,17 +4,15 @@ import { ReactNode } from "react";
 type Variant = "primary" | "secondary" | "ghost";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-md font-heading font-semibold text-sm tracking-tight transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2";
+  "inline-flex items-center justify-center gap-2 rounded-sm font-heading text-sm font-semibold tracking-tight transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2";
 
 const sizes = "px-6 py-3";
 
 const variants: Record<Variant, string> = {
-  // Gold is reserved for CTAs.
   primary: "bg-gold text-navy hover:bg-[#B89421]",
-  secondary:
-    "bg-navy text-offwhite hover:bg-[#132a4d] border border-navy",
+  secondary: "bg-navy text-offwhite hover:bg-[#132a4d]",
   ghost:
-    "bg-transparent text-navy hover:bg-navy/5 border border-navy/20",
+    "bg-transparent text-navy border border-navy/15 hover:border-navy/40 hover:bg-navy/[0.03]",
 };
 
 type ButtonProps = {
@@ -59,11 +57,11 @@ export function Button({
 
 function Arrow() {
   return (
-    <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+    <svg width="14" height="11" viewBox="0 0 16 12" fill="none" aria-hidden="true">
       <path
         d="M1 6h12M9 1.5 13.5 6 9 10.5"
         stroke="currentColor"
-        strokeWidth="1.8"
+        strokeWidth="1.6"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

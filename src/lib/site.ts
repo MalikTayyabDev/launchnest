@@ -11,7 +11,7 @@ export const siteConfig = {
   tagline: "BUILD · OPTIMIZE · LAUNCH",
   /** ~155 chars for SERP snippets; keep plain and specific. */
   description:
-    "LaunchNest is a software development agency for SaaS and AI startups — sites, product engineering, and SEO that turn visitors into demos across the UK, US, and Australia.",
+    "LaunchNest is a software development agency for SaaS and AI startups — performance, technical SEO, custom builds, and retainers that turn visitors into demos. UK, US, AU.",
   url:
     process.env.NEXT_PUBLIC_SERVER_URL?.replace(/\/$/, "") || CANONICAL_URL,
   email: "solutions@launch-nest.com",
@@ -34,11 +34,16 @@ export const siteConfig = {
   googleBusinessShare: "https://share.google/EWYjKD1MeRhaSHdZy",
   /** Direct “Write a review” deep link for the same GBP. */
   googleReview: "https://g.page/r/CaBoV6foQh89EBI/review",
+  /**
+   * 90-day focus: SaaS & AI startups (higher value, matches positioning).
+   * Local SMB outreach is secondary — do not lead the brand with it.
+   */
   positioning: {
-    label: "Software Development Agency",
-    sell: "We are a software development agency for SaaS and AI teams — marketing sites, product pages, and engineering that turn visitors into demos, trials, and sales conversations.",
+    label: "Software development for SaaS & AI",
+    sell: "We fix what blocks demos — speed, technical SEO, conversion, and automation — then stay on retainer so results compound. Custom builds when the product needs more than a page builder.",
     primaryClients: ["SaaS Companies", "AI Startups", "Tech Startups"],
     secondaryClients: ["Agencies", "Ecommerce Brands", "Professional services"],
+    niche90Days: "SaaS and AI startups in the UK, US, and Australia",
   },
 };
 

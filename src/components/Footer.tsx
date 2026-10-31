@@ -14,8 +14,8 @@ export function Footer() {
           <div>
             <Logo variant="white" />
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-offwhite/60">
-              Software development agency for SaaS and AI teams — clear messaging,
-              fast pages, and stacks your editors can own.
+              Software development for SaaS and AI — performance, technical SEO,
+              custom builds, and retainers.
             </p>
             <a
               href={`mailto:${siteConfig.email}`}

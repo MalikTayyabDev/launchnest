@@ -17,7 +17,7 @@ export function CTASection({ heading, body, cta, secondaryCta }: CTASectionProps
         <span className="mb-8 block h-0.5 w-14 bg-gold" aria-hidden="true" />
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
-            <h2 className="font-heading text-3xl font-bold leading-tight tracking-tight text-offwhite sm:text-4xl">
+            <h2 className="font-heading text-3xl font-semibold leading-tight tracking-tight text-offwhite sm:text-4xl">
               {heading}
             </h2>
             {body && <p className="mt-4 text-lg leading-relaxed text-offwhite/70">{body}</p>}

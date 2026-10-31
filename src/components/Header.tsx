@@ -36,22 +36,22 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-navy/10 bg-white/90 backdrop-blur">
-      <div className="mx-auto flex h-20 w-full max-w-content items-center justify-between px-6 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-navy/8 bg-[var(--color-paper)]/90 backdrop-blur-md">
+      <div className="mx-auto flex h-[4.5rem] w-full max-w-content items-center justify-between px-6 lg:px-8">
         <Link href="/" aria-label="LaunchNest home" onClick={() => setOpen(false)}>
-          <Logo variant="navy" height={38} priority />
+          <Logo variant="navy" height={34} priority />
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-9 lg:flex" aria-label="Primary">
           {navLinks.map((link) => {
             const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`font-heading text-sm font-medium transition-colors hover:text-navy ${
-                  active ? "text-navy" : "text-slate"
+                className={`font-heading text-[13px] font-medium tracking-wide transition-colors ${
+                  active ? "text-navy" : "text-slate/80 hover:text-navy"
                 }`}
               >
                 {link.label}
@@ -108,7 +108,7 @@ export function Header() {
           }`}
         >
           {/* Spacer matching header height so links sit below the bar */}
-          <div className="h-20" aria-hidden="true" />
+          <div className="h-[4.5rem]" aria-hidden="true" />
 
           <nav className="mx-auto flex w-full max-w-content flex-col px-6 pb-8 pt-2" aria-label="Mobile">
             {navLinks.map((link, i) => {
